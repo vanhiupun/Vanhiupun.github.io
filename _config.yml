@@ -1,6 +1,6 @@
 email: fanxiaobin422@gamil.com
 author: Vanhiupun
-title: Vanhiupun's Awesome Site
+title: 
 description: >- #这意味着在“baseurl:”之前忽略换行符
   我通过创建存储库,创建了这个漂亮的 Jekyll 博客。 你也可以 fork 让它成为你的。 Jekyll 是一个简单的博客生成器。 社区在增长，插件的数量也在增长。 我已将所有博客移至 Jekyll！
 baseurl: "" # 您网站的子路径，例如 /blog
@@ -87,7 +87,7 @@ code_badge:
 #  redirect_uri: "" # 如果你使用自定义域名
 
 # Translate languges
-# translate_langs: []
+translate_langs: []
 
 #如果你想改变网站语言，你可以设置 lang 选项
 #lang: "en" # 默认语言为 en
