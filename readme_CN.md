@@ -11,9 +11,9 @@
     <img src="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/jekyll.yml/badge.svg"  alt="jekyll"/>
 </a>
   
-<a href="https://circleci.com/gh/vanhiupun/Vanhiupun.github.io/tree/master" target="_blank">
+<!-- <a href="https://circleci.com/gh/vanhiupun/Vanhiupun.github.io/tree/master" target="_blank">
   <img src="https://circleci.com/gh/vanhiupun/Vanhiupun.github.io/tree/master.svg?style=shield" alt="circleci">
-</a> 
+</a>  -->
   
 <a href="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/codeql-analysis.yml" target="_blank">
   <img src="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/codeql-analysis.yml/badge.svg" alt="analysis">
