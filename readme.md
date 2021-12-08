@@ -97,7 +97,7 @@
 
 #### Install
 
-```git
+```zsh
 git clone git@github.com:vanhiupun/Vanhiupun.github.io.git
 ```
 #### Setting up the environment
@@ -119,7 +119,7 @@ To add a custom catalog to your theme gems, edit the regular expression `jekyll-
 
 You can modify the `_config.yml` file in general to easily start building your own blog:
 
-```bash
+```yaml
 title: Vanhiupun blog # Your blog site title
 
 email: fanxiaobin422@gamil.com # Your email
@@ -144,7 +144,7 @@ excerpt_size: 250 #The word count of the homepage article is displayed as 250 wo
 
 Posts to be published are generally placed here in Markdown format `_posts/` , you only need to look at the posts in this template and you will immediately understand how to set them.
 
-```bash
+```yaml
 ---
 layout: post #Layout
 title: Scientific Internet Guide (2): Line Differences and Choices #Title
@@ -183,7 +183,7 @@ If you like toss, you can customize the code of this template.
 It’s more popular internationally, and the interface is very elegant and concise. If someone comments, you can notify you in real time. Just reply to the notification email.
 You need to register for a [Disqus account](https://disqus.com/) . Just replace my account with yours
 
-```bash
+```yaml
 # Disqus comments
 disqus:
   shortname: "vanhiupun" #Register an account in disqus and change this to your own account
@@ -193,7 +193,7 @@ disqus:
 
 Website analysis, now supports [Google Analytics](https://analytics.google.com/analytics/web/) . You need to go to the official website to register, and then paste the returned code below:
 
-```bash
+```yaml
 # Google Analytics
 google_analytics: "UA-212989441-1" # If you register one with your Google account, you will be given an id like this, just replace this
 ```
