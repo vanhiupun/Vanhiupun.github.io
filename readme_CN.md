@@ -100,7 +100,7 @@
 
 #### 安装
 
-```git
+```zsh
 git clone git@github.com:vanhiupun/Vanhiupun.github.io.git
 ```
 
@@ -121,7 +121,7 @@ git clone git@github.com:vanhiupun/Vanhiupun.github.io.git
 
 你可以通用修改`_config.yml`文件来轻松的开始搭建自己的博客:
 
-```bash
+```yaml
 title: Vanhiupun blog  # 你的博客网站标题
 
 email: fanxiaobin422@gamil.com # 你的邮箱
@@ -146,7 +146,7 @@ excerpt_size: 250 #主页文章字数显示为250字
 
 要发表的文章一般以 Markdown 的格式放在这里`_posts/`，你只要看看这篇模板里的文章你就立刻明白该如何设置。
 
-```bash
+```yaml
 ---
 layout: post #布局
 title: 科学上网指南（二）：线路的区别与选择 #标题
@@ -184,7 +184,7 @@ tags: [机场指南] #标签
 国际比较流行，界面也很大气、简洁，如果有人评论，还能实时通知，直接回复通知的邮件就行了
 需要去注册一个[Disqus 帐号](https://disqus.com/)。将我的账号替换成你的就可以
 
-```bash
+```yaml
 # Disqus 评论
 disqus:
   shortname: "vanhiupun" #在disqus注册一个账号 并将此处换成你自己的账号
@@ -194,7 +194,7 @@ disqus:
 
 网站分析，现在支持[Google Analytics](https://analytics.google.com/analytics/web/)。需要去官方网站注册一下，然后将返回的 code 贴在下面：
 
-```bash
+```yaml
 # Google Analytics
 google_analytics: "UA-212989441-1"    # 你用Google账号去注册一个就会给你一个这样的id 将此处替换即可
 ```
