@@ -3,7 +3,7 @@ layout: post
 title: 在命令行运行 VSCode（macOS）
 categories: VS Code
 banner:
-  image: https://vanhiupun.github.io/assets/images/banners/vscode.png
+  image: ./assets/images/banners/vscode.png
   opacity: 0.618
   background: "#000"
   height: "50vh"

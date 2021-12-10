@@ -3,7 +3,7 @@ layout: post
 title: Chrome、Edge 默认下载器也能多线程下载
 categories: 浏览器
 banner:
-  image: https://vanhiupun.github.io/assets/images/banners/Chrome.png
+  image: ./assets/images/banners/Chrome.png
   opacity: 0.618
   background: "#000"
   height: "50vh"

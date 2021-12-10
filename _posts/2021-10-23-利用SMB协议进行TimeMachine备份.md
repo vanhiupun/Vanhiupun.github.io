@@ -3,7 +3,7 @@ layout: post
 title: 利用 SMB 协议进行 Time Machine 备份
 categories: SMB
 banner:
-  image: https://vanhiupun.github.io/assets/images/banners/macos-big-sur-system-prefs-tm.jpg
+  image: ./assets/images/banners/macos-big-sur-system-prefs-tm.jpg
   opacity: 0.618
   background: "#000"
   height: "50vh"
@@ -39,20 +39,20 @@ tags: [SMB]
 
 首先，更新源：
 
-```
-$ sudo apt-get update
+```bash
+sudo apt-get update
 ```
 
 第二步，安装 samba 服务：
 
-```
-$ sudo apt-get install samba samba-common-bin
+```bash
+sudo apt-get install samba samba-common-bin
 ```
 
 第三步，修改 SMB 的配置，这里使用 vim 进行编辑：
 
-```
-$ sudo vim /etc/samba/smb.conf
+```bash
+sudo vim /etc/samba/smb.conf
 ```
 
 ![](https://cdn.sspai.com/2019/11/23/7b9395b2e9eb4aabfb47c5459f45bd6c.png?imageView2/2/w/1120/q/40/interlace/1/ignore-error/1)
@@ -63,7 +63,7 @@ $ sudo vim /etc/samba/smb.conf
 
 在配置文件的最后添加：
 
-```s
+```yaml
 [pi]
 
     path = /home/pi/
@@ -83,14 +83,14 @@ $ sudo vim /etc/samba/smb.conf
 
 保存退出后，重启一下 samba 服务
 
-```r
-$ sudo /etc/init.d/samba restart
+```bash
+sudo /etc/init.d/samba restart
 ```
 
 最后一步，就是添加 `pi` 用户为 `Samba`用户，这一步，会让你设置共享时的密码。
 
-```r
-$ sudo smbpasswd -a pi
+```bash
+sudo smbpasswd -a pi
 ```
 
 ### WINDOWS 上开启 SMB 服务
@@ -167,8 +167,8 @@ _是的，并没有你想要的那个文件夹_
 
 最后，通过 terminal 将这个磁盘设置为 TimeMachine 的备份磁盘：
 
-```r
-$sudo tmutil setdestination /Volumes/TimeMachine
+```bash
+sudo tmutil setdestination /Volumes/TimeMachine
 ```
 
 这里的 `/Volumes/TimeMachine` 就是这个磁盘的挂载点，一般而言就是 `/Volumes/` + 磁盘的名称，如果你不是很确定，可以在磁盘工具中，选择这个磁盘，点击右键，选择「显示简介」，看到挂载信息：
