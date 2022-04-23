@@ -54,7 +54,7 @@ header_pages:
   - about.md
 
 # Google Analytics
-google_analytics: "G-WF3S2YX3ZL"    # 你用Google账号去注册一个就会给你一个这样的id
+google_analytics: "UA-212989441-1"    # 你用Google账号去注册一个就会给你一个这样的id
 enableDNT: true
 
 #如果要改变内容宽度，可以设置为其他值
