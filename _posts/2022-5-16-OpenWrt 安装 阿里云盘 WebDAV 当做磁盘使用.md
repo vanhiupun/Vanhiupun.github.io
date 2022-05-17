@@ -34,6 +34,7 @@ opkg install luci-i18n-aliyundrive-webdav-zh-cn_1.3.2-1_all.ipk
 >Tips: 不清楚 CPU 架构类型可通过运行 opkg print-architecture 命令查询。
 
 >将上述代码第1行和第4行的文件名更换同架构类型的文件名即可
+
 ![](/assets/images/aliyundrive/openwrt.png)
 
 #### Koolshare 梅林固件
