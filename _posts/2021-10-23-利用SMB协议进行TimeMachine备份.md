@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 利用 SMB 协议进行 Time Machine 备份
-categories: SMB
+categories: 网络技术与技巧
 banner:
   image: ./assets/images/banners/macos-big-sur-system-prefs-tm.jpg
   opacity: 0.618

@@ -36,13 +36,13 @@ disqus:
  shortname: "vanhiupun"
 
 # 摘录大小设置
- excerpt_size: 250
+excerpt_size: 150
 
 # 如果要生成网站站点地图，可以设置为true
 sitemap: true
 
 # 分页设置
-paginate: 7
+paginate: 10
 
 # 如果您只想链接标题中的特定页面，请取消注释
 # 按顺序添加页面的路径

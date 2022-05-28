@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Chrome、Edge 默认下载器也能多线程下载
-categories: 浏览器
+categories: 网络技术与技巧
 banner:
   image: ./assets/images/banners/Chrome.png
   opacity: 0.618

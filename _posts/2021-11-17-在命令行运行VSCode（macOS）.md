@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 在命令行运行 VSCode（macOS）
-categories: VS Code
+categories: 网络技术与技巧
 banner:
   image: ./assets/images/banners/vscode.png
   opacity: 0.618
@@ -10,7 +10,7 @@ banner:
   min_height: "50vh"
   heading_style: "font-size: 2.25em; font-weight: bold; "
   subheading_style: "color: gold"
-tags: [VS Code, 命令行, 终端]
+tags: [VScode, 命令行, 终端]
 ---
 
 #### 安装 code 命令后，可在终端使用"code --path"用 vscode 打开当前目标文件夹。

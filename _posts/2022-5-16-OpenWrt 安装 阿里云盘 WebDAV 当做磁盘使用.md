@@ -1,7 +1,7 @@
 ---
 layout: post
 title: OpenWrt 安装 阿里云盘 WebDAV 当做磁盘使用
-categories: 影视分享
+categories: 网络技术与技巧
 banner:
   image: ./assets/images/banners/aliyundrive.png
   opacity: 0.618
