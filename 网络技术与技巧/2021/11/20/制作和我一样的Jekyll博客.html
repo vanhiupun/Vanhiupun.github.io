@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>制作和我一样的Jekyll博客 | Vanhiupun’s Awesome Site</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="制作和我一样的Jekyll博客">
+<meta name="author" content="Vanhiupun">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="安装">
+<meta property="og:description" content="安装">
+<link rel="canonical" href="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/20/%E5%88%B6%E4%BD%9C%E5%92%8C%E6%88%91%E4%B8%80%E6%A0%B7%E7%9A%84Jekyll%E5%8D%9A%E5%AE%A2.html">
+<meta property="og:url" content="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/20/%E5%88%B6%E4%BD%9C%E5%92%8C%E6%88%91%E4%B8%80%E6%A0%B7%E7%9A%84Jekyll%E5%8D%9A%E5%AE%A2.html">
+<meta property="og:site_name" content="Vanhiupun’s Awesome Site">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2021-11-20T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="制作和我一样的Jekyll博客">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Vanhiupun"},"dateModified":"2021-11-20T00:00:00+00:00","datePublished":"2021-11-20T00:00:00+00:00","description":"安装","headline":"制作和我一样的Jekyll博客","mainEntityOfPage":{"@type":"WebPage","@id":"https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/20/%E5%88%B6%E4%BD%9C%E5%92%8C%E6%88%91%E4%B8%80%E6%A0%B7%E7%9A%84Jekyll%E5%8D%9A%E5%AE%A2.html"},"url":"https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/20/%E5%88%B6%E4%BD%9C%E5%92%8C%E6%88%91%E4%B8%80%E6%A0%B7%E7%9A%84Jekyll%E5%8D%9A%E5%AE%A2.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script>
+  <link rel="stylesheet" href="/assets/css/syntax.css">
+<link type="application/atom+xml" rel="alternate" href="https://vanhiupun.github.io//feed.xml" title="Vanhiupun's Awesome Site">
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-212989441-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/go.min.js"></script>
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #fff -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #ff4e00 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] uppercase -->
+  
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+
+</head>
+<body>
+
+
+
+
+  
+      <!-- [function][get_value] uppercase -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/jekyll.jpg", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: gold"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/jekyll.jpg", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: gold"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] ./assets/images/banners/jekyll.jpg -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] ./assets/images/banners/jekyll.jpg -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #000 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #000 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0.618 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0.618 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] font-size: 2.25em; font-weight: bold;  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] font-size: 2.25em; font-weight: bold;  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] color: gold -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] color: gold -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+<header class="site-header site-header-transparent" role="banner">
+
+  <div class="wrapper">    
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="Vanhiupun's Awesome Site" src="/favicon.png" onerror="this.style.display='none'">
+  Vanhiupun's Awesome Site
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>      
+          <div class="trigger">
+<a class="page-link" href="/">主页</a><a class="page-link" href="/archives.html">档案</a><a class="page-link" href="/categories.html">分类</a><a class="page-link" href="/tags.html">标签</a><a class="page-link" href="/about.html">关于</a>
+
+
+
+
+  
+      <!-- [function][get_value] [] -->
+  
+
+</div>
+        </nav>
+</div>
+  </div>
+
+</header>
+
+<!-- 页面菜单栏 注释=固定/不注释=隐藏 -->
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+<!-- 页面菜单栏 注释=固定/不注释=隐藏 -->
+
+
+
+
+
+  
+      <!-- [function][get_value] [] -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] post-header.html -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] post-header.html -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/jekyll.jpg", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: gold"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/jekyll.jpg", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: gold"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] ./assets/images/banners/jekyll.jpg -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] ./assets/images/banners/jekyll.jpg -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #000 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #000 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0.618 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0.618 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] font-size: 2.25em; font-weight: bold;  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] font-size: 2.25em; font-weight: bold;  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] color: gold -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] color: gold -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+<style>
+    html .page-banner {
+      background: #000;
+    }
+  </style>
+<style>html .page-banner {
+      height:  18.4vh;
+      min-height: 50vh;
+    }
+    html[data-scroll-status="top"] .page-banner {
+      height: 50vh;
+    }
+  </style>
+<style>
+    html .page-banner .page-banner-img > *:first-child {
+      opacity: 0.618;
+    }
+
+    html[data-theme="dark"] .page-banner .page-banner-img > *:first-child {
+      opacity: 0.443724;
+    }
+  </style>
+<style>
+    html .page-banner .page-banner-inner > *:first-child > *:nth-child(1) {
+      font-size: 2.25em; font-weight: bold; 
+    }
+  </style>
+<style>
+    html .page-banner .page-banner-inner > *:first-child > *:nth-child(2) {
+      color: gold
+    }
+  </style>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/assets/images/banners/jekyll.jpg)"></div>
+        <img class="img-placeholder" src="/assets/images/banners/jekyll.jpg">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">制作和我一样的Jekyll博客</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2021-11-20T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Nov 20, 2021
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+      <!-- [function][get_article_words] 382 -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/tags.html#Jekyll">#Jekyll</a><a class="post-tag" href="/tags.html#%E5%8D%9A%E5%AE%A2">#博客</a>
+</div></header>
+</div>
+    </div>
+  </section><script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+  
+      <!-- [function][get_value] auto -->
+  
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/jekyll.jpg", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: gold"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] [] -->
+  
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h4 id="安装">安装</h4>
+
+<div class="language-zsh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone git@github.com:vanhiupun/Vanhiupun.github.io.git
+</code></pre></div></div>
+
+<h4 id="设置环境">设置环境</h4>
+
+<p>1.您将需要<a href="https://www.ruby-lang.org/zh_cn/">Ruby</a>和<a href="https://bundler.io/">Bundler</a>才能使用<a href="https://www.jekyll.com.cn/">Jekyll</a>。遵循使用 <a href="https://jekyllrb.com/tutorials/using-jekyll-with-bundler/">Jekyll 和 Bundler</a>来满足环境要求。</p>
+
+<p>2.要设置您的环境来开发此主题，请运行<code class="language-plaintext highlighter-rouge">bundle install</code>.</p>
+
+<p>3.要测试您的主题，请运行<code class="language-plaintext highlighter-rouge">bundle exec jekyll serve</code>并打开您的浏览器<a href="http://localhost:4000">http://localhost:4000</a>
+这将使用您的主题启动 Jekyll 服务器。
+像往常一样添加页面、文档、数据等来测试您的主题内容。当您对主题和内容进行修改时，您的站点将重新生成，刷新后您应该会看到浏览器中的更改</p>
+
+<p>当你的主题被释放，只有在文件中<code class="language-plaintext highlighter-rouge">_data</code>，<code class="language-plaintext highlighter-rouge">_layouts</code>，<code class="language-plaintext highlighter-rouge">_includes</code>，<code class="language-plaintext highlighter-rouge">_sass</code>和<code class="language-plaintext highlighter-rouge">assets</code>使用 Git 跟踪将被捆绑在一起。
+要将自定义目录添加到您的主题宝石，请相应地编辑正则表达式<code class="language-plaintext highlighter-rouge">jekyll-theme-yat.gemspec</code>。</p>
+
+<h4 id="开始">开始</h4>
+
+<p>你可以通用修改<code class="language-plaintext highlighter-rouge">_config.yml</code>文件来轻松的开始搭建自己的博客:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">title</span><span class="pi">:</span> <span class="s">Vanhiupun blog</span>  <span class="c1"># 你的博客网站标题</span>
+
+<span class="na">email</span><span class="pi">:</span> <span class="s">fanxiaobin422@gamil.com</span> <span class="c1"># 你的邮箱</span>
+
+<span class="na">author</span><span class="pi">:</span> <span class="s">Vanhiupun</span> <span class="c1"># 你的名字</span>
+
+<span class="na">baseurl</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span> <span class="c1"># 网站的子路径，e.g. /blog</span>
+
+<span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span> <span class="c1"># 站点的基本主机名和协议，e.g. http://example.com</span>
+
+<span class="na">favicon</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/favicon.png"</span> <span class="c1"># 网站的图标 使用绝对路径e.g. /favicon.png，不推荐使用./favicon.png</span>
+
+<span class="c1"># 分页设置</span>
+<span class="na">paginate</span><span class="pi">:</span> <span class="m">5</span> <span class="c1">#在主页显示5篇文章</span>
+
+<span class="c1"># 摘录大小设置</span>
+<span class="na">excerpt_size</span><span class="pi">:</span> <span class="m">250</span> <span class="c1">#主页文章字数显示为250字</span>
+
+</code></pre></div></div>
+
+<h4 id="撰写博文">撰写博文</h4>
+
+<p>要发表的文章一般以 Markdown 的格式放在这里<code class="language-plaintext highlighter-rouge">_posts/</code>，你只要看看这篇模板里的文章你就立刻明白该如何设置。</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">post</span> <span class="c1">#布局</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s">科学上网指南（二）：线路的区别与选择</span> <span class="c1">#标题</span>
+<span class="na">categories</span><span class="pi">:</span> <span class="s">科学上网</span> <span class="c1">#分类</span>
+<span class="na">banner</span><span class="pi">:</span>
+  <span class="na">image</span><span class="pi">:</span> <span class="s">https://vanhiupun.github.io/assets/images/banners/jichang.jpeg</span> <span class="c1">#图片地址 也可以使用 ./assets/images/banners/jichang.jpeg</span>
+  <span class="na">opacity</span><span class="pi">:</span> <span class="m">0.618</span> <span class="c1">#不透明度</span>
+  <span class="na">background</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#000"</span> <span class="c1">#背景颜色</span>
+  <span class="na">height</span><span class="pi">:</span> <span class="s2">"</span><span class="s">50vh"</span> <span class="c1">#高度</span>
+  <span class="na">min_height</span><span class="pi">:</span> <span class="s2">"</span><span class="s">50vh"</span> <span class="c1">#宽度</span>
+  <span class="na">heading_style</span><span class="pi">:</span> <span class="s2">"</span><span class="s">font-size:</span><span class="nv"> </span><span class="s">4.25em;</span><span class="nv"> </span><span class="s">font-weight:</span><span class="nv"> </span><span class="s">bold;</span><span class="nv"> </span><span class="s">"</span> <span class="c1">#标题样式</span>
+  <span class="na">subheading_style</span><span class="pi">:</span> <span class="s2">"</span><span class="s">color:</span><span class="nv"> </span><span class="s">gold"</span> <span class="c1">#副标题样式</span>
+<span class="na">tags</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">机场指南</span><span class="pi">]</span> <span class="c1">#标签</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<h4 id="header-image">Header Image</h4>
+
+<p>博客每页的标题底图是可以自己选的，看看几篇示例 post 你就知道如何设置了。</p>
+
+<p>标题底图的选取完全是看个人的审美了。每一篇文章可以有不同的底图，你想放什么就放什么，最后宽度要够，大小不要太大，否则加载慢啊。</p>
+
+<blockquote>
+  <p>上传的图片最好先压缩，这里推荐 imageOptim 图片压缩软件，让你的博客起飞。</p>
+</blockquote>
+
+<p>但是需要注意的是本模板的标题是<strong>白色</strong>的，所以背景色要设置为<strong>灰色</strong>或者<strong>黑色</strong>，总之深色系就对了。当然你还可以自定义修改字体颜色，总之，用 github pages 就是可以完全的个性定制自己的博客。</p>
+
+<h4 id="customization">Customization</h4>
+
+<p>如果你喜欢折腾，你可以去自定义这个模板的 Code。</p>
+
+<p><strong>如果你可以理解 <code class="language-plaintext highlighter-rouge">_include/ </code>和 <code class="language-plaintext highlighter-rouge">_layouts/</code>文件夹下的代码（这里是整个界面布局的地方），你就可以使用 <code class="language-plaintext highlighter-rouge">Jekyll</code> 使用的模版引擎 <code class="language-plaintext highlighter-rouge">Liquid</code>的语法直接修改/添加代码，来进行更有创意的自定义界面啦！</strong></p>
+
+<h4 id="disqus-评论">Disqus 评论</h4>
+
+<p>国际比较流行，界面也很大气、简洁，如果有人评论，还能实时通知，直接回复通知的邮件就行了
+需要去注册一个<a href="https://disqus.com/">Disqus 帐号</a>。将我的账号替换成你的就可以</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Disqus 评论</span>
+<span class="na">disqus</span><span class="pi">:</span>
+  <span class="na">shortname</span><span class="pi">:</span> <span class="s2">"</span><span class="s">vanhiupun"</span> <span class="c1">#在disqus注册一个账号 并将此处换成你自己的账号</span>
+</code></pre></div></div>
+
+<h4 id="analytics">Analytics</h4>
+
+<p>网站分析，现在支持<a href="https://analytics.google.com/analytics/web/">Google Analytics</a>。需要去官方网站注册一下，然后将返回的 code 贴在下面：</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Google Analytics</span>
+<span class="na">google_analytics</span><span class="pi">:</span> <span class="s2">"</span><span class="s">UA-212989441-1"</span>    <span class="c1"># 你用Google账号去注册一个就会给你一个这样的id 将此处替换即可</span>
+</code></pre></div></div>
+
+<h4 id="贡献">贡献</h4>
+
+<p>如果你对这个项目感兴趣，你可以在以下任何一个方面做出贡献：</p>
+<ul>
+  <li>为这个项目加星</li>
+  <li>您可以<a href="https://github.com/vanhiupun/Vanhiupun.github.io/issues/new">打开一个问题</a>，描述您要解决的问题，我们将从那里开始。</li>
+  <li>使用或测试，报告错误或发送补丁请求。</li>
+  <li>如果您的英语很好，请帮助我编写文档。</li>
+</ul>
+
+<h4 id="致谢">致谢</h4>
+
+<p>这个模板是从 <a href="https://github.com/jeffreytse/jekyll-theme-yat">jeffreytse</a> Fork 的, 感谢这个作者。<img class="emoji" title=":+1:" alt=":+1:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png" height="20" width="20"></p>
+
+<h4 id="相关资源">相关资源</h4>
+
+<p><a href="https://vanhiupun.github.io">演示站点</a></p>
+
+<p><a href="https://vanhiupun.github.io/jekyll/2021/11/20/%E5%88%B6%E4%BD%9C%E5%92%8C%E6%88%91%E4%B8%80%E6%A0%B7%E7%9A%84Jekyll%E5%8D%9A%E5%AE%A2.html">构建Jekyll博客</a></p>
+
+<p><a href="https://vanhiupun.github.io/jekyll/2021/11/16/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%88%9B%E5%BB%BAJekyll%E4%B8%BB%E9%A2%98.html">Jekyll详细搭建过程</a></p>
+
+<h4 id="赞助">赞助</h4>
+
+<p><a href="https://raw.githubusercontent.com/vanhiupun/Vanhiupun.github.io/master/assets/images/img/zz.png" target="_blank">
+    <img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4335?style=flat-square&logo=GitHub%20Sponsors&logoColor=222222" alt="/GitHub%20Sponsors">
+</a></p>
+
+
+    </div>
+    
+    
+</article>
+<div class="post-nav">
+<a class="previous" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/17/%E5%9C%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BF%90%E8%A1%8CVSCode-macOS.html" title="在命令行运行 VSCode（macOS）">在命令行运行 VSCode（macOS）</a><a class="next" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/23/Github%E6%8A%80%E5%B7%A7-%E4%B8%80-%E5%8A%A0%E5%BF%AB%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6.html" title="Github技巧（一）：加快访问速度">Github技巧（一）：加快访问速度</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li><a class="post-link" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2022/07/09/%E7%94%B2%E9%AA%A8%E6%96%87VPS%E5%BC%80%E5%90%AFroot%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95-%E6%89%93%E5%BC%80%E9%98%B2%E7%81%AB%E5%A2%99%E5%92%8C%E5%AE%89%E8%A3%85xui%E9%9D%A2%E6%9D%BF%E9%99%84%E4%B8%8Assl%E5%92%8C%E5%AE%89%E8%A3%85bbr%E5%8A%A0%E9%80%9F.html" title="Github技巧（一）：加快访问速度">甲骨文VPS开启root用户登录、打开防火墙和安装xui面板附上ssl和安装bbr加速</a></li>
+<li><a class="post-link" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/24/Github%E6%8A%80%E5%B7%A7-%E4%BA%8C-%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7.html" title="Github技巧（一）：加快访问速度">Github技巧（二）：搜索技巧</a></li>
+<li><a class="post-link" href="/telegram/2021/11/12/Telegram%E7%9F%A5%E8%AF%86.html" title="Github技巧（一）：加快访问速度">Telegram知识</a></li>
+<li><a class="post-link" href="/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/2021/10/25/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%8C%87%E5%8D%97-%E4%BA%8C-%E7%BA%BF%E8%B7%AF%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E9%80%89%E6%8B%A9.html" title="Github技巧（一）：加快访问速度">科学上网指南（二）：线路的区别与选择</a></li>
+</ul>
+    </div>
+<div class="post-comments">
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://vanhiupun.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+</div></section>
+  
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: '#ff5100',
+  textColor: '#fff'
+})</script>
+  
+  
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --></section>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: '#ff5100',
+  textColor: '#fff'
+})</script>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div align="center" class="wrapper">
+    <div class="site-footer-inner">
+<div class="footer-col rss-subscribe">
+	  <font size="1" color="gray">
+	  <!--RSS SVG-->
+   	<svg aria-hidden="true" fill="#ff4e00" height="12" width="12" viewbox="0 0 16 16" version="1.1" data-view-component="true" class="octicon octicon-rss mr-1">
+    <path fill-rule="evenodd" d="M2.002 2.725a.75.75 0 01.797-.699C8.79 2.42 13.58 7.21 13.974 13.201a.75.75 0 11-1.497.098 10.502 10.502 0 00-9.776-9.776.75.75 0 01-.7-.798zM2 13a1 1 0 112 0 1 1 0 01-2 0zm.84-5.95a.75.75 0 00-.179 1.489c2.509.3 4.5 2.291 4.8 4.8a.75.75 0 101.49-.178A7.003 7.003 0 002.838 7.05z"></path>
+    </svg>
+	  <a href="/feed.xml" target="_blank"> RSS </a>订阅 |  
+    <!--提供支持-->
+    由 <a title="Jekyll is a simple, blog-aware, static site
+    generator." href="http://jekyllrb.com/" target="_blank">Jekyll</a> &amp; <a title="Yat, yet
+    another theme." href="https://github.com/jeffreytse/jekyll-theme-yat" target="_blank">Yat Theme</a>提供支持
+	  </font>
+</div>
+
+    <!--版权-->
+    <div>
+    <font size="1" color="gray">
+    Copyright © 2017-2022 <a href="https://github.com/vanhiupun/" target="_blank">Vanhiupun</a> All Rights Reserved
+    </font>
+</div>
+
+      <!--logo
+  <div>
+
+    <a href="https://github.com/vanhiupun" target="_blank">
+      <img src="https://visitor-badge.glitch.me/badge?page_id=vanhiupun.visitor-badge&right_color=Orange" alt="visitor" />
+    </a> 
+	    
+    <a href="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/jekyll.yml" target="_blank">
+        <img src="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/jekyll.yml/badge.svg" />
+    </a>
+      
+    <a href="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/codeql-analysis.yml" target="_blank">
+      <img src="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/codeql-analysis.yml/badge.svg">
+    </a> 
+      
+    <a href="https://github.com/vanhiupun/Vanhiupun.github.io" target="_blank">
+      <img src="https://www.codefactor.io/repository/github/vanhiupun/vanhiupun.github.io/badge" alt="CodeFactor" />
+    </a>
+    
+    <a href="https://codeclimate.com/github/vanhiupun/Vanhiupun.github.io/maintainability">
+      <img src="https://api.codeclimate.com/v1/badges/708da11ffb90a8f6f13b/maintainability" alt="maintainability" />
+    </a>
+    
+    <a href="https://rubygems.org/gems/jekyll-theme-yat" target="_blank">
+        <img src="https://badge.fury.io/rb/jekyll-theme-yat.svg"     alt="jekyll-theme-yat" />
+    </a> 
+    
+    <a href="https://github.com/vanhiupun" target="_blank">
+        <img src="https://img.shields.io/badge/Github%20Repository-222222?style=flat-square&logo=github&logoColor=ffffff" alt="Github" />
+    </a> 
+          
+    <a href="https://vanhiupun.github.io" target="_blank">
+        <img src="https://img.shields.io/badge/Github%20Page-222222?style=flat-square&logo=github&logoColor=ffffff" alt="Blog" />
+    </a> 
+          
+    <a href="mailto:fanxiaobin422@gmail.com" target="_blank">
+        <img src="https://img.shields.io/badge/Send%20me%20Gmail-EA4335?style=flat-square&logo=Gmail&logoColor=ffffff" alt="Gmail" />
+    </a> 
+          
+    <a href="https://github.com/vanhiupun/Vanhiupun.github.io/blob/c0c037532393ee2718892f87b200a0bbe33e7eb9/License" target="_blank">
+        <img src="https://img.shields.io/badge/License%20MIT-f2cb05?style=flat-square&logo=Mitsubishi&logoColor=222222" alt="MIT" />
+    </a>
+          
+    <a href="http://jekyllthemes.org/" target="_blank">
+        <img src="https://img.shields.io/badge/Jekyll%20Themes-f2cb05?style=flat-square&logo=Jekyll&logoColor=222222" alt="jekyll-themes" />
+    </a> 
+    
+    <a href="https://github.com/jeffreytse/jekyll-theme-yat" target="_blank">
+        <img src="https://img.shields.io/badge/Jekyll%C2%B7Theme%C2%B7Yat-f2cb05?style=flat-square&logo=github&logoColor=181717" alt="Jekyll-yat" />
+    </a> 
+      
+    <a href="https://raw.githubusercontent.com/vanhiupun/Vanhiupun.github.io/master/assets/images/img/zz.png" target="_blank">
+        <img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4335?style=flat-square&logo=GitHub%20Sponsors&logoColor=222222" alt="/GitHub%20Sponsors" />
+    </a> 
+  </div>-->
+  </div>
+  </div>
+</footer>
+</body>
+</html><html>
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: '#ff5100',
+  textColor: '#fff'
+})</script>
+</html>

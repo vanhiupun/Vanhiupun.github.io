@@ -1,0 +1,1398 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://vanhiupun.github.io//feed.xml" rel="self" type="application/atom+xml" /><link href="https://vanhiupun.github.io//" rel="alternate" type="text/html" /><updated>2022-07-17T09:31:15+00:00</updated><id>https://vanhiupun.github.io//feed.xml</id><title type="html">Vanhiupun’s Awesome Site</title><subtitle>影视分享｜Netflix｜科学上网｜网络技术｜梅林｜OpenWrt｜Jekyll博客｜Git｜</subtitle><author><name>Vanhiupun</name></author><entry><title type="html">甲骨文VPS开启root用户登录、打开防火墙和安装xui面板附上ssl和安装bbr加速</title><link href="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2022/07/09/%E7%94%B2%E9%AA%A8%E6%96%87VPS%E5%BC%80%E5%90%AFroot%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95-%E6%89%93%E5%BC%80%E9%98%B2%E7%81%AB%E5%A2%99%E5%92%8C%E5%AE%89%E8%A3%85xui%E9%9D%A2%E6%9D%BF%E9%99%84%E4%B8%8Assl%E5%92%8C%E5%AE%89%E8%A3%85bbr%E5%8A%A0%E9%80%9F.html" rel="alternate" type="text/html" title="甲骨文VPS开启root用户登录、打开防火墙和安装xui面板附上ssl和安装bbr加速" /><published>2022-07-09T00:00:00+00:00</published><updated>2022-07-09T00:00:00+00:00</updated><id>https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2022/07/09/%E7%94%B2%E9%AA%A8%E6%96%87VPS%E5%BC%80%E5%90%AFroot%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E3%80%81%E6%89%93%E5%BC%80%E9%98%B2%E7%81%AB%E5%A2%99%E5%92%8C%E5%AE%89%E8%A3%85xui%E9%9D%A2%E6%9D%BF%E9%99%84%E4%B8%8Assl%E5%92%8C%E5%AE%89%E8%A3%85bbr%E5%8A%A0%E9%80%9F</id><content type="html" xml:base="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2022/07/09/%E7%94%B2%E9%AA%A8%E6%96%87VPS%E5%BC%80%E5%90%AFroot%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95-%E6%89%93%E5%BC%80%E9%98%B2%E7%81%AB%E5%A2%99%E5%92%8C%E5%AE%89%E8%A3%85xui%E9%9D%A2%E6%9D%BF%E9%99%84%E4%B8%8Assl%E5%92%8C%E5%AE%89%E8%A3%85bbr%E5%8A%A0%E9%80%9F.html"><![CDATA[<h4 id="甲骨文vps开启root用户登录">甲骨文VPS开启root用户登录</h4>
+
+<p>SSH连接上甲骨文VPS</p>
+
+<p>Centos的用户名为<code class="language-plaintext highlighter-rouge">opc</code>,Ubuntu的用户名为<code class="language-plaintext highlighter-rouge">ubuntu</code></p>
+
+<p>输入下面的脚本回车切换root用户</p>
+
+<div class="language-zsh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo</span> <span class="nt">-i</span>
+</code></pre></div></div>
+
+<p>切换为root用户后输入下面的命令修改root密码登录(下面中文换成你的密码)</p>
+
+<div class="language-zsh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo </span>root:你设置的密码 |sudo chpasswd root
+<span class="nb">sudo sed</span> <span class="nt">-i</span> <span class="s1">'s/^#\?PermitRootLogin.*/PermitRootLogin yes/g'</span> /etc/ssh/sshd_config<span class="p">;</span>
+<span class="nb">sudo sed</span> <span class="nt">-i</span> <span class="s1">'s/^#\?PasswordAuthentication.*/PasswordAuthentication yes/g'</span> /etc/ssh/sshd_config<span class="p">;</span>
+<span class="nb">sudo </span>service sshd restart
+</code></pre></div></div>
+
+<p>所有命令执行完成后就可以通过root用户登录甲骨文vps了</p>
+
+<h4 id="甲骨文关闭防火墙-root用户">甲骨文关闭防火墙-root用户</h4>
+
+<h5 id="centos系统">centos系统</h5>
+<div class="language-zsh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#停止firewall</span>
+systemctl stop firewalld.service
+<span class="c">#禁止firewall开机启动</span>
+systemctl disable firewalld.service
+<span class="c">#关闭iptables</span>
+service iptables stop
+<span class="c">#去掉iptables开机启动</span>
+systemctl disable firewalld&lt;/code&gt;
+</code></pre></div></div>
+
+<h5 id="ubuntu系统">ubuntu系统</h5>
+<div class="language-zsh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>iptables <span class="nt">-P</span> INPUT ACCEPT
+<span class="nb">sudo </span>iptables <span class="nt">-P</span> FORWARD ACCEPT
+<span class="nb">sudo </span>iptables <span class="nt">-P</span> OUTPUT ACCEPT
+<span class="nb">sudo </span>iptables <span class="nt">-F</span>
+</code></pre></div></div>
+
+<h4 id="甲骨文vps安装x-ui">甲骨文vps安装x-ui</h4>
+
+<h5 id="安装更新环境">安装更新环境</h5>
+<div class="language-zsh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#Debian/Ubuntu系统执行以下命令</span>
+apt update <span class="nt">-y</span> <span class="o">&amp;&amp;</span> apt <span class="nb">install</span> <span class="nt">-y</span> curl <span class="o">&amp;&amp;</span> apt <span class="nb">install</span> <span class="nt">-y</span> socat
+<span class="c">#CentOS系统执行以下命令</span>
+yum update <span class="nt">-y</span> <span class="o">&amp;&amp;</span> yum update <span class="nt">-y</span> <span class="o">&amp;&amp;</span> yum <span class="nb">install</span> <span class="nt">-y</span> socat
+</code></pre></div></div>
+
+<h5 id="执行以下命令安装或更新x-ui">执行以下命令安装或更新x-ui</h5>
+<div class="language-zsh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash &amp;lt<span class="p">;</span><span class="o">(</span>curl <span class="nt">-Ls</span> https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh<span class="o">)</span>
+</code></pre></div></div>
+<p>安装完成后就可以输入ip:54321访问x-ui面板了,默认账号密码为admin,admin</p>
+
+<h4 id="甲骨文申请ssl请先将域名解析到vps的ip地址">甲骨文申请SSL(请先将域名解析到vps的ip地址)</h4>
+
+<h5 id="运行acme脚本">运行Acme脚本</h5>
+<div class="language-zsh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl https://get.acme.sh | sh
+</code></pre></div></div>
+
+<h5 id="申请证书及密钥将下面的命令中的中文替换成你的域名下面的xxxxgmailcom可以换成你的邮箱也可以不用换">申请证书及密钥（将下面的命令中的中文替换成你的域名，下面的xxxx@gmail.com可以换成你的邮箱也可以不用换）</h5>
+<div class="language-zsh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/.acme.sh/acme.sh <span class="nt">--register-account</span> <span class="nt">-m</span> xxxx@gmail.com
+~/.acme.sh/acme.sh  <span class="nt">--issue</span> <span class="nt">-d</span> 你的域名 <span class="nt">--standalone</span>
+</code></pre></div></div>
+
+<h5 id="下载证书和密钥将下面的命令中的中文换成你的域名证书路径为rootcertcrt密钥路径为rootprivatekey">下载证书和密钥（将下面的命令中的中文换成你的域名,证书路径为/root/cert.crt,密钥路径为/root/private.key）</h5>
+<div class="language-zsh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/.acme.sh/acme.sh <span class="nt">--installcert</span> <span class="nt">-d</span> 你的域名 <span class="nt">--key-file</span> /root/private.key <span class="nt">--fullchain-file</span> /root/cert.crt
+</code></pre></div></div>
+<p>证书下载好后可以在x-ui后台加上证书和密钥，然后通过域名访问的就可以使用ssl了</p>
+
+<h4 id="甲骨文vps安装bbr加速">甲骨文vps安装BBR加速</h4>
+<p>执行下面的命令，然后根据自己的选择安装，建议不要安装BBRPlus,可能会被封号</p>
+<div class="language-zsh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget <span class="nt">-O</span> tcpx.sh <span class="s2">"https://git.io/JYxKU"</span> &amp;amp<span class="p">;</span>&amp;amp<span class="p">;</span> <span class="nb">chmod</span> +x tcpx.sh &amp;amp<span class="p">;</span>&amp;amp<span class="p">;</span> ./tcpx.sh
+</code></pre></div></div>
+
+<div class="language-zsh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>shutdown <span class="nt">-r</span> now
+</code></pre></div></div>]]></content><author><name>Vanhiupun</name></author><category term="网络技术与技巧" /><category term="甲骨文VPS" /><summary type="html"><![CDATA[甲骨文VPS开启root用户登录]]></summary></entry><entry><title type="html">蜜糖商店：优质流媒体账号合租平台指南</title><link href="https://vanhiupun.github.io//netflix/2022/05/27/%E8%9C%9C%E7%B3%96%E5%95%86%E5%BA%97-%E4%BC%98%E8%B4%A8%E6%B5%81%E5%AA%92%E4%BD%93%E8%B4%A6%E5%8F%B7%E5%90%88%E7%A7%9F%E5%B9%B3%E5%8F%B0%E6%8C%87%E5%8D%97.html" rel="alternate" type="text/html" title="蜜糖商店：优质流媒体账号合租平台指南" /><published>2022-05-27T00:00:00+00:00</published><updated>2022-05-27T00:00:00+00:00</updated><id>https://vanhiupun.github.io//netflix/2022/05/27/%E8%9C%9C%E7%B3%96%E5%95%86%E5%BA%97:%E4%BC%98%E8%B4%A8%E6%B5%81%E5%AA%92%E4%BD%93%E8%B4%A6%E5%8F%B7%E5%90%88%E7%A7%9F%E5%B9%B3%E5%8F%B0%E6%8C%87%E5%8D%97</id><content type="html" xml:base="https://vanhiupun.github.io//netflix/2022/05/27/%E8%9C%9C%E7%B3%96%E5%95%86%E5%BA%97-%E4%BC%98%E8%B4%A8%E6%B5%81%E5%AA%92%E4%BD%93%E8%B4%A6%E5%8F%B7%E5%90%88%E7%A7%9F%E5%B9%B3%E5%8F%B0%E6%8C%87%E5%8D%97.html"><![CDATA[<h4 id="前言">前言</h4>
+
+<p><a href="https://metshop.vip/#/?sid=MTU49631">Metshop</a>作为行业领先的流媒体账号合租服务平台，以优质的一站式服务为核心，为您提供同时满足安全、稳定、便捷的高效合租体验。</p>
+
+<p>目前，<a href="https://metshop.vip/#/?sid=MTU49631">Metshop</a>平台可以订阅全球6大热门流媒体会员账号：
+Netflix、Disney+、HBO GO/MAX、Spotify、hulu</p>
+
+<p><a href="https://metshop.vip/#/?sid=MTU49631"><strong>点击进入蜜糖商店</strong></a></p>
+
+<p><a href="https://vanhiupun.github.io/categories.html#Netflix"><strong>国内观看Netflix 可以看我之前的文章</strong></a></p>
+
+<h4 id="基础功能">基础功能</h4>
+
+<ul>
+  <li>
+    <p>手机号登陆、微信登陆</p>
+  </li>
+  <li>
+    <p>账号到期提醒、自动续费、密码修改等自动通知（短信通知、微信公众号通知）</p>
+  </li>
+  <li>
+    <p>一键选车位</p>
+  </li>
+</ul>
+
+<h4 id="特色功能">特色功能</h4>
+
+<ul>
+  <li>
+    <p>Netflix会员起售周期：1个月（标准号¥20/月即可上车）</p>
+  </li>
+  <li>
+    <p>Netflix账号区分：标准账号（香港、泰国、菲律宾IP无法观看）、全球账号</p>
+  </li>
+  <li>
+    <p>网站在线人工服务
+10:00 - 24:00 申请修改密码人工跟进改密</p>
+  </li>
+  <li>
+    <p>5个车位均单独设置PIN码，避免被其他人搞乱播放列表（麻烦了一点，但省心不少）</p>
+  </li>
+</ul>
+
+<h4 id="蜜糖商店奈飞会员定价">蜜糖商店奈飞会员定价</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>账号类型</th>
+      <th>1个月</th>
+      <th>3个月</th>
+      <th>6个月</th>
+      <th>12个月</th>
+      <th>每月价格</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Netflix标准号（共享）</td>
+      <td>¥ 20</td>
+      <td>¥ 60</td>
+      <td>¥ 120</td>
+      <td>¥ 228</td>
+      <td>¥ 20</td>
+    </tr>
+    <tr>
+      <td>Netflix全球号（共享）</td>
+      <td>¥ 30</td>
+      <td>¥ 90</td>
+      <td>¥ 180</td>
+      <td>¥ 348</td>
+      <td>¥ 30</td>
+    </tr>
+    <tr>
+      <td>Netflix标准号（独享）</td>
+      <td>¥ 100</td>
+      <td>¥ 300</td>
+      <td>¥ 600</td>
+      <td>¥ 1140</td>
+      <td>¥ 100</td>
+    </tr>
+    <tr>
+      <td>Netflix标准号（独享）</td>
+      <td>¥ 150</td>
+      <td>¥ 450</td>
+      <td>¥ 900</td>
+      <td>¥ 1740</td>
+      <td>¥ 150</td>
+    </tr>
+    <tr>
+      <td>YouTube</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>¥ 88</td>
+      <td>¥ 7.3</td>
+    </tr>
+    <tr>
+      <td>Tidal</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>N/A</td>
+      <td>¥ 76</td>
+      <td>¥ 6.3</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="蜜糖商店参考">蜜糖商店参考</h4>
+
+<ul>
+  <li>
+    <p>最低购买时长：1个月</p>
+  </li>
+  <li>
+    <p>私有车位PIN码：是 ✅</p>
+  </li>
+  <li>
+    <p>在线人工服务：是 ✅</p>
+  </li>
+  <li>
+    <p>自动查看账号信息：是 ✅</p>
+  </li>
+  <li>
+    <p>公众号自助服务：是 ✅</p>
+  </li>
+  <li>
+    <p>申请一键重置密码：是 ✅</p>
+  </li>
+  <li>
+    <p>官方售后群：是 ✅</p>
+  </li>
+  <li>
+    <p>是否亲自使用过：是 ✅</p>
+  </li>
+  <li>
+    <p>推荐度：❤ ❤ ❤ ❤ ❤</p>
+  </li>
+</ul>]]></content><author><name>Vanhiupun</name></author><category term="Netflix" /><category term="Netflix" /><summary type="html"><![CDATA[前言]]></summary></entry><entry><title type="html">OpenWrt 安装 阿里云盘 WebDAV 当做磁盘使用</title><link href="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2022/05/16/OpenWrt-%E5%AE%89%E8%A3%85-%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%98-WebDAV-%E5%BD%93%E5%81%9A%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8.html" rel="alternate" type="text/html" title="OpenWrt 安装 阿里云盘 WebDAV 当做磁盘使用" /><published>2022-05-16T00:00:00+00:00</published><updated>2022-05-16T00:00:00+00:00</updated><id>https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2022/05/16/OpenWrt%20%E5%AE%89%E8%A3%85%20%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%98%20WebDAV%20%E5%BD%93%E5%81%9A%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8</id><content type="html" xml:base="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2022/05/16/OpenWrt-%E5%AE%89%E8%A3%85-%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%98-WebDAV-%E5%BD%93%E5%81%9A%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8.html"><![CDATA[<h4 id="前言">前言</h4>
+<p>众所周知 OpenWrt 可以挂载 阿里云盘 WebDAV 服务，主要使用场景为配合支持 WebDAV 协议的客户端 App 如 Infuse、nPlayer 等实现在电视上直接观看云盘视频内容，或挂载电脑当做本地支持使用，支持上传文件，但受限于 WebDAV 协议不支持文件秒传。由于不限速，那么我们就挂载到电脑上当做本地磁盘使用</p>
+
+<p><strong>友情提示：不要存在暴露、色情、违法软件到网盘，因阿里云盘有内容风控识别，所以会导致封号，请注意！！！</strong></p>
+
+<h3 id="插件安装">插件安装</h3>
+<h4 id="openwrt">openwrt</h4>
+<p><a href="https://github.com/messense/aliyundrive-webdav/releases">GitHub Releases</a> 中有预编译的 ipk 文件， 目前提供了 <code class="language-plaintext highlighter-rouge">aarch64/arm/mipsel/x86_64/i686</code> 等架构的版本，可以下载后使用 opkg 安装，以 nanopi r4s 为例：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://github.com/messense/aliyundrive-webdav/releases/download/v1.3.2/aliyundrive-webdav_1.3.2-1_aarch64_generic.ipk
+wget https://github.com/messense/aliyundrive-webdav/releases/download/v1.3.2/luci-app-aliyundrive-webdav_1.3.2_all.ipk
+wget https://github.com/messense/aliyundrive-webdav/releases/download/v1.3.2/luci-i18n-aliyundrive-webdav-zh-cn_1.3.2-1_all.ipk
+opkg install aliyundrive-webdav_1.3.2-1_aarch64_generic.ipk
+opkg install luci-app-aliyundrive-webdav_1.3.2_all.ipk
+opkg install luci-i18n-aliyundrive-webdav-zh-cn_1.3.2-1_all.ipk
+</code></pre></div></div>
+
+<blockquote>
+  <p>Tips: 不清楚 CPU 架构类型可通过运行 opkg print-architecture 命令查询。</p>
+</blockquote>
+
+<blockquote>
+  <p>将上述代码第1行和第4行的文件名更换同架构类型的文件名即可</p>
+</blockquote>
+
+<p><img src="/assets/images/aliyundrive/openwrt.png" alt="" /></p>
+
+<h4 id="koolshare-梅林固件">Koolshare 梅林固件</h4>
+<p>GitHub Releases 中有预编译包 <code class="language-plaintext highlighter-rouge">aliyundrivewebdav-merlin-arm*.tar.gz</code>， 目前提供了旧的 arm380 和兼容 arm384/386 固件的版本，可在下载后在软件中心离线安装。
+<img src="/assets/images/aliyundrive/merlin.png" alt="" /></p>
+
+<h3 id="获取-refresh_token">获取 refresh_token</h3>
+<ul>
+  <li>
+    <p>自动获取: 登录<a href="https://www.aliyundrive.com/drive/">阿里云盘</a>后，控制台粘贴
+<code class="language-plaintext highlighter-rouge">JSON.parse(localStorage.token).refresh_token</code>
+<img src="/assets/images/aliyundrive/json.png" alt="" /></p>
+  </li>
+  <li>
+    <p>手动获取: 登录<a href="https://www.aliyundrive.com/drive/">阿里云盘</a>后，可以在<code class="language-plaintext highlighter-rouge">开发者工具 -&gt; Application -&gt; Local Storage</code> 中的 <code class="language-plaintext highlighter-rouge">token</code> 字段中找到。</p>
+  </li>
+</ul>
+
+<p>注意：不是复制整段 JSON 值，而是 JSON 里 <code class="language-plaintext highlighter-rouge">refresh_token</code> 字段的值，如下图所示红色部分：
+<img src="/assets/images/aliyundrive/refresh_token.png" alt="" /></p>
+
+<h3 id="设置插件">设置插件</h3>
+<p>进入 OpenWrt 管理后台，</p>
+<ul>
+  <li>找到 阿里云盘 WebDAV 管理页，进入后不着急勾选启用，</li>
+  <li>先填写上面获取的 Refresh Token 密钥，
+    <blockquote>
+      <p>云盘根目录 / 就是访问网盘下所有资源，如果你想只访问某个文件夹，那么就设置为 /文件名，比如：/电影，演示默认设置 / 。</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>主机地址填写你 OpenWrt 的地址，比如：192.168.2.1，端口设置不要默认 8080，因 OpenWrt 很多插件都是用了 8080 端口会导致冲突，而出现阿里云盘无法使用，如下图：
+<img src="/assets/images/aliyundrive/webdav.png" alt="" /></p>
+  </li>
+  <li>如果不开启 阿里云相册与云盘服务 domainId，那么 TLS 证书文件路径 和 TLS 私钥文件路径 就无需设置，用户名 和 密码 内网使用可以不设置，其他默认，删除文件不放入回收站可以根据自己需求进行勾选，然后选择启用，保存&amp;设置，通过<code class="language-plaintext highlighter-rouge">192.168.2.1:8080</code>访问，如果访问成功，那么就设置成功了，如下图
+<img src="/assets/images/aliyundrive/web.png" alt="" /></li>
+</ul>
+
+<p>如果无法访问，那么更换端口尝试访问，更换端口后还是无法访问，可以查看日志确认错误进行解决，如不会解决，留言给我，我看到会回复给你解决方法。</p>
+
+<h3 id="使用infuse连接阿里云盘的webdav服务">使用Infuse连接阿里云盘的Webdav服务</h3>
+
+<p>进入Infuse-新增文件来源-添加webdav 如下图
+<img src="/assets/images/aliyundrive/infuse.png" alt="" /></p>
+
+<h4 id="连接成功">连接成功</h4>
+<p><img src="/assets/images/aliyundrive/j1.png" alt="" />
+<img src="/assets/images/aliyundrive/j2.png" alt="" /></p>]]></content><author><name>Vanhiupun</name></author><category term="网络技术与技巧" /><category term="阿里云盘" /><category term="OpenWrt" /><category term="WebDAV" /><summary type="html"><![CDATA[前言 众所周知 OpenWrt 可以挂载 阿里云盘 WebDAV 服务，主要使用场景为配合支持 WebDAV 协议的客户端 App 如 Infuse、nPlayer 等实现在电视上直接观看云盘视频内容，或挂载电脑当做本地支持使用，支持上传文件，但受限于 WebDAV 协议不支持文件秒传。由于不限速，那么我们就挂载到电脑上当做本地磁盘使用]]></summary></entry><entry><title type="html">Github技巧（三）：使用技巧</title><link href="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/25/Github%E6%8A%80%E5%B7%A7-%E4%B8%89-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html" rel="alternate" type="text/html" title="Github技巧（三）：使用技巧" /><published>2021-11-25T00:00:00+00:00</published><updated>2021-11-25T00:00:00+00:00</updated><id>https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/25/Github%E6%8A%80%E5%B7%A7(%E4%B8%89):%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7</id><content type="html" xml:base="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/25/Github%E6%8A%80%E5%B7%A7-%E4%B8%89-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html"><![CDATA[<h4 id="前言">前言</h4>
+
+<p>GitHub 内置了一些非常有用的快捷方式和提高生产力的功能。然而，从个人经验来看，这些功能通常被开发者忽略了。如果我曾经见识过某个特定的 GitHub 特性给某人带来惊喜或帮助，那么它就在这里。尽管如此，下面的内容绝不是一份详尽的清单。</p>
+
+<h4 id="快速模糊搜索仓库中的文件">快速模糊搜索仓库中的文件</h4>
+
+<p>毫无疑问，这是当你在仓库中寻找文件时最快的方式。打开任何仓库，并按下按键 <code class="language-plaintext highlighter-rouge">t</code> 。你现在可以通过在仓库中以文件名来搜索任何文件， 并且可以使用方向键在选择搜索结果。按下回车键打开选择的文件。
+<img src="/assets/images/GitHub/1.gif" alt="" /></p>
+
+<h4 id="pull-request-上修改代码建议">pull request 上修改代码建议</h4>
+
+<p>当你评论一些 pull request 的时候 ， 您可以使用 “建议更改” 功能建议其他代码。 当 pull request 的作者还未离开 Github 时， 将能立刻收到你的建议。</p>
+
+<p>提建议，应用 Markdown 语法中多行代码片段语法包过，并使用 <code class="language-plaintext highlighter-rouge">suggestion</code> 标签:</p>
+
+<p><img src="/assets/images/GitHub/2.gif" alt="" /></p>
+
+<p>现在你提出建议，pull request 的作者立刻能在他们的分支上收到反馈，而不用麻烦地手动更改文件。</p>
+
+<p><img src="/assets/images/GitHub/3.gif" alt="" /></p>
+
+<h4 id="像-ide-中的导航树">像 IDE 中的导航树</h4>
+
+<p>这是一个比默认页面让你稍感熟悉的代码导航，需要一个非官方的 Chrome 浏览器扩展支持。 <a href="https://chrome.google.com/webstore/detail/octotree-github-code-tree/bkhaagjahfmjljalopjnoealnfndnagc">Octotree extension</a> 允许你在浏览器侧边栏浏览 GitHub 仓库，这个侧边栏的树视图与你在应用程序中看到的相似，比如 VS Code 。</p>
+
+<p><img src="/assets/images/GitHub/4.gif" alt="" /></p>
+
+<h4 id="检查代码时跳转到函数">检查代码时跳转到函数</h4>
+
+<p>除非你在检查单个 函数，否则代码检查经常会在函数调用和定义之间来回跳转（因此页面需要大量上下滚动）。GitHub 允许你在检查 pull request 的某个文件时通过按 <code class="language-plaintext highlighter-rouge">t</code> 跳转到指定函数。</p>
+
+<p><img src="/assets/images/GitHub/5.gif" alt="" /></p>
+
+<h4 id="给某个文件创建永久链接">给某个文件创建永久链接</h4>
+
+<p>查看文件或目录时按 <code class="language-plaintext highlighter-rouge">y</code> ，URL 将转换为永久链接，你可以分享该链接，因为这个文件的内容永远不会更改（译者注：URL 是该文件的 commit id）。</p>
+
+<p>如果你把一个没转成永久链接的 GitHub 的文件或目录的链接发送出去，你需要接受文件明天会消失的可能性，这样链接就失效了。</p>
+
+<h4 id="查看提交记录热度图">查看提交记录热度图</h4>
+
+<p>查看文件时，可以按<code class="language-plaintext highlighter-rouge"> b </code>查看提交记录和显示每一行的最近修改情况的热度图。它会告诉你每行代码的提交人，并且提供一个可以点击的链接去查看完整提交。</p>
+
+<p>在沟的右边 (包含提交消息和作者)，你将看到一个橙色的竖条。颜色越鲜艳，更改的时间就越近，这意味着你可以轻松地查找文件以找到最新的代码！</p>
+
+<p><img src="/assets/images/GitHub/6.gif" alt="" /></p>
+
+<h4 id="强大的代码搜索功能">强大的代码搜索功能</h4>
+<p>GitHub 将大部分代码编入索引，并提供了强大的搜索功能。如果需要在仓库中查找某些内容，但不打算对其进行任何更改。通常不需要签出仓库。按<code class="language-plaintext highlighter-rouge"> / </code>搜索仓库中的所有代码。</p>
+
+<p><img src="/assets/images/GitHub/7.gif" alt="" /></p>
+
+<p>如果你的搜索包含多个单词，并且希望搜索特定搜索查询的出现情况，请在查询周围加上引号。你还可以根据其他信息过滤搜索，比如文件大小、扩展名、文件所在的路径等等。</p>
+
+<h4 id="保存回复模板">保存回复模板</h4>
+<p>如果你发现自己总是重复同样的评论，创建一个<a href="https://github.com/settings/replies">保存的回复</a> 可以节省一些时间。下次发现自己要再次输入该评论，可以在下拉菜单中选择它：</p>
+
+<p><img src="/assets/images/GitHub/8.gif" alt="" /></p>
+
+<p>不使用鼠标时，可以通过<code class="language-plaintext highlighter-rouge"> ctrl + . </code>和<code class="language-plaintext highlighter-rouge">  ctrl + 1 </code>完成上述操作。</p>
+
+<h4 id="总结">总结</h4>
+
+<p>感谢阅读。希望你能在文章中找到至少一件事，让你成为一个更有效率的 GitHub 用户。如果你喜欢这篇文章，或者有任何反馈，请告诉我！</p>]]></content><author><name>Vanhiupun</name></author><category term="网络技术与技巧" /><category term="Github" /><category term="技巧" /><summary type="html"><![CDATA[前言]]></summary></entry><entry><title type="html">Github技巧（二）：搜索技巧</title><link href="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/24/Github%E6%8A%80%E5%B7%A7-%E4%BA%8C-%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7.html" rel="alternate" type="text/html" title="Github技巧（二）：搜索技巧" /><published>2021-11-24T00:00:00+00:00</published><updated>2021-11-24T00:00:00+00:00</updated><id>https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/24/Github%E6%8A%80%E5%B7%A7(%E4%BA%8C):%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7</id><content type="html" xml:base="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/24/Github%E6%8A%80%E5%B7%A7-%E4%BA%8C-%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7.html"><![CDATA[<h4 id="前言">前言</h4>
+
+<p>github 作为全球最大的开源软件项目托管平台，相信很多程序员都在使用，不仅仅是因为它可以免费的作为我们公有或者私有的代码仓库，更因为 github 上面有大量的开源学习项目或资源，秉着开源自由的理念，吸引了大量的个人或者企业开发者。</p>
+
+<p>那么面对如此海量的代码仓库，如何才能在众多的资源中搜索出更优秀，更符合自己需求的项目呢？</p>
+
+<p>比如我想搜索一个 springboot 项目，你是否就直接输入 springboot 关键字直接搜索，但是搜索出了 118,085 个结果，当然了，你还可以做一些简单的排序，比如通过 stars、forks 的数量。</p>
+
+<p>但这样搜索出来的结果真的精确吗？接下来，我们来演示一下几个我们常用的 github 搜索技巧，让搜索出来的结果更加精确、符合要求！</p>
+
+<h4 id="in">in</h4>
+
+<p>关键字 in 是用来限定搜索的范围，可以指定是在<strong>名称、描述、readme</strong> 文档中搜索关键字</p>
+
+<ul>
+  <li>in:name：指定搜索范围是仓库名称</li>
+  <li>in:description：指定搜索范围是摘要中</li>
+  <li>in:readme：指定搜索范围是 readme 文档中</li>
+</ul>
+
+<p>比如，指定<strong>项目仓库名称 springboot、mybatis、demo</strong> 三个关键字，那么搜索如下：</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">in:name springboot mybatis demo</span>
+</code></pre></div></div>
+
+<p>这样搜索出来的项目就是一个简单的 <strong>demo 整合项目</strong>，而不是综合项目。 你还可以这样搜</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">in:description springboot mybatis 整合</span>
+</code></pre></div></div>
+
+<h4 id="stars-forks">stars 、forks</h4>
+
+<p>通常我们判断一个项目好不好，可以通过项目的 stars 和 fork 数量来判断，当然了，这也不是绝对的，github 中还隐藏这很多不为人所知的优秀项目，等着你挖掘哈。</p>
+
+<p>方式如下：</p>
+
+<ul>
+  <li>stars:&gt; ：筛选 stars 数量大于某个值的仓库</li>
+  <li>stars:start..end ：筛选 stars 数量在 start 和 end 区间的仓库</li>
+  <li>fork:&gt;</li>
+  <li>fork:start..end</li>
+</ul>
+
+<p>所以，通过 stars 、forks 关键字，我们可以通过 stars 、forks 数量来过滤一部分。比如，我要筛选搜索结果中，stars 数量大于 50 的项目。那么如下：</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">in:name springboot mybatis demo stars:&gt;50</span>
+</code></pre></div></div>
+
+<h4 id="language">language</h4>
+
+<p>这个简单，指定项目的编写语言，如 java、python、php 等。比如我们搜索<strong>单点登录</strong>，如果我们直接搜索<strong>in:description 单点登录</strong>，那么出现的结果会包含各种语言的实现项目，但是如果你加上了 java 语言的限定条件之后，搜索出来的结果就只有 java 的。</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">in:description 单点登录 language:java</span>
+</code></pre></div></div>
+
+<h4 id="createdpushed">created、pushed</h4>
+
+<p>创建日期、更新日期。项目久不维护了，或者项目已经创建很久了，那么项目的技术有时候就已经过时了，比如以前 Springboot 的 1.5 版本的创建项目就不是很适合现在了，现在我们学习的话直接上手 2.0 版本以上的比较好，所以找新项目，还得跟紧技术的迭代速度。</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">in:description 单点登录 language:java pushed:&gt;2021-11-11</span>
+</code></pre></div></div>
+
+<p>通常来说，stars 数量多，维护频繁的项目都是比较优</p>
+
+<h4 id="其他">其他</h4>
+
+<p>还可以根据协议<strong>license:</strong>；或者项目作者<strong>user:</strong>；或者仓库的大小<strong>size:&gt;=</strong>；被关注人数<strong>followers:</strong>，只不过大家就用得比较少。</p>
+
+<h4 id="高级搜索">高级搜索</h4>
+
+<p>除了使用这种特定的限定词来筛选之外，其实 github 还给我们提供了一种筛选的搜索链接。</p>
+
+<p><a href="https://github.com/search/advanced">https://github.com/search/advanced</a></p>
+
+<p>其实就是界面化的搜索条件筛选框，想不起搜索关键词或者单词的时候可以收藏这个高级搜索界面哈。</p>]]></content><author><name>Vanhiupun</name></author><category term="网络技术与技巧" /><category term="Github" /><category term="搜索" /><category term="技巧" /><summary type="html"><![CDATA[前言]]></summary></entry><entry><title type="html">Github技巧（一）：加快访问速度</title><link href="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/23/Github%E6%8A%80%E5%B7%A7-%E4%B8%80-%E5%8A%A0%E5%BF%AB%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6.html" rel="alternate" type="text/html" title="Github技巧（一）：加快访问速度" /><published>2021-11-23T00:00:00+00:00</published><updated>2021-11-23T00:00:00+00:00</updated><id>https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/23/Github%E6%8A%80%E5%B7%A7(%E4%B8%80):%E5%8A%A0%E5%BF%AB%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6</id><content type="html" xml:base="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/23/Github%E6%8A%80%E5%B7%A7-%E4%B8%80-%E5%8A%A0%E5%BF%AB%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6.html"><![CDATA[<h4 id="前言">前言</h4>
+
+<p>GitHub 可以说是开源世界中的绝对王牌，说它是中小型互联网公司的基石也不为过。但是国内因为某些的原因导致 git 相关操作都很慢，GitHub 在国内访问速度慢的问题原因有很多，但最直接和最主要的原因是 GitHub 的分发加速网络的域名遭到 dns 污染。慢当然是每个攻城狮都不能忍受的。</p>
+
+<p><strong>科普一下 DNS 污染：</strong></p>
+
+<p>网域服务器缓存污染（DNS cache pollution），又称域名服务器缓存投毒（DNS cache poisoning），是指一些刻意制造或无意中制造出来的域名服务器数据包，把域名指往不正确的 IP 地址。一般来说，在互联网上都有可信赖的网域服务器，但为减低网络上的流量压力，一般的域名服务器都会把从上游的域名服务器获得的解析记录暂存起来，待下次有其他机器要求解析域名时，可以立即提供服务。一旦有关网域的局域域名服务器的缓存受到污染，就会把网域内的计算机导引往错误的服务器或服务器的网址。</p>
+
+<p>下面介绍一下修改 Host，相当于绕过国内 DNS 解析，直接访问 GitHub 的 CDN 节点，从而达到加速目的。</p>
+
+<h5 id="打开-ipaddresscom-网站查询下面-3-个网址对应的-ip-地址">打开 <a href="https://www.ipaddress.com/">IPAddress.com</a> 网站，查询下面 3 个网址对应的 IP 地址</h5>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">github.com</span>
+
+<span class="s">assets-cdn.github.com</span>
+
+<span class="s">github.global.ssl.fastly.net</span>
+</code></pre></div></div>
+
+<h5 id="修改本地电脑系统-hosts-文件">修改本地电脑系统 hosts 文件</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>windows: C:<span class="se">\W</span>indows<span class="se">\S</span>ystem32<span class="se">\d</span>rivers<span class="se">\e</span>tc
+linux: /etc/hosts
+</code></pre></div></div>
+
+<h5 id="直接在最后加入以下代码">直接在最后加入以下代码：</h5>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">192.30.253.112 github.com</span>
+<span class="s">151.101.184.133 assets-cdn.github.com</span>
+<span class="s">151.101.185.194 github.global.ssl.fastly.net</span>
+</code></pre></div></div>
+
+<h5 id="刷新系统缓存">刷新系统缓存</h5>
+
+<p>刷新系统 dns 缓存(Windows)</p>
+
+<p><code class="language-plaintext highlighter-rouge">Linux跳过该步骤</code></p>
+
+<p>用 <code class="language-plaintext highlighter-rouge">WIN+R</code> 快捷键打开运行窗口，输入命令：cmd 并回车进入命令行窗口。 接着输入命令：<code class="language-plaintext highlighter-rouge">ipconfig /flushdns</code> 回车后执行刷新本地 dns 缓存数据即可。</p>
+
+<h5 id="到此为止加速已完成攻城狮们尽情的-git-clone">到此为止，加速已完成，攻城狮们尽情的 git clone</h5>]]></content><author><name>Vanhiupun</name></author><category term="网络技术与技巧" /><category term="Github" /><category term="DNS" /><category term="Hosts" /><category term="技巧" /><summary type="html"><![CDATA[前言]]></summary></entry><entry><title type="html">制作和我一样的Jekyll博客</title><link href="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/20/%E5%88%B6%E4%BD%9C%E5%92%8C%E6%88%91%E4%B8%80%E6%A0%B7%E7%9A%84Jekyll%E5%8D%9A%E5%AE%A2.html" rel="alternate" type="text/html" title="制作和我一样的Jekyll博客" /><published>2021-11-20T00:00:00+00:00</published><updated>2021-11-20T00:00:00+00:00</updated><id>https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/20/%E5%88%B6%E4%BD%9C%E5%92%8C%E6%88%91%E4%B8%80%E6%A0%B7%E7%9A%84Jekyll%E5%8D%9A%E5%AE%A2</id><content type="html" xml:base="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/20/%E5%88%B6%E4%BD%9C%E5%92%8C%E6%88%91%E4%B8%80%E6%A0%B7%E7%9A%84Jekyll%E5%8D%9A%E5%AE%A2.html"><![CDATA[<h4 id="安装">安装</h4>
+
+<div class="language-zsh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone git@github.com:vanhiupun/Vanhiupun.github.io.git
+</code></pre></div></div>
+
+<h4 id="设置环境">设置环境</h4>
+
+<p>1.您将需要<a href="https://www.ruby-lang.org/zh_cn/">Ruby</a>和<a href="https://bundler.io/">Bundler</a>才能使用<a href="https://www.jekyll.com.cn/">Jekyll</a>。遵循使用 <a href="https://jekyllrb.com/tutorials/using-jekyll-with-bundler/">Jekyll 和 Bundler</a>来满足环境要求。</p>
+
+<p>2.要设置您的环境来开发此主题，请运行<code class="language-plaintext highlighter-rouge">bundle install</code>.</p>
+
+<p>3.要测试您的主题，请运行<code class="language-plaintext highlighter-rouge">bundle exec jekyll serve</code>并打开您的浏览器<a href="http://localhost:4000">http://localhost:4000</a>
+这将使用您的主题启动 Jekyll 服务器。
+像往常一样添加页面、文档、数据等来测试您的主题内容。当您对主题和内容进行修改时，您的站点将重新生成，刷新后您应该会看到浏览器中的更改</p>
+
+<p>当你的主题被释放，只有在文件中<code class="language-plaintext highlighter-rouge">_data</code>，<code class="language-plaintext highlighter-rouge">_layouts</code>，<code class="language-plaintext highlighter-rouge">_includes</code>，<code class="language-plaintext highlighter-rouge">_sass</code>和<code class="language-plaintext highlighter-rouge">assets</code>使用 Git 跟踪将被捆绑在一起。
+要将自定义目录添加到您的主题宝石，请相应地编辑正则表达式<code class="language-plaintext highlighter-rouge">jekyll-theme-yat.gemspec</code>。</p>
+
+<h4 id="开始">开始</h4>
+
+<p>你可以通用修改<code class="language-plaintext highlighter-rouge">_config.yml</code>文件来轻松的开始搭建自己的博客:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">title</span><span class="pi">:</span> <span class="s">Vanhiupun blog</span>  <span class="c1"># 你的博客网站标题</span>
+
+<span class="na">email</span><span class="pi">:</span> <span class="s">fanxiaobin422@gamil.com</span> <span class="c1"># 你的邮箱</span>
+
+<span class="na">author</span><span class="pi">:</span> <span class="s">Vanhiupun</span> <span class="c1"># 你的名字</span>
+
+<span class="na">baseurl</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span> <span class="c1"># 网站的子路径，e.g. /blog</span>
+
+<span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span> <span class="c1"># 站点的基本主机名和协议，e.g. http://example.com</span>
+
+<span class="na">favicon</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/favicon.png"</span> <span class="c1"># 网站的图标 使用绝对路径e.g. /favicon.png，不推荐使用./favicon.png</span>
+
+<span class="c1"># 分页设置</span>
+<span class="na">paginate</span><span class="pi">:</span> <span class="m">5</span> <span class="c1">#在主页显示5篇文章</span>
+
+<span class="c1"># 摘录大小设置</span>
+<span class="na">excerpt_size</span><span class="pi">:</span> <span class="m">250</span> <span class="c1">#主页文章字数显示为250字</span>
+
+</code></pre></div></div>
+
+<h4 id="撰写博文">撰写博文</h4>
+
+<p>要发表的文章一般以 Markdown 的格式放在这里<code class="language-plaintext highlighter-rouge">_posts/</code>，你只要看看这篇模板里的文章你就立刻明白该如何设置。</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">post</span> <span class="c1">#布局</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s">科学上网指南（二）：线路的区别与选择</span> <span class="c1">#标题</span>
+<span class="na">categories</span><span class="pi">:</span> <span class="s">科学上网</span> <span class="c1">#分类</span>
+<span class="na">banner</span><span class="pi">:</span>
+  <span class="na">image</span><span class="pi">:</span> <span class="s">https://vanhiupun.github.io/assets/images/banners/jichang.jpeg</span> <span class="c1">#图片地址 也可以使用 ./assets/images/banners/jichang.jpeg</span>
+  <span class="na">opacity</span><span class="pi">:</span> <span class="m">0.618</span> <span class="c1">#不透明度</span>
+  <span class="na">background</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#000"</span> <span class="c1">#背景颜色</span>
+  <span class="na">height</span><span class="pi">:</span> <span class="s2">"</span><span class="s">50vh"</span> <span class="c1">#高度</span>
+  <span class="na">min_height</span><span class="pi">:</span> <span class="s2">"</span><span class="s">50vh"</span> <span class="c1">#宽度</span>
+  <span class="na">heading_style</span><span class="pi">:</span> <span class="s2">"</span><span class="s">font-size:</span><span class="nv"> </span><span class="s">4.25em;</span><span class="nv"> </span><span class="s">font-weight:</span><span class="nv"> </span><span class="s">bold;</span><span class="nv"> </span><span class="s">"</span> <span class="c1">#标题样式</span>
+  <span class="na">subheading_style</span><span class="pi">:</span> <span class="s2">"</span><span class="s">color:</span><span class="nv"> </span><span class="s">gold"</span> <span class="c1">#副标题样式</span>
+<span class="na">tags</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">机场指南</span><span class="pi">]</span> <span class="c1">#标签</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<h4 id="header-image">Header Image</h4>
+
+<p>博客每页的标题底图是可以自己选的，看看几篇示例 post 你就知道如何设置了。</p>
+
+<p>标题底图的选取完全是看个人的审美了。每一篇文章可以有不同的底图，你想放什么就放什么，最后宽度要够，大小不要太大，否则加载慢啊。</p>
+
+<blockquote>
+  <p>上传的图片最好先压缩，这里推荐 imageOptim 图片压缩软件，让你的博客起飞。</p>
+</blockquote>
+
+<p>但是需要注意的是本模板的标题是<strong>白色</strong>的，所以背景色要设置为<strong>灰色</strong>或者<strong>黑色</strong>，总之深色系就对了。当然你还可以自定义修改字体颜色，总之，用 github pages 就是可以完全的个性定制自己的博客。</p>
+
+<h4 id="customization">Customization</h4>
+
+<p>如果你喜欢折腾，你可以去自定义这个模板的 Code。</p>
+
+<p><strong>如果你可以理解 <code class="language-plaintext highlighter-rouge">_include/ </code>和 <code class="language-plaintext highlighter-rouge">_layouts/</code>文件夹下的代码（这里是整个界面布局的地方），你就可以使用 <code class="language-plaintext highlighter-rouge">Jekyll</code> 使用的模版引擎 <code class="language-plaintext highlighter-rouge">Liquid</code>的语法直接修改/添加代码，来进行更有创意的自定义界面啦！</strong></p>
+
+<h4 id="disqus-评论">Disqus 评论</h4>
+
+<p>国际比较流行，界面也很大气、简洁，如果有人评论，还能实时通知，直接回复通知的邮件就行了
+需要去注册一个<a href="https://disqus.com/">Disqus 帐号</a>。将我的账号替换成你的就可以</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Disqus 评论</span>
+<span class="na">disqus</span><span class="pi">:</span>
+  <span class="na">shortname</span><span class="pi">:</span> <span class="s2">"</span><span class="s">vanhiupun"</span> <span class="c1">#在disqus注册一个账号 并将此处换成你自己的账号</span>
+</code></pre></div></div>
+
+<h4 id="analytics">Analytics</h4>
+
+<p>网站分析，现在支持<a href="https://analytics.google.com/analytics/web/">Google Analytics</a>。需要去官方网站注册一下，然后将返回的 code 贴在下面：</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Google Analytics</span>
+<span class="na">google_analytics</span><span class="pi">:</span> <span class="s2">"</span><span class="s">UA-212989441-1"</span>    <span class="c1"># 你用Google账号去注册一个就会给你一个这样的id 将此处替换即可</span>
+</code></pre></div></div>
+
+<h4 id="贡献">贡献</h4>
+
+<p>如果你对这个项目感兴趣，你可以在以下任何一个方面做出贡献：</p>
+<ul>
+  <li>为这个项目加星</li>
+  <li>您可以<a href="https://github.com/vanhiupun/Vanhiupun.github.io/issues/new">打开一个问题</a>，描述您要解决的问题，我们将从那里开始。</li>
+  <li>使用或测试，报告错误或发送补丁请求。</li>
+  <li>如果您的英语很好，请帮助我编写文档。</li>
+</ul>
+
+<h4 id="致谢">致谢</h4>
+
+<p>这个模板是从 <a href="https://github.com/jeffreytse/jekyll-theme-yat">jeffreytse</a> Fork 的, 感谢这个作者。:+1:</p>
+
+<h4 id="相关资源">相关资源</h4>
+
+<p><a href="https://vanhiupun.github.io">演示站点</a></p>
+
+<p><a href="https://vanhiupun.github.io/jekyll/2021/11/20/制作和我一样的Jekyll博客.html">构建Jekyll博客</a></p>
+
+<p><a href="https://vanhiupun.github.io/jekyll/2021/11/16/一步一步创建Jekyll主题.html">Jekyll详细搭建过程</a></p>
+
+<h4 id="赞助">赞助</h4>
+
+<p><a href="https://raw.githubusercontent.com/vanhiupun/Vanhiupun.github.io/master/assets/images/img/zz.png" target="_blank">
+    <img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4335?style=flat-square&amp;logo=GitHub%20Sponsors&amp;logoColor=222222" alt="/GitHub%20Sponsors" />
+</a></p>]]></content><author><name>Vanhiupun</name></author><category term="网络技术与技巧" /><category term="Jekyll" /><category term="博客" /><summary type="html"><![CDATA[安装]]></summary></entry><entry><title type="html">在命令行运行 VSCode（macOS）</title><link href="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/17/%E5%9C%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BF%90%E8%A1%8CVSCode-macOS.html" rel="alternate" type="text/html" title="在命令行运行 VSCode（macOS）" /><published>2021-11-17T00:00:00+00:00</published><updated>2021-11-17T00:00:00+00:00</updated><id>https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/17/%E5%9C%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BF%90%E8%A1%8CVSCode(macOS)</id><content type="html" xml:base="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/17/%E5%9C%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BF%90%E8%A1%8CVSCode-macOS.html"><![CDATA[<h4 id="安装-code-命令后可在终端使用code-path用-vscode-打开当前目标文件夹">安装 code 命令后，可在终端使用”code –path”用 vscode 打开当前目标文件夹。</h4>
+
+<h3 id="安装方式">安装方式</h3>
+
+<h5 id="vscode-中执行-shiftcommandp打开命令面板键入-shell-选择-在path中安装code命令-如下图"><code class="language-plaintext highlighter-rouge">vscode</code> 中执行 <code class="language-plaintext highlighter-rouge">shift+command+p</code>，打开命令面板，键入 <code class="language-plaintext highlighter-rouge">shell</code> ，选择 <code class="language-plaintext highlighter-rouge">“在PATH中安装code命令”</code> ，如下图</h5>
+
+<p><img src="https://vanhiupun.github.io/assets/images/banners/code-shell.png" alt="在PATH中安装code命令" /></p>
+
+<h3 id="使用方式">使用方式</h3>
+
+<p>安装完成后，在终端输入类似如下命令</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>md ~/Desktop/code
+<span class="nb">touch</span> ~/Desktop/code/test.html
+code ~/Desktop/code
+</code></pre></div></div>
+
+<p>或者是 cd 到当前目录使用 <code class="language-plaintext highlighter-rouge">code .</code> 即可打开</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> ~/Desktop/code
+code <span class="nb">.</span>
+</code></pre></div></div>
+
+<p>在命令行里使用 <code class="language-plaintext highlighter-rouge">code --help</code> 查看帮助
+<img src="https://vanhiupun.github.io/assets/images/banners/code-cmd.png" alt="在命令行里使用 `code --help` 查看帮助" /></p>]]></content><author><name>Vanhiupun</name></author><category term="网络技术与技巧" /><category term="VScode" /><category term="命令行" /><category term="终端" /><summary type="html"><![CDATA[安装 code 命令后，可在终端使用”code –path”用 vscode 打开当前目标文件夹。]]></summary></entry><entry><title type="html">一步一步创建Jekyll主题</title><link href="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/16/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%88%9B%E5%BB%BAJekyll%E4%B8%BB%E9%A2%98.html" rel="alternate" type="text/html" title="一步一步创建Jekyll主题" /><published>2021-11-16T00:00:00+00:00</published><updated>2021-11-16T00:00:00+00:00</updated><id>https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/16/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%88%9B%E5%BB%BAJekyll%E4%B8%BB%E9%A2%98</id><content type="html" xml:base="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/16/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%88%9B%E5%BB%BAJekyll%E4%B8%BB%E9%A2%98.html"><![CDATA[<h2 id="搭建本地的-jekyll-环境">搭建本地的 Jekyll 环境</h2>
+
+<ol>
+  <li>安装 ruby 环境
+<code class="language-plaintext highlighter-rouge">sudo apt-get install ruby</code></li>
+  <li>安装 Jekyll
+<code class="language-plaintext highlighter-rouge">sudo gem install jekyll</code></li>
+  <li>安装 kramdown
+<code class="language-plaintext highlighter-rouge">sudo gem install kramdown</code></li>
+  <li>安装 rouge
+<code class="language-plaintext highlighter-rouge">sudo gem install rouge</code></li>
+  <li>测试 Jekyll 是否安装完成
+<code class="language-plaintext highlighter-rouge">jekyll --version</code></li>
+</ol>
+
+<blockquote>
+  <p>从上面可以看出，这是一套基于 Ruby 语言的工具集。
+<strong>题外话：</strong>gem install 是 ruby 用来管理 ruby 工具集的工具，而 npm install 是 nodejs 用来管理 js 工具集的工具。</p>
+</blockquote>
+
+<h2 id="本地跑起来">本地跑起来</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll new mytheme
+<span class="nb">cd </span>mytheme
+jekyll server
+</code></pre></div></div>
+
+<p>运行上面的命令，然后访问<a href="http://127.0.0.1:4000">127.0.0.1:4000</a>，就能看到一个由 Jekyll 搭建的博客了。</p>
+
+<h2 id="github-pages-环境本地化">Github Pages 环境本地化</h2>
+
+<p>上面搭建的只是 Jekyll 的本地环境，当 push 到 Github Pages 后环境会有所变化，为了本地看到的效果和托管在 Github Pages 看到的效果一致，我们最好搭建本地的 Github Pages 环境。</p>
+
+<ol>
+  <li>升级 ruby 到 2.0.0 以上
+如果<code class="language-plaintext highlighter-rouge">ruby --version</code>查看版本低于 2.0.0，那么需要升级 ruby。</li>
+  <li>安装 ruby 工具集管理工具<a href="http://bundler.io/">Bundler</a>
+<code class="language-plaintext highlighter-rouge">sudo gem install bundler</code></li>
+  <li>创建 Gemfile
+在上面的 mytheme 根目录下创建一个 Gemfile 文件，内容为：
+<code class="language-plaintext highlighter-rouge">source 'https://rubygems.org'</code>
+<code class="language-plaintext highlighter-rouge">gem 'github-pages', group::jekyll_plugins</code></li>
+  <li>安装 Github Pages 的工具集
+在 Gemfile 所在的目录，即 Jekyll 主题的根目录，执行下面的命令：
+<code class="language-plaintext highlighter-rouge">bundle install</code></li>
+  <li>跑起来
+<code class="language-plaintext highlighter-rouge">bundle exec jekyll serve</code></li>
+</ol>
+
+<p>如果出现<code class="language-plaintext highlighter-rouge">bundle exec jekyll serve</code>能启动，而<code class="language-plaintext highlighter-rouge">jekyll serve</code>不能启动，则删除 Gemfile 和 Gemfile.lock 重新运行<code class="language-plaintext highlighter-rouge">jekyll serve</code>即可。
+更多 Github Pages 本地化环境搭建，<a href="https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll">可参考</a></p>
+
+<h3 id="bundle-install-失败">bundle install 失败</h3>
+
+<p>Fetching json 1.8.3
+An error occurred while installing json (1.8.3), and Bundler cannot continue.
+Make sure that <code class="language-plaintext highlighter-rouge">gem install json -v '1.8.3'</code> succeeds before bundling.</p>
+
+<p>原因：json 1.8.3 安装失败，可能是不兼容原因。
+解决：打开<code class="language-plaintext highlighter-rouge">Gemfile.lock</code>，搜索 1.8.3，把<code class="language-plaintext highlighter-rouge">json (1.8.3)</code>改为<code class="language-plaintext highlighter-rouge">json (1.8.5)</code>或其他更高版本。
+重试：<code class="language-plaintext highlighter-rouge">bundle install</code></p>
+
+<h2 id="windows-下搭建-jekyll-环境">Windows 下搭建 Jekyll 环境</h2>
+
+<p>因为不少的时间在 Windows 平台下工作，所以后来还是搭建了 Windows 下的 Jekyll 环境。</p>
+
+<ol>
+  <li>安装 ruby 环境
+下载<a href="http://rubyinstaller.org/downloads">ruby for windows</a>，随便搜索即可，建议安装 ruby2.0 以上。</li>
+  <li>安装完毕，设置 Windows 环境变量
+在我的电脑 - 属性 - 高级 - 环境变量 - 系统 - path 字段，添加 ruby 的安装路径。比如<code class="language-plaintext highlighter-rouge">C:\Ruby22\bin;</code>，安装包有提供选项可以在安装时自动添加到 path。</li>
+  <li>安装 Jekyll
+打开命令行，输入 gem.bat (Ruby22/bin/gem.bat)，如果没有找到该命令，说明环境变量还没有生效。在命令行输入<code class="language-plaintext highlighter-rouge">set a = b</code>，然后重启命令行即可(运行 set 只是让命令行重新加载环境变量)。
+执行<code class="language-plaintext highlighter-rouge">gem install jekyll</code></li>
+  <li>安装 bundler
+<code class="language-plaintext highlighter-rouge">gem install bundler</code></li>
+  <li>使用 bundler 安装 github pages 的依赖
+<code class="language-plaintext highlighter-rouge">bundle install</code></li>
+  <li>跑起来
+<code class="language-plaintext highlighter-rouge">bundle exec jekyll server</code></li>
+  <li>如果端口被占用
+<code class="language-plaintext highlighter-rouge">bundle exec jekyll server --port 5000</code></li>
+</ol>
+
+<h3 id="bundle-install-失败-1">bundle install 失败</h3>
+
+<p>bundle install 出现了以下错误:</p>
+
+<p>Please update your PATH to include build tools or download the DevKit
+from ‘http://rubyinstaller.org/downloads’ and follow the instructions
+at ‘http://github.com/oneclick/rubyinstaller/wiki/Development-Kit’
+大致意思是插件需要编译安装，而系统没有安装编译环境，只有运行环境，请按照 wiki 里面的步骤安装。</p>
+
+<p>修复：
+下载<a href="http://rubyinstaller.org/downloads">ruby-devkit</a>，如果 ruby 是 32 位则下载 32 位的 devkit，否则下载 64 位的。</p>
+
+<blockquote>
+  <p>ruby –version 可以看到是 32 位还是 64 位</p>
+</blockquote>
+
+<p>安装：
+详细说明在<a href="https://github.com/oneclick/rubyinstaller/wiki/Development-Kit">github wiki</a>里</p>
+
+<ol>
+  <li>解压 devkit 到目录 A</li>
+  <li>进入目录 A</li>
+  <li>命令行下运行<code class="language-plaintext highlighter-rouge">ruby dk.rb init</code></li>
+  <li>运行<code class="language-plaintext highlighter-rouge">ruby dk.rb review</code></li>
+  <li>运行<code class="language-plaintext highlighter-rouge">ruby dk.rb install</code></li>
+  <li>如果上述步骤只有 info 输出而没有 warning 输出，则应该安装成功了</li>
+  <li>测试<code class="language-plaintext highlighter-rouge">gem install json --platform=ruby</code>如果安装成功，则表示 devkit 安装成功</li>
+  <li>如果失败，可以重装 ruby 和 ruby-devkit，或者选择更低的 ruby 版本</li>
+</ol>
+
+<h3 id="rubybin-下面的-bundle-与-bundlebat-区别">ruby/bin 下面的 bundle 与 bundle.bat 区别</h3>
+
+<p>bundle 是 ruby 脚本而 bundle.bat 是 windows 批处理文件
+在 windows 命令行下，bundle 其实执行的是 bundle.bat，所以不会报错。bundle 文件不会被识别为可执行文件。
+在 mingw 命令行下(mingw/msys.bat)，bundle 可以成功执行，而 bundle.bat 则会因为使用了 windows 命令而报错。</p>
+
+<h2 id="环境配置总结">环境配置总结</h2>
+
+<p>环境的配置，简而言之，只有以下的步骤：</p>
+
+<ol>
+  <li>安装 ruby</li>
+  <li>gem install jekyll</li>
+  <li>gem install bundle</li>
+  <li>git clone jekyll 主题</li>
+  <li>cd 进入 jekyll 主题</li>
+  <li>bundle install</li>
+  <li>bundle exec jekyll server</li>
+</ol>
+
+<h2 id="需要一个网页原型">需要一个网页原型</h2>
+
+<p>Github Pages 和 Jekyll 本地环境已经搭建完成，访问<a href="http://127.0.0.1:4000">127.0.0.1:4000</a>也能够看到一个简单的博客，接下来就是思考自己的博客应该长哪样。</p>
+
+<p>一般来说，要定制自己的博客，最好先设计出博客的网页原型，所谓网页原型即是使用 html、css 甚至 js 来完成静态的网页效果。当前博客的原型只有三个页面：<code class="language-plaintext highlighter-rouge">index.html</code>、<code class="language-plaintext highlighter-rouge">article.html</code>和<code class="language-plaintext highlighter-rouge">post.html</code>。</p>
+
+<p>最后，<strong>Jekyll 模板已经跑起来了，网页原型也有了，怎么将两者结合起来呢？</strong>在整合之前，我们需要先了解 Jekyll 博客系统。</p>
+
+<h2 id="初步认识-jekyll">初步认识 Jekyll</h2>
+
+<h3 id="jekyll-是什么">Jekyll 是什么</h3>
+
+<p>Jekyll 的描述是，将纯文本转化为静态博客网站，不需要数据库和评论功能。
+其实更贴切的描述应该是这样</p>
+
+<blockquote>
+  <p>Jekyll 是一个静态博客系统，在服务器启动前可写，在服务器启动后只读，所以无法实现数据库和评论功能。</p>
+</blockquote>
+
+<h3 id="静态网页">静态网页</h3>
+
+<p>静态网页和动态网页的区别是，静态网页无论是否访问，它就已经存在那里，并且内容已经固定不可改。所以 Jekyll 在每次增加文章时就已经生成对应的静态网页，而不是每次访问时动态生成的。</p>
+
+<p>举个例子</p>
+
+<blockquote>
+  <p>当前 Jekyll 模板有一个页面：categories.html（目录和对应的文章列表页）</p>
+
+  <p>当新增一篇 demo.md 文章后，Jekyll 会重新生成新的博客站点，demo.md 会被转化为 demo.html，而 categories.html 会被重新生成，内容是包含 demo 这篇新文章的列表。</p>
+
+  <p><strong>所以</strong>，Jekyll 的页面都是在访问前就已经重新生成了，这就是静态。</p>
+</blockquote>
+
+<h3 id="没有数据库">没有数据库</h3>
+
+<p>如果<code class="language-plaintext highlighter-rouge">数据库</code>指的是像 MySQL 那种可读写的数据库，Jekyll 确实没有。但是如果<code class="language-plaintext highlighter-rouge">数据库</code>指的只是存储数据的地方，Jekyll 其实是有的，只不过是<code class="language-plaintext highlighter-rouge">只读</code>的。</p>
+
+<p>Jekyll 内的<code class="language-plaintext highlighter-rouge">_config.yml</code>配置、各种内置对象(<code class="language-plaintext highlighter-rouge">site</code>、<code class="language-plaintext highlighter-rouge">page</code>、<code class="language-plaintext highlighter-rouge">categories</code>等)、用户自定义的内容（变量、集合、文本、网页等），都可以看做是 Jekyll 的数据库，开发者可以访问这个数据库组织自己的页面内容，<strong>除了可以在 Jekyll 构建站点时直接访问，还可以写到 json 格式的文件暴露出来在网页初始化时访问</strong>。</p>
+
+<blockquote>
+  <p>但有一点要注意：Jekyll 内所有可访问的变量都是<code class="language-plaintext highlighter-rouge">静态</code>的，也即是<code class="language-plaintext highlighter-rouge">只读</code>的，所以不可以重新赋值！</p>
+</blockquote>
+
+<h3 id="没有评论功能">没有评论功能</h3>
+
+<p>Jekyll 是无法写入的，所以无法支持评论功能。任何写入操作都只能借助第三方服务。</p>
+
+<h2 id="理解-markdown-是如何工作的">理解 Markdown 是如何工作的</h2>
+
+<p>这是一段 markdown 文本：</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gu">## Markdown Demo</span>
+
+This is a <span class="sb">`markdown`</span> demo
+<span class="gt">
+&gt; try it</span>
+</code></pre></div></div>
+
+<p>使用 markdown 转换器转换后得到的 html 是这样的：</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h2&gt;</span>Markdown Demo<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;p&gt;</span>This is a <span class="nt">&lt;code&gt;</span>markdown<span class="nt">&lt;/code&gt;</span> demo<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;blockquote&gt;</span>
+  <span class="nt">&lt;p&gt;</span>try it<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/blockquote&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Markdown 转换结果只是单纯的 html 页面，关于页面的样式，需要我们自己提供 css</strong>
+添加下面的 css</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nt">style</span><span class="o">&gt;</span>
+<span class="nt">h2</span> <span class="p">{</span>
+	<span class="nl">color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">blockquote</span> <span class="p">{</span>
+	<span class="nl">background-color</span><span class="p">:</span> <span class="m">#fef3f3</span><span class="p">;</span>
+	<span class="nl">border-left</span><span class="p">:</span> <span class="m">4px</span> <span class="nb">solid</span> <span class="m">#d6a6a6</span><span class="p">;</span>
+	<span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>总结</p>
+
+<blockquote>
+  <p>Markdown 解析器只是将文本转换为 html，并不会为 html 添加默认的 css 样式。
+Jekyll 模板里有对应的 css 文件用于转换后的 html 页面效果。
+<strong>另外注意，不同的 markdown 转换器得到的 html 标签的属性可能不一样，有的转换器可能会在标签中加入转换器名称做标识，所以 css 选择器具体要以转换后的结果为准。</strong></p>
+</blockquote>
+
+<p>比如，Markdown 的 TOC 功能得到的列表是这样的</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">"markdown-toc"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li&gt;</span>目录<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+
+<h2 id="理解-highlight-语法高亮是如何实现的">理解 Highlight 语法高亮是如何实现的</h2>
+
+<p>markdown 里代码块是这样的：</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="err">```</span><span class="nt">css</span>
+  <span class="o">&lt;</span><span class="nt">style</span><span class="o">&gt;</span>
+ <span class="err">```</span>
+</code></pre></div></div>
+
+<p>通过 rouge 语法高亮引擎，得到的 html 内容是这样的：</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"language-css highlighter-rouge"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;pre</span> <span class="na">class=</span><span class="s">"highlight"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;code&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"o"</span><span class="nt">&gt;</span><span class="ni">&amp;lt;</span><span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nt"</span><span class="nt">&gt;</span>style<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"o"</span><span class="nt">&gt;</span><span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>&gt;
+    <span class="nt">&lt;/code&gt;</span>
+  <span class="nt">&lt;/pre&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>rouge 语法高亮引擎附带了对应的 rouge.css：</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.highlight</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#d53fb7</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.highlight</span> <span class="nc">.o</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#f92672</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.highlight</span> <span class="nc">.nt</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#f92672</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>于是，页面的代码块就根据关键字、变量、字符串等有了不一样的颜色</strong></p>
+
+<p>总结</p>
+
+<blockquote>
+  <p>语法高亮引擎的作用，只是根据代码的语言，分割出与之对应的关键字、变量、字符串等，并赋予对应的 css 样式，最后调整 css 的颜色就形成了代码高亮的效果。
+同样，Jekyll 模板里有对应的 css 文件用于高亮效果。</p>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">Tips</code></p>
+
+<p>rouge.css 导出需要执行命令，可以参考<a href="https://github.com/jneen/rouge">rouge 文档</a></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>rougify foo.rb
+<span class="nv">$ </span>rougify style monokai.sublime <span class="o">&gt;</span> rouge.css
+</code></pre></div></div>
+
+<h2 id="开始制作自己的-jekyll-主题">开始制作自己的 Jekyll 主题</h2>
+
+<h3 id="新建-jekyll-模板">新建 Jekyll 模板</h3>
+
+<p><strong>按照上面的指引，新建一个模板，并搭建好 Github Pages 的本地环境：</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">jekyll new mytheme</code></p>
+
+<h3 id="认识-jekyll-模板的结构">认识 Jekyll 模板的结构</h3>
+
+<p>下面是用<code class="language-plaintext highlighter-rouge">tree</code>命令输出的目录结构，只是位置进行了调整</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">├── index.html</span>
+<span class="s">├── about.md</span>
+<span class="s">├── _config.yml</span>       <span class="c1"># Jekyll核心配置文件</span>
+<span class="s">├── feed.xml</span>
+<span class="s">├── Gemfile</span>           <span class="c1"># Github Pages本地化的文件</span>
+<span class="s">├── Gemfile.lock</span>      <span class="c1"># Github Pages本地化的文件</span>
+<span class="s">├── _sass</span>
+<span class="s">│   ├── _base.scss</span>                  <span class="c1"># markdown对应的css</span>
+<span class="s">│   ├── _layout.scss</span>
+<span class="s">│   └── _syntax-highlighting.scss</span>   <span class="c1"># 语法高亮对应的css</span>
+<span class="s">├── css</span>
+<span class="s">│   └── main.scss</span>           <span class="c1"># 其实就是css</span>
+<span class="s">├── _includes</span>
+<span class="s">│   ├── footer.html</span>         <span class="c1"># 页脚html片段</span>
+<span class="s">│   ├── header.html</span>         <span class="c1"># 页头html片段</span>
+<span class="s">│   ├── head.html</span>           <span class="c1"># html片段</span>
+<span class="s">│   ├── icon-github.html</span>    <span class="c1"># html片段</span>
+<span class="s">│   ├── icon-github.svg</span>     <span class="c1"># github图标</span>
+<span class="s">│   ├── icon-twitter.html</span>   <span class="c1"># html片段</span>
+<span class="s">│   └── icon-twitter.svg</span>    <span class="c1"># twitter图标</span>
+<span class="s">├── _layouts</span>
+<span class="s">│   ├── default.html</span>        <span class="c1"># default页面</span>
+<span class="s">│   ├── page.html</span>           <span class="c1"># page页面</span>
+<span class="s">│   └── post.html</span>           <span class="c1"># post页面</span>
+<span class="s">├── _posts</span>
+<span class="s">│   └── 2016-08-24-welcome-to-jekyll.markdown</span>
+<span class="s">└── _site</span>             <span class="c1"># Jekyll最终生成的静态网站</span>
+    <span class="s">├── about</span>
+    <span class="s">│   └── index.html</span>
+    <span class="s">├── css</span>
+    <span class="s">│   └── main.css</span>  <span class="c1"># 如果不喜欢上面的那堆scss，那么复制这个过去就够了</span>
+    <span class="s">├── feed.xml</span>
+    <span class="s">├── Gemfile</span>
+    <span class="s">├── Gemfile.lock</span>
+    <span class="s">├── index.html</span>
+    <span class="s">└── jekyll</span>
+        <span class="s">└── update</span>
+            <span class="s">└── </span><span class="m">2016</span>
+                <span class="s">└── </span><span class="m">08</span>
+                    <span class="s">└── </span><span class="m">24</span>
+                        <span class="s">└── welcome-to-jekyll.html</span>
+</code></pre></div></div>
+
+<h3 id="简化模板">简化模板</h3>
+
+<p>去掉不必要的文件，简化当前模板，得到结构：</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">├── index.html</span>
+<span class="s">├── _config.yml</span>       <span class="c1"># Jekyll核心配置文件</span>
+<span class="s">├── feed.xml</span>
+<span class="s">├── Gemfile</span>           <span class="c1"># Github Pages本地化的文件</span>
+<span class="s">├── Gemfile.lock</span>      <span class="c1"># Github Pages本地化的文件</span>
+<span class="s">├── css</span>
+<span class="s">│   └── markdown.css</span>    <span class="c1"># 提取上面_site/css/main.css中设置html部分</span>
+<span class="s">│   └── highlight.css</span>   <span class="c1"># 提取上面_site/css/main.css中语法高亮部分</span>
+<span class="s">├── _includes</span>
+<span class="s">├── _layouts</span>
+<span class="s">│   └── post.html</span>       <span class="c1"># 文章页框架</span>
+<span class="s">├── _posts</span>
+<span class="s">│   └── 2016-08-24-welcome-to-jekyll.markdown</span>
+
+</code></pre></div></div>
+
+<blockquote>
+  <p>如果不知道如何动手，删除多余文件保留上面的结构即可</p>
+</blockquote>
+
+<h3 id="将网页原型加入模板">将网页原型加入模板</h3>
+
+<p>把设计好的 html、javascript、css 复制到模板开始改造，在改造前需要<strong>深入理解 Jekyll</strong></p>
+
+<h3 id="深入理解-jekyll">深入理解 Jekyll</h3>
+
+<h4 id="_layouts目录"><code class="language-plaintext highlighter-rouge">_layouts</code>目录</h4>
+
+<p>该目录下的页面是”包含”其它内容的关系，一般是页面框架</p>
+
+<h4 id="_includes目录"><code class="language-plaintext highlighter-rouge">_includes</code>目录</h4>
+
+<p>该目录下的片段是“被包含”的关系，可以是任何格式的文件，片段也可以 include 片段。
+include 的语法： <code class="language-plaintext highlighter-rouge">{% include head.html %}</code></p>
+
+<p>_layouts 和_includes 与普通页面的关系图：
+![jekyll-layout-include][jekyll-layout-include]</p>
+
+<blockquote>
+  <p>注意：default.html 里访问 index.html 生成的内容是直接访问<code class="language-plaintext highlighter-rouge">content</code>，而不是<code class="language-plaintext highlighter-rouge">page.content</code>或<code class="language-plaintext highlighter-rouge">post.content</code>，这两者的关系大概是前者才是经过处理后的 html 片段，而后者是原始的文本，包含未解析的 liquid 语法。</p>
+</blockquote>
+
+<h4 id="_configyml配置文件"><code class="language-plaintext highlighter-rouge">_config.yml</code>配置文件</h4>
+
+<p>Jekyll 站点的配置文件，可以存储数据，用于配置 Jekyll 的插件和运行环境</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 自定义变量</span>
+<span class="na">domain</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://jokinkuang.info"</span> <span class="c1"># the domain URL for your site</span>
+
+<span class="c1"># 配置</span>
+<span class="na">excerpt_separator</span><span class="pi">:</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s">"</span> <span class="c1"># you can specify your own separator here, default is "\n\n" String</span>
+<span class="na">permalink</span><span class="pi">:</span> <span class="s">/:year/:month/:day/:title.html</span>
+<span class="na">highlighter</span><span class="pi">:</span> <span class="s">rouge</span>  <span class="c1"># 使用rouge作为语法高亮引擎</span>
+<span class="na">markdown</span><span class="pi">:</span> <span class="s">kramdown</span>  <span class="c1"># 使用kramdown作为markdown的转换器</span>
+<span class="na">kramdown</span><span class="pi">:</span>
+  <span class="na">input</span><span class="pi">:</span> <span class="s">GFM</span>
+  <span class="na">hard_wrap</span><span class="pi">:</span> <span class="no">true</span> <span class="c1"># a newline in markdown text would be changed to &lt;br&gt;</span>
+<span class="na">gems</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">jemoji</span> <span class="c1"># 要站点支持Github表情，必须添加</span>
+
+<span class="c1"># 上传到Github Pages时Github会进行配置的项，详见：Github Help With Configuring Jekyll</span>
+
+<span class="c1"># Github Pages默认配置项，Jekyll的配置可以覆盖</span>
+<span class="c1"># kramdown:</span>
+<span class="c1">#   input: GFM</span>
+<span class="c1">#   hard_wrap: false</span>
+<span class="c1"># gems:</span>
+<span class="c1">#   - jekyll-coffeescript</span>
+<span class="c1">#   - jekyll-paginate</span>
+
+<span class="c1"># Github Pages不可改变项，会覆盖Jekyll的配置</span>
+<span class="c1"># lsi: false</span>
+<span class="c1"># safe: true</span>
+<span class="c1"># source: [your repo's top level directory]</span>
+<span class="c1"># incremental: false</span>
+<span class="c1"># highlighter: rouge</span>
+<span class="c1"># gist:</span>
+<span class="c1">#  noscript: false</span>
+<span class="c1"># kramdown:</span>
+<span class="c1">#  math_engine: mathjax</span>
+</code></pre></div></div>
+
+<h4 id="创建页面">创建页面</h4>
+
+<table>
+  <tbody>
+    <tr>
+      <td>方式一</td>
+      <td>**某路径**下添加<code class="language-plaintext highlighter-rouge">xxx.html</code>，访问地址为<code class="language-plaintext highlighter-rouge">该路径/xxx.html</code></td>
+    </tr>
+    <tr>
+      <td>方式二</td>
+      <td>**某路径**下添加<code class="language-plaintext highlighter-rouge">xxx/index.html</code>，访问地址为<code class="language-plaintext highlighter-rouge">该路径/xxx</code>，无需后缀</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="front-matteryaml-头信息"><code class="language-plaintext highlighter-rouge">front matter</code>(Yaml 头信息)</h4>
+
+<p>每个页面都可以有自己的头信息，可以覆盖 Jekyll 和_config.yml 里面的值</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">post</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s">一步一步创建Jekyll主题</span>
+<span class="na">categories</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">jekyll github markdown rouge</span><span class="pi">]</span>
+<span class="na">date</span><span class="pi">:</span> <span class="s">2016-9-3 15:47:05</span>
+<span class="na">excerpt</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>   <span class="c1"># 覆盖清掉文章的摘要</span>
+<span class="na">pid</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>       <span class="c1"># 新建一个pid的字符串变量</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<h4 id="site变量"><code class="language-plaintext highlighter-rouge">site</code>变量</h4>
+
+<p>来自<code class="language-plaintext highlighter-rouge">_config.yml</code>配置文件和 Jekyll 内置变量，下面是常用的属性：</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>site.posts</td>
+      <td>从新到旧排序的 posts 文章列表集合</td>
+    </tr>
+    <tr>
+      <td>site.categories</td>
+      <td>以目录分类的文章列表 Map<code class="language-plaintext highlighter-rouge">{cate1:[post1, post2], cate2:[post3, post4]}</code></td>
+    </tr>
+    <tr>
+      <td>site.tags</td>
+      <td>同上，以 tags 分类的文章列表 Map<code class="language-plaintext highlighter-rouge">{tag1:[post1, post2], tag2:[post3, post4]}</code></td>
+    </tr>
+    <tr>
+      <td>site.XXX</td>
+      <td><code class="language-plaintext highlighter-rouge">_config.yml</code>配置文件中<code class="language-plaintext highlighter-rouge">XXX: val</code>的 val 值，val 可以是字符串/数组/集合</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="page变量"><code class="language-plaintext highlighter-rouge">page</code>变量</h4>
+
+<p>指代当前页面的变量，在 index.html 里使用 page，page 指的就是 index.html 这个页面，常用属性：</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>page.content</td>
+      <td>页面**源码**(含有 markdown/liquid 等语句)</td>
+    </tr>
+    <tr>
+      <td>page.title</td>
+      <td>页面标题</td>
+    </tr>
+    <tr>
+      <td>page.excerpt</td>
+      <td>页面摘要**源码**，可通过_config.yml 配置摘要算法</td>
+    </tr>
+    <tr>
+      <td>page.url</td>
+      <td>页面的**相对路径**</td>
+    </tr>
+    <tr>
+      <td>page.date</td>
+      <td>页面的时间和日期</td>
+    </tr>
+    <tr>
+      <td>page.categories</td>
+      <td>页面的 categories 数组，<code class="language-plaintext highlighter-rouge">linux/ruby/_posts/ruby.md</code>文章会把 linux 和 ruby 加入 categories，和上面的 site.categories 不同！</td>
+    </tr>
+    <tr>
+      <td>page.tags</td>
+      <td>页面的 tags 数组</td>
+    </tr>
+    <tr>
+      <td>page.path</td>
+      <td>页面的实际路径(源码路径)</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>注意：当前页面的 Front Matter 中设置的 xxx: val 可以通过 page.xxx 访问 val 值
+另外：site.posts 数组的元素 post 和 page 具有几乎一样的属性</p>
+</blockquote>
+
+<h4 id="liquid语法"><code class="language-plaintext highlighter-rouge">liquid</code>语法</h4>
+
+<p>Jekyll 内变量操作是使用<a href="https://github.com/Shopify/liquid/wiki/Liquid-for-Designers">Liquid 语法</a></p>
+
+<p>主要有：</p>
+
+<ol>
+  <li>
+    <p>显示变量的值
+<code class="language-plaintext highlighter-rouge">{{ 变量名 }}</code></p>
+
+    <p>如果要组成字符串，可以这样：<code class="language-plaintext highlighter-rouge">"字符串头部{{ 变量名 }}字符串尾部"</code></p>
+
+    <p>也可以使用 Filter：<code class="language-plaintext highlighter-rouge">{{ "字符串头部" | append : 变量名 | append : "字符串尾部" }}</code></p>
+
+    <p>如，显示文章的标题：<code class="language-plaintext highlighter-rouge">{{ page.title }}</code></p>
+  </li>
+  <li>
+    <p>使用变量的值进行计算
+文章的标题计算 <code class="language-plaintext highlighter-rouge">{% assign titleAndDate = page.title | append: page.date %}</code></p>
+
+    <p><code class="language-plaintext highlighter-rouge">assign x = y</code>是声明一个变量并赋值，<strong>声明必须赋值！</strong></p>
+
+    <p><code class="language-plaintext highlighter-rouge">xxx | append: "str"</code>是 Liquid 语法中的 Filter，可以理解为管道，也可以简单理解为<code class="language-plaintext highlighter-rouge">对象|方法:参数</code></p>
+
+    <p>Filter 可以连续执行：<code class="language-plaintext highlighter-rouge">xxx | append: "str1" | append: "str2"</code></p>
+  </li>
+  <li>
+    <p>if 语句</p>
+
+    <div class="language-liquid highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{%</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="nv">site</span><span class="p">.</span><span class="nv">title</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="p">%}</span>
+<span class="p">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"A"</span><span class="w"> </span><span class="p">%}</span>
+<span class="p">{%</span><span class="w"> </span><span class="kr">elsif</span><span class="w"> </span><span class="nv">site</span><span class="p">.</span><span class="nv">title</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"stepbystep"</span><span class="w"> </span><span class="p">%}</span>
+<span class="p">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"B"</span><span class="w"> </span><span class="p">%}</span>
+<span class="p">{%</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">%}</span>
+<span class="p">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"C"</span><span class="w"> </span><span class="p">%}</span>
+<span class="p">{%</span><span class="w"> </span><span class="kr">endif</span><span class="w"> </span><span class="p">%}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>for 语句</p>
+
+    <div class="language-liquid highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{%</span><span class="w"> </span><span class="nt">for</span><span class="w"> </span><span class="nv">post</span><span class="w"> </span><span class="nt">in</span><span class="w"> </span><span class="nv">site.posts</span><span class="w"> </span><span class="p">%}</span>
+ <span class="p">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">title</span><span class="w"> </span><span class="p">%}</span>
+ The post title is <span class="p">{{</span><span class="w"> </span><span class="nv">title</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{%</span><span class="w"> </span><span class="nt">endfor</span><span class="w"> </span><span class="p">%}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>访问 map 的 key 和 value
+像<code class="language-plaintext highlighter-rouge">site.categories</code>其实是一个 map，访问分类是 linux 的文章集合有两种方式：
+方式一: <code class="language-plaintext highlighter-rouge">site.categories.linux</code>即是分类为 linux 的 posts 列表
+方式二: <code class="language-plaintext highlighter-rouge">for cate in site.categories</code>，<code class="language-plaintext highlighter-rouge">cate[0]</code>是 linux，<code class="language-plaintext highlighter-rouge">cate[1]</code>是 posts 列表</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p>注意：如果{% %}里面的是语句，<strong>一行只能有一个而不能有多个</strong></p>
+</blockquote>
+
+<h3 id="改造自己的主题">改造自己的主题</h3>
+
+<p>至此，Jekyll 的使用、Liquid 的语法、Markdown 的样式、语法高亮的配色都已经讲述，接下来就是动手完成自己的主题，以下是一些点：</p>
+
+<ul>
+  <li>加入<code class="language-plaintext highlighter-rouge">html</code>、<code class="language-plaintext highlighter-rouge">css</code>、<code class="language-plaintext highlighter-rouge">js</code>等需要的文件</li>
+  <li>提取相同的内容到<code class="language-plaintext highlighter-rouge">_includes</code>目录</li>
+  <li>需要复用的页面框架，比如 post 文章页，放到<code class="language-plaintext highlighter-rouge">_layouts</code>目录</li>
+  <li>一些配置字符串，放在<code class="language-plaintext highlighter-rouge">_config.yml</code>文件内</li>
+  <li>使用<strong>Liquid 语法</strong>在页面中访问<code class="language-plaintext highlighter-rouge">site</code>，<code class="language-plaintext highlighter-rouge">page</code>等信息组织内容</li>
+  <li>调整 html 页面标签的 css 定制自己的 Markdown 样式</li>
+  <li>调整语法高亮的 css 定制自己的语法高亮颜色值</li>
+  <li>你可能需要一个 MarkdownDemo 来测试站点的样式</li>
+</ul>
+
+<h2 id="除此之外我做了什么">除此之外我做了什么</h2>
+
+<p>请参考<a href="http://www.jokinkuang.info/2016/09/18/what-did-i-do-for-the-blog.html">我做了什么</a></p>
+
+<h2 id="上传自己的主题到-jekyllthemes">上传自己的主题到 JekyllThemes</h2>
+
+<p>如果希望自己的主题可以让更多人看到或使用，可以上传到<a href="http://jekyllthemes.org/">JekyllThemes</a>这个站点</p>
+
+<ol>
+  <li>准备一张 250x200 的预览图</li>
+  <li><code class="language-plaintext highlighter-rouge">fork</code>这个<a href="https://github.com/mattvh/jekyllthemes/fork">JekyllThemes</a>项目源码到自己的 Github 仓库</li>
+  <li>找到自己的 Github 仓库中 fork 的这个 JekyllThemes 项目</li>
+  <li><code class="language-plaintext highlighter-rouge">clone</code>自己仓库的 JekyllThemes 项目到本地</li>
+  <li>将预览图放到<code class="language-plaintext highlighter-rouge">thumbnails</code>目录，在<code class="language-plaintext highlighter-rouge">_posts</code>下复制一篇文章，替换为自己的主题信息</li>
+  <li>执行<code class="language-plaintext highlighter-rouge">bundle exec jekyll server</code>本地预览效果</li>
+  <li>本地调试直到网站已经添加了自己的主题</li>
+  <li><code class="language-plaintext highlighter-rouge">commit</code>并且<code class="language-plaintext highlighter-rouge">push</code>添加的代码(此时代码只是提交到自己仓库的 JekyllThemes 项目)</li>
+  <li>网页访问自己仓库的 JekyllThemes 项目，点击<code class="language-plaintext highlighter-rouge">New pull request</code>发起一个合并请求</li>
+  <li>此时提交已经发送给 JekyllThemes 项目的管理员，等待管理员合并提交</li>
+</ol>
+
+<blockquote>
+  <p>注意：图片的规格最好一致，并且进行本地测试，否则即使提交了也很可能会被管理员拒绝合并代码</p>
+</blockquote>
+
+<h2 id="参考文档">参考文档</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>阅读·[Jekyll 的中文文档](http://jekyll.bootcss.com/)</td>
+      <td>[英文文档](http://jekyllrb.com/)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>阅读·[Liquid 的文档 1](https://help.shopify.com/themes/liquid)</td>
+      <td>[文档 2](https://github.com/Shopify/liquid/wiki/Liquid-for-Designers)</td>
+      <td>[文档 3](https://shopify.github.io/liquid/)</td>
+    </tr>
+    <tr>
+      <td>阅读·[语法高亮引擎 rouge 的文档](https://github.com/jneen/rouge)</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>阅读·[Markdown 转换器 kramdown 的文档（支持 maruku 语法）](http://kramdown.gettalong.org/)</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>阅读·[Markdown 转换器 maruku 的文档（支持 TOC 语法）](http://maruku.rubyforge.org/maruku.html)</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>]]></content><author><name>Vanhiupun</name></author><category term="网络技术与技巧" /><category term="Jekyll" /><category term="主题" /><category term="Github" /><summary type="html"><![CDATA[搭建本地的 Jekyll 环境]]></summary></entry><entry><title type="html">Git命令汇总</title><link href="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/15/Git%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB.html" rel="alternate" type="text/html" title="Git命令汇总" /><published>2021-11-15T00:00:00+00:00</published><updated>2021-11-15T00:00:00+00:00</updated><id>https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/15/Git%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB</id><content type="html" xml:base="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/15/Git%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB.html"><![CDATA[<h4 id="git目前是各大互联网公司使用的版本控制工具进大厂必须要学会git的基本使用">Git目前是各大互联网公司使用的版本控制工具，进大厂，必须要学会Git的基本使用</h4>
+<h3 id="git的安装">Git的安装</h3>
+<p>通过 <a href="https://git-scm.com/downloads">Git 官网</a>下载需要的版本</p>
+<h3 id="配置用户名和邮箱">配置用户名和邮箱</h3>
+<pre><code class="language-git">git config --global [user.name](http://user.name) ‘自己的名字’
+git config --global [user.name](http://user.name) ‘自己的邮箱’
+</code></pre>
+<ul>
+  <li><strong>local 只对当前仓库有效</strong></li>
+  <li><strong>global 所有仓库有效</strong></li>
+  <li><strong>system 对系统所有用户有效</strong></li>
+</ul>
+
+<h3 id="查看配置">查看配置</h3>
+<pre><code class="language-git">git config --list --local
+git config --list --global
+git config --list --system
+</code></pre>
+<h3 id="清除配置">清除配置</h3>
+<pre><code class="language-git">git config --unset --local [user.name](http://user.name)
+git config --unset --global [user.name](http://user.name)
+git config --unset --system [user.name](http://user.name)
+</code></pre>
+<h3 id="创建仓库">创建仓库</h3>
+<pre><code class="language-git">git init
+</code></pre>
+<h3 id="添加文件至暂存区">添加文件至暂存区</h3>
+<pre><code class="language-git">git add 文件名
+</code></pre>
+<h3 id="提交文件">提交文件</h3>
+<pre><code class="language-git">git commit -m"描述"
+</code></pre>
+<h3 id="查看git状态">查看git状态</h3>
+<pre><code class="language-git">git status
+</code></pre>
+<h3 id="查看修改内容">查看修改内容</h3>
+<pre><code class="language-git">git diff 文件名
+</code></pre>
+<h3 id="修改文件名字">修改文件名字</h3>
+<pre><code class="language-git">git mv 原文件名 新文件名
+</code></pre>
+<h3 id="查看日志">查看日志</h3>
+<pre><code class="language-git">git log #功能为查看日志
+git log --pretty=oneline #查看日志，以单行显示
+git reflog #功能为查看历史操作记录，比如回退版本后想要重返“未来”可以查看最新的提交版本
+</code></pre>
+<h3 id="版本回退">版本回退</h3>
+<pre><code class="language-git">git reset --hard head #退回到上一个版本
+git reset --hard 版本号 #当知道对应的版本号时，可以用这个命令，适用于回退和前往之前的新版本
+</code></pre>
+<h3 id="撤销操作">撤销操作</h3>
+<pre><code class="language-git">git restore 文件名 #新版本git提示用该命令进行撤销
+git checkout – 文件名 #旧版本用此命令做撤销，新版本也可以用
+git restore --staged 文件名 #如果已经add进暂存区
+git reset head 文件名 #新版本git用该命令此为旧版本git命令，新版本也可以用  
+</code></pre>
+<h3 id="删除文件">删除文件</h3>
+<pre><code class="language-git">git rm -f 文件名
+</code></pre>
+<h3 id="查看当前分支">查看当前分支</h3>
+<pre><code class="language-git">git branch
+</code></pre>
+<h3 id="创建dev分支并并且换过去">创建dev分支并并且换过去</h3>
+<pre><code class="language-git">git checkout -b dev #-b表示创建并切换，相当于下面两条命令
+git branch dev #创建分支
+git checkout dev #切换分支
+</code></pre>
+<h5 id="注意上面是老版本的命令创建分支和撤销都用checkout容易分不清">注意：上面是老版本的命令，创建分支和撤销都用checkout容易分不清</h5>
+<h3 id="因此新版本创建分支推荐用switch">因此新版本创建分支推荐用<code class="language-plaintext highlighter-rouge">switch</code></h3>
+<pre><code class="language-git">git switch -c dev #创建并切换到dev
+git switch dev #直接切换到已有的dev分支
+</code></pre>
+<h3 id="合并分支">合并分支</h3>
+<pre><code class="language-git">git merge dev #将dev分支合并到当前分支，合并后会丢失原来分支的信息
+git merge --no-ff -m “merge with no-ff” dev #合并dev到当前分支，–no-ff表示禁用fast forwad,之后查看日志时是可以看到已被删除分支的信息
+</code></pre>
+<h3 id="删除分支">删除分支</h3>
+<pre><code class="language-git">git branch -d dev
+git branh -D dev #如果dev没有被合并过 就用大写 -D
+</code></pre>
+<h3 id="查看分支合并情况">查看分支合并情况</h3>
+<pre><code class="language-git">git log --graph --pretty=oneline --abbrev-commit
+</code></pre>
+<h3 id="stash的使用bug分支">stash的使用（bug分支）</h3>
+<pre><code class="language-git">git stash #保存当前的工作现场
+git stash list #查看所有被保存的工作
+git stash pop #恢复并删除工作现场，等价于git stash apply + git stash drop
+</code></pre>
+<h5 id="开发环境在dev分支下bug修复是提交在master中如何快速合并至dev下转移至dev分支下执行下面命令">开发环境在dev分支下，bug修复是提交在master中，如何快速合并至dev下：转移至dev分支下，执行下面命令</h5>
+<pre><code class="language-git">git cherry-pick bug分支的提交版本号
+</code></pre>
+<h3 id="远程克隆到本地">远程克隆到本地</h3>
+<pre><code class="language-git">git clone git项目地址
+</code></pre>
+<h5 id="如果是本地没有项目从远程往下拉项目则是克隆">如果是本地没有项目，从远程往下拉项目则是克隆</h5>
+<h3 id="关联">关联</h3>
+<pre><code class="language-git">git remote add origin 自己的git项目地址
+</code></pre>
+<h5 id="如果本地先建好了项目那么执行这个命令将本地仓库与远程仓库关联">如果本地先建好了项目，那么执行这个命令将本地仓库与远程仓库关联</h5>
+<h3 id="拉取远程的更新">拉取远程的更新</h3>
+<pre><code class="language-git">git pull
+</code></pre>
+<h5 id="第一和远程关联上之后在提交之前要先拉去一下远程的更新才行">第一和远程关联上之后，在提交之前要先拉去一下远程的更新才行</h5>
+<h3 id="基本推送">基本推送</h3>
+<pre><code class="language-git">git push -u origin master #第一次推送是要加上-u，可以把本地的master和远程的master关联起来，方便以后的推送或者拉取
+git push origin master #之后推送可以直接用该命令
+</code></pre>
+<h3 id="查看远程仓库信息">查看远程仓库信息</h3>
+<pre><code class="language-git">git remote
+git remote -v #此命令可显示更详细信息
+</code></pre>
+<h3 id="多人协作">多人协作</h3>
+<pre><code class="language-git">git checkout -b 分支名 origin/分支名 #在本地创建和远程分支对应的分支，名称最好一致
+git branch --set-upstream-to=origin/dev dev #建立本地分支和远程分支的关联
+git pull #先抓取远程的更新，如果有冲突，手动解决冲突
+git push origin 分支名 #解决冲突后推送
+</code></pre>
+<h3 id="标签">标签</h3>
+<pre><code class="language-git">git tag #查看所有标签
+git tag 标签名 #把当前分支的最新提交打上标签，标签名字自己起
+git tag 标签名 对应commit版本号 #把某个版本号的提交打上标签
+git tag -a v0.1 -m “描述信息” 版本号 #可以用这种方式给标签增加说明，-a对应标签名，-m对应描述信息
+git show 标签名 #查看标签具体信息
+git tag -d 标签名 #删除标签
+</code></pre>
+<h3 id="推送标签">推送标签</h3>
+<pre><code class="language-git">git push origin 标签名 #推送某个标签到远程
+git push origin --tags #推送所有标签到远程
+
+删除远程标签：
+git tag -d 标签名 #先删除本地标签
+git push origin: refs/tags/标签名 #然后从远程删除
+</code></pre>]]></content><author><name>Vanhiupun</name></author><category term="网络技术与技巧" /><category term="Git" /><summary type="html"><![CDATA[Git目前是各大互联网公司使用的版本控制工具，进大厂，必须要学会Git的基本使用 Git的安装 通过 Git 官网下载需要的版本 配置用户名和邮箱 git config --global [user.name](http://user.name) ‘自己的名字’ git config --global [user.name](http://user.name) ‘自己的邮箱’ local 只对当前仓库有效 global 所有仓库有效 system 对系统所有用户有效]]></summary></entry></feed>

@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>一步一步创建Jekyll主题 | Vanhiupun’s Awesome Site</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="一步一步创建Jekyll主题">
+<meta name="author" content="Vanhiupun">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="搭建本地的 Jekyll 环境">
+<meta property="og:description" content="搭建本地的 Jekyll 环境">
+<link rel="canonical" href="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/16/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%88%9B%E5%BB%BAJekyll%E4%B8%BB%E9%A2%98.html">
+<meta property="og:url" content="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/16/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%88%9B%E5%BB%BAJekyll%E4%B8%BB%E9%A2%98.html">
+<meta property="og:site_name" content="Vanhiupun’s Awesome Site">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2021-11-16T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="一步一步创建Jekyll主题">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Vanhiupun"},"dateModified":"2021-11-16T00:00:00+00:00","datePublished":"2021-11-16T00:00:00+00:00","description":"搭建本地的 Jekyll 环境","headline":"一步一步创建Jekyll主题","mainEntityOfPage":{"@type":"WebPage","@id":"https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/16/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%88%9B%E5%BB%BAJekyll%E4%B8%BB%E9%A2%98.html"},"url":"https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/16/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%88%9B%E5%BB%BAJekyll%E4%B8%BB%E9%A2%98.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script>
+  <link rel="stylesheet" href="/assets/css/syntax.css">
+<link type="application/atom+xml" rel="alternate" href="https://vanhiupun.github.io//feed.xml" title="Vanhiupun's Awesome Site">
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-212989441-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/go.min.js"></script>
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #fff -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #ff4e00 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] uppercase -->
+  
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+
+</head>
+<body>
+
+
+
+
+  
+      <!-- [function][get_value] uppercase -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/jekyll.jpg", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: gold"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/jekyll.jpg", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: gold"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] ./assets/images/banners/jekyll.jpg -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] ./assets/images/banners/jekyll.jpg -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #000 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #000 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0.618 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0.618 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] font-size: 2.25em; font-weight: bold;  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] font-size: 2.25em; font-weight: bold;  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] color: gold -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] color: gold -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+<header class="site-header site-header-transparent" role="banner">
+
+  <div class="wrapper">    
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="Vanhiupun's Awesome Site" src="/favicon.png" onerror="this.style.display='none'">
+  Vanhiupun's Awesome Site
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>      
+          <div class="trigger">
+<a class="page-link" href="/">主页</a><a class="page-link" href="/archives.html">档案</a><a class="page-link" href="/categories.html">分类</a><a class="page-link" href="/tags.html">标签</a><a class="page-link" href="/about.html">关于</a>
+
+
+
+
+  
+      <!-- [function][get_value] [] -->
+  
+
+</div>
+        </nav>
+</div>
+  </div>
+
+</header>
+
+<!-- 页面菜单栏 注释=固定/不注释=隐藏 -->
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+<!-- 页面菜单栏 注释=固定/不注释=隐藏 -->
+
+
+
+
+
+  
+      <!-- [function][get_value] [] -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] post-header.html -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] post-header.html -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/jekyll.jpg", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: gold"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/jekyll.jpg", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: gold"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] ./assets/images/banners/jekyll.jpg -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] ./assets/images/banners/jekyll.jpg -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #000 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #000 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0.618 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0.618 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] font-size: 2.25em; font-weight: bold;  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] font-size: 2.25em; font-weight: bold;  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] color: gold -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] color: gold -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+<style>
+    html .page-banner {
+      background: #000;
+    }
+  </style>
+<style>html .page-banner {
+      height:  18.4vh;
+      min-height: 50vh;
+    }
+    html[data-scroll-status="top"] .page-banner {
+      height: 50vh;
+    }
+  </style>
+<style>
+    html .page-banner .page-banner-img > *:first-child {
+      opacity: 0.618;
+    }
+
+    html[data-theme="dark"] .page-banner .page-banner-img > *:first-child {
+      opacity: 0.443724;
+    }
+  </style>
+<style>
+    html .page-banner .page-banner-inner > *:first-child > *:nth-child(1) {
+      font-size: 2.25em; font-weight: bold; 
+    }
+  </style>
+<style>
+    html .page-banner .page-banner-inner > *:first-child > *:nth-child(2) {
+      color: gold
+    }
+  </style>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/assets/images/banners/jekyll.jpg)"></div>
+        <img class="img-placeholder" src="/assets/images/banners/jekyll.jpg">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">一步一步创建Jekyll主题</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2021-11-16T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Nov 16, 2021
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+      <!-- [function][get_article_words] 2116 -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 13 mins</span>
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/tags.html#Jekyll">#Jekyll</a><a class="post-tag" href="/tags.html#%E4%B8%BB%E9%A2%98">#主题</a><a class="post-tag" href="/tags.html#Github">#Github</a>
+</div></header>
+</div>
+    </div>
+  </section><script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+  
+      <!-- [function][get_value] auto -->
+  
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/jekyll.jpg", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: gold"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] [] -->
+  
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="搭建本地的-jekyll-环境">搭建本地的 Jekyll 环境</h2>
+
+<ol>
+  <li>安装 ruby 环境
+<code class="language-plaintext highlighter-rouge">sudo apt-get install ruby</code>
+</li>
+  <li>安装 Jekyll
+<code class="language-plaintext highlighter-rouge">sudo gem install jekyll</code>
+</li>
+  <li>安装 kramdown
+<code class="language-plaintext highlighter-rouge">sudo gem install kramdown</code>
+</li>
+  <li>安装 rouge
+<code class="language-plaintext highlighter-rouge">sudo gem install rouge</code>
+</li>
+  <li>测试 Jekyll 是否安装完成
+<code class="language-plaintext highlighter-rouge">jekyll --version</code>
+</li>
+</ol>
+
+<blockquote>
+  <p>从上面可以看出，这是一套基于 Ruby 语言的工具集。
+<strong>题外话：</strong>gem install 是 ruby 用来管理 ruby 工具集的工具，而 npm install 是 nodejs 用来管理 js 工具集的工具。</p>
+</blockquote>
+
+<h2 id="本地跑起来">本地跑起来</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll new mytheme
+<span class="nb">cd </span>mytheme
+jekyll server
+</code></pre></div></div>
+
+<p>运行上面的命令，然后访问<a href="http://127.0.0.1:4000">127.0.0.1:4000</a>，就能看到一个由 Jekyll 搭建的博客了。</p>
+
+<h2 id="github-pages-环境本地化">Github Pages 环境本地化</h2>
+
+<p>上面搭建的只是 Jekyll 的本地环境，当 push 到 Github Pages 后环境会有所变化，为了本地看到的效果和托管在 Github Pages 看到的效果一致，我们最好搭建本地的 Github Pages 环境。</p>
+
+<ol>
+  <li>升级 ruby 到 2.0.0 以上
+如果<code class="language-plaintext highlighter-rouge">ruby --version</code>查看版本低于 2.0.0，那么需要升级 ruby。</li>
+  <li>安装 ruby 工具集管理工具<a href="http://bundler.io/">Bundler</a>
+<code class="language-plaintext highlighter-rouge">sudo gem install bundler</code>
+</li>
+  <li>创建 Gemfile
+在上面的 mytheme 根目录下创建一个 Gemfile 文件，内容为：
+<code class="language-plaintext highlighter-rouge">source 'https://rubygems.org'</code>
+<code class="language-plaintext highlighter-rouge">gem 'github-pages', group::jekyll_plugins</code>
+</li>
+  <li>安装 Github Pages 的工具集
+在 Gemfile 所在的目录，即 Jekyll 主题的根目录，执行下面的命令：
+<code class="language-plaintext highlighter-rouge">bundle install</code>
+</li>
+  <li>跑起来
+<code class="language-plaintext highlighter-rouge">bundle exec jekyll serve</code>
+</li>
+</ol>
+
+<p>如果出现<code class="language-plaintext highlighter-rouge">bundle exec jekyll serve</code>能启动，而<code class="language-plaintext highlighter-rouge">jekyll serve</code>不能启动，则删除 Gemfile 和 Gemfile.lock 重新运行<code class="language-plaintext highlighter-rouge">jekyll serve</code>即可。
+更多 Github Pages 本地化环境搭建，<a href="https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll">可参考</a></p>
+
+<h3 id="bundle-install-失败">bundle install 失败</h3>
+
+<p>Fetching json 1.8.3
+An error occurred while installing json (1.8.3), and Bundler cannot continue.
+Make sure that <code class="language-plaintext highlighter-rouge">gem install json -v '1.8.3'</code> succeeds before bundling.</p>
+
+<p>原因：json 1.8.3 安装失败，可能是不兼容原因。
+解决：打开<code class="language-plaintext highlighter-rouge">Gemfile.lock</code>，搜索 1.8.3，把<code class="language-plaintext highlighter-rouge">json (1.8.3)</code>改为<code class="language-plaintext highlighter-rouge">json (1.8.5)</code>或其他更高版本。
+重试：<code class="language-plaintext highlighter-rouge">bundle install</code></p>
+
+<h2 id="windows-下搭建-jekyll-环境">Windows 下搭建 Jekyll 环境</h2>
+
+<p>因为不少的时间在 Windows 平台下工作，所以后来还是搭建了 Windows 下的 Jekyll 环境。</p>
+
+<ol>
+  <li>安装 ruby 环境
+下载<a href="http://rubyinstaller.org/downloads">ruby for windows</a>，随便搜索即可，建议安装 ruby2.0 以上。</li>
+  <li>安装完毕，设置 Windows 环境变量
+在我的电脑 - 属性 - 高级 - 环境变量 - 系统 - path 字段，添加 ruby 的安装路径。比如<code class="language-plaintext highlighter-rouge">C:\Ruby22\bin;</code>，安装包有提供选项可以在安装时自动添加到 path。</li>
+  <li>安装 Jekyll
+打开命令行，输入 gem.bat (Ruby22/bin/gem.bat)，如果没有找到该命令，说明环境变量还没有生效。在命令行输入<code class="language-plaintext highlighter-rouge">set a = b</code>，然后重启命令行即可(运行 set 只是让命令行重新加载环境变量)。
+执行<code class="language-plaintext highlighter-rouge">gem install jekyll</code>
+</li>
+  <li>安装 bundler
+<code class="language-plaintext highlighter-rouge">gem install bundler</code>
+</li>
+  <li>使用 bundler 安装 github pages 的依赖
+<code class="language-plaintext highlighter-rouge">bundle install</code>
+</li>
+  <li>跑起来
+<code class="language-plaintext highlighter-rouge">bundle exec jekyll server</code>
+</li>
+  <li>如果端口被占用
+<code class="language-plaintext highlighter-rouge">bundle exec jekyll server --port 5000</code>
+</li>
+</ol>
+
+<h3 id="bundle-install-失败-1">bundle install 失败</h3>
+
+<p>bundle install 出现了以下错误:</p>
+
+<p>Please update your PATH to include build tools or download the DevKit
+from ‘http://rubyinstaller.org/downloads’ and follow the instructions
+at ‘http://github.com/oneclick/rubyinstaller/wiki/Development-Kit’
+大致意思是插件需要编译安装，而系统没有安装编译环境，只有运行环境，请按照 wiki 里面的步骤安装。</p>
+
+<p>修复：
+下载<a href="http://rubyinstaller.org/downloads">ruby-devkit</a>，如果 ruby 是 32 位则下载 32 位的 devkit，否则下载 64 位的。</p>
+
+<blockquote>
+  <p>ruby –version 可以看到是 32 位还是 64 位</p>
+</blockquote>
+
+<p>安装：
+详细说明在<a href="https://github.com/oneclick/rubyinstaller/wiki/Development-Kit">github wiki</a>里</p>
+
+<ol>
+  <li>解压 devkit 到目录 A</li>
+  <li>进入目录 A</li>
+  <li>命令行下运行<code class="language-plaintext highlighter-rouge">ruby dk.rb init</code>
+</li>
+  <li>运行<code class="language-plaintext highlighter-rouge">ruby dk.rb review</code>
+</li>
+  <li>运行<code class="language-plaintext highlighter-rouge">ruby dk.rb install</code>
+</li>
+  <li>如果上述步骤只有 info 输出而没有 warning 输出，则应该安装成功了</li>
+  <li>测试<code class="language-plaintext highlighter-rouge">gem install json --platform=ruby</code>如果安装成功，则表示 devkit 安装成功</li>
+  <li>如果失败，可以重装 ruby 和 ruby-devkit，或者选择更低的 ruby 版本</li>
+</ol>
+
+<h3 id="rubybin-下面的-bundle-与-bundlebat-区别">ruby/bin 下面的 bundle 与 bundle.bat 区别</h3>
+
+<p>bundle 是 ruby 脚本而 bundle.bat 是 windows 批处理文件
+在 windows 命令行下，bundle 其实执行的是 bundle.bat，所以不会报错。bundle 文件不会被识别为可执行文件。
+在 mingw 命令行下(mingw/msys.bat)，bundle 可以成功执行，而 bundle.bat 则会因为使用了 windows 命令而报错。</p>
+
+<h2 id="环境配置总结">环境配置总结</h2>
+
+<p>环境的配置，简而言之，只有以下的步骤：</p>
+
+<ol>
+  <li>安装 ruby</li>
+  <li>gem install jekyll</li>
+  <li>gem install bundle</li>
+  <li>git clone jekyll 主题</li>
+  <li>cd 进入 jekyll 主题</li>
+  <li>bundle install</li>
+  <li>bundle exec jekyll server</li>
+</ol>
+
+<h2 id="需要一个网页原型">需要一个网页原型</h2>
+
+<p>Github Pages 和 Jekyll 本地环境已经搭建完成，访问<a href="http://127.0.0.1:4000">127.0.0.1:4000</a>也能够看到一个简单的博客，接下来就是思考自己的博客应该长哪样。</p>
+
+<p>一般来说，要定制自己的博客，最好先设计出博客的网页原型，所谓网页原型即是使用 html、css 甚至 js 来完成静态的网页效果。当前博客的原型只有三个页面：<code class="language-plaintext highlighter-rouge">index.html</code>、<code class="language-plaintext highlighter-rouge">article.html</code>和<code class="language-plaintext highlighter-rouge">post.html</code>。</p>
+
+<p>最后，<strong>Jekyll 模板已经跑起来了，网页原型也有了，怎么将两者结合起来呢？</strong>在整合之前，我们需要先了解 Jekyll 博客系统。</p>
+
+<h2 id="初步认识-jekyll">初步认识 Jekyll</h2>
+
+<h3 id="jekyll-是什么">Jekyll 是什么</h3>
+
+<p>Jekyll 的描述是，将纯文本转化为静态博客网站，不需要数据库和评论功能。
+其实更贴切的描述应该是这样</p>
+
+<blockquote>
+  <p>Jekyll 是一个静态博客系统，在服务器启动前可写，在服务器启动后只读，所以无法实现数据库和评论功能。</p>
+</blockquote>
+
+<h3 id="静态网页">静态网页</h3>
+
+<p>静态网页和动态网页的区别是，静态网页无论是否访问，它就已经存在那里，并且内容已经固定不可改。所以 Jekyll 在每次增加文章时就已经生成对应的静态网页，而不是每次访问时动态生成的。</p>
+
+<p>举个例子</p>
+
+<blockquote>
+  <p>当前 Jekyll 模板有一个页面：categories.html（目录和对应的文章列表页）</p>
+
+  <p>当新增一篇 demo.md 文章后，Jekyll 会重新生成新的博客站点，demo.md 会被转化为 demo.html，而 categories.html 会被重新生成，内容是包含 demo 这篇新文章的列表。</p>
+
+  <p><strong>所以</strong>，Jekyll 的页面都是在访问前就已经重新生成了，这就是静态。</p>
+</blockquote>
+
+<h3 id="没有数据库">没有数据库</h3>
+
+<p>如果<code class="language-plaintext highlighter-rouge">数据库</code>指的是像 MySQL 那种可读写的数据库，Jekyll 确实没有。但是如果<code class="language-plaintext highlighter-rouge">数据库</code>指的只是存储数据的地方，Jekyll 其实是有的，只不过是<code class="language-plaintext highlighter-rouge">只读</code>的。</p>
+
+<p>Jekyll 内的<code class="language-plaintext highlighter-rouge">_config.yml</code>配置、各种内置对象(<code class="language-plaintext highlighter-rouge">site</code>、<code class="language-plaintext highlighter-rouge">page</code>、<code class="language-plaintext highlighter-rouge">categories</code>等)、用户自定义的内容（变量、集合、文本、网页等），都可以看做是 Jekyll 的数据库，开发者可以访问这个数据库组织自己的页面内容，<strong>除了可以在 Jekyll 构建站点时直接访问，还可以写到 json 格式的文件暴露出来在网页初始化时访问</strong>。</p>
+
+<blockquote>
+  <p>但有一点要注意：Jekyll 内所有可访问的变量都是<code class="language-plaintext highlighter-rouge">静态</code>的，也即是<code class="language-plaintext highlighter-rouge">只读</code>的，所以不可以重新赋值！</p>
+</blockquote>
+
+<h3 id="没有评论功能">没有评论功能</h3>
+
+<p>Jekyll 是无法写入的，所以无法支持评论功能。任何写入操作都只能借助第三方服务。</p>
+
+<h2 id="理解-markdown-是如何工作的">理解 Markdown 是如何工作的</h2>
+
+<p>这是一段 markdown 文本：</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gu">## Markdown Demo</span>
+
+This is a <span class="sb">`markdown`</span> demo
+<span class="gt">
+&gt; try it</span>
+</code></pre></div></div>
+
+<p>使用 markdown 转换器转换后得到的 html 是这样的：</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h2&gt;</span>Markdown Demo<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;p&gt;</span>This is a <span class="nt">&lt;code&gt;</span>markdown<span class="nt">&lt;/code&gt;</span> demo<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;blockquote&gt;</span>
+  <span class="nt">&lt;p&gt;</span>try it<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/blockquote&gt;</span>
+</code></pre></div></div>
+
+<p><strong>Markdown 转换结果只是单纯的 html 页面，关于页面的样式，需要我们自己提供 css</strong>
+添加下面的 css</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nt">style</span><span class="o">&gt;</span>
+<span class="nt">h2</span> <span class="p">{</span>
+	<span class="nl">color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">blockquote</span> <span class="p">{</span>
+	<span class="nl">background-color</span><span class="p">:</span> <span class="m">#fef3f3</span><span class="p">;</span>
+	<span class="nl">border-left</span><span class="p">:</span> <span class="m">4px</span> <span class="nb">solid</span> <span class="m">#d6a6a6</span><span class="p">;</span>
+	<span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">&lt;/</span><span class="nt">style</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<p>总结</p>
+
+<blockquote>
+  <p>Markdown 解析器只是将文本转换为 html，并不会为 html 添加默认的 css 样式。
+Jekyll 模板里有对应的 css 文件用于转换后的 html 页面效果。
+<strong>另外注意，不同的 markdown 转换器得到的 html 标签的属性可能不一样，有的转换器可能会在标签中加入转换器名称做标识，所以 css 选择器具体要以转换后的结果为准。</strong></p>
+</blockquote>
+
+<p>比如，Markdown 的 TOC 功能得到的列表是这样的</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">"markdown-toc"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li&gt;</span>目录<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div>
+
+<h2 id="理解-highlight-语法高亮是如何实现的">理解 Highlight 语法高亮是如何实现的</h2>
+
+<p>markdown 里代码块是这样的：</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="err">```</span><span class="nt">css</span>
+  <span class="o">&lt;</span><span class="nt">style</span><span class="o">&gt;</span>
+ <span class="err">```</span>
+</code></pre></div></div>
+
+<p>通过 rouge 语法高亮引擎，得到的 html 内容是这样的：</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"language-css highlighter-rouge"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;pre</span> <span class="na">class=</span><span class="s">"highlight"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;code&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"o"</span><span class="nt">&gt;</span><span class="ni">&amp;lt;</span><span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nt"</span><span class="nt">&gt;</span>style<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"o"</span><span class="nt">&gt;</span><span class="ni">&amp;gt;</span><span class="nt">&lt;/span&gt;</span>&gt;
+    <span class="nt">&lt;/code&gt;</span>
+  <span class="nt">&lt;/pre&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>rouge 语法高亮引擎附带了对应的 rouge.css：</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.highlight</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#d53fb7</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.highlight</span> <span class="nc">.o</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#f92672</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.highlight</span> <span class="nc">.nt</span> <span class="p">{</span>
+  <span class="nl">color</span><span class="p">:</span> <span class="m">#f92672</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>于是，页面的代码块就根据关键字、变量、字符串等有了不一样的颜色</strong></p>
+
+<p>总结</p>
+
+<blockquote>
+  <p>语法高亮引擎的作用，只是根据代码的语言，分割出与之对应的关键字、变量、字符串等，并赋予对应的 css 样式，最后调整 css 的颜色就形成了代码高亮的效果。
+同样，Jekyll 模板里有对应的 css 文件用于高亮效果。</p>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">Tips</code></p>
+
+<p>rouge.css 导出需要执行命令，可以参考<a href="https://github.com/jneen/rouge">rouge 文档</a></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>rougify foo.rb
+<span class="nv">$ </span>rougify style monokai.sublime <span class="o">&gt;</span> rouge.css
+</code></pre></div></div>
+
+<h2 id="开始制作自己的-jekyll-主题">开始制作自己的 Jekyll 主题</h2>
+
+<h3 id="新建-jekyll-模板">新建 Jekyll 模板</h3>
+
+<p><strong>按照上面的指引，新建一个模板，并搭建好 Github Pages 的本地环境：</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">jekyll new mytheme</code></p>
+
+<h3 id="认识-jekyll-模板的结构">认识 Jekyll 模板的结构</h3>
+
+<p>下面是用<code class="language-plaintext highlighter-rouge">tree</code>命令输出的目录结构，只是位置进行了调整</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">├── index.html</span>
+<span class="s">├── about.md</span>
+<span class="s">├── _config.yml</span>       <span class="c1"># Jekyll核心配置文件</span>
+<span class="s">├── feed.xml</span>
+<span class="s">├── Gemfile</span>           <span class="c1"># Github Pages本地化的文件</span>
+<span class="s">├── Gemfile.lock</span>      <span class="c1"># Github Pages本地化的文件</span>
+<span class="s">├── _sass</span>
+<span class="s">│   ├── _base.scss</span>                  <span class="c1"># markdown对应的css</span>
+<span class="s">│   ├── _layout.scss</span>
+<span class="s">│   └── _syntax-highlighting.scss</span>   <span class="c1"># 语法高亮对应的css</span>
+<span class="s">├── css</span>
+<span class="s">│   └── main.scss</span>           <span class="c1"># 其实就是css</span>
+<span class="s">├── _includes</span>
+<span class="s">│   ├── footer.html</span>         <span class="c1"># 页脚html片段</span>
+<span class="s">│   ├── header.html</span>         <span class="c1"># 页头html片段</span>
+<span class="s">│   ├── head.html</span>           <span class="c1"># html片段</span>
+<span class="s">│   ├── icon-github.html</span>    <span class="c1"># html片段</span>
+<span class="s">│   ├── icon-github.svg</span>     <span class="c1"># github图标</span>
+<span class="s">│   ├── icon-twitter.html</span>   <span class="c1"># html片段</span>
+<span class="s">│   └── icon-twitter.svg</span>    <span class="c1"># twitter图标</span>
+<span class="s">├── _layouts</span>
+<span class="s">│   ├── default.html</span>        <span class="c1"># default页面</span>
+<span class="s">│   ├── page.html</span>           <span class="c1"># page页面</span>
+<span class="s">│   └── post.html</span>           <span class="c1"># post页面</span>
+<span class="s">├── _posts</span>
+<span class="s">│   └── 2016-08-24-welcome-to-jekyll.markdown</span>
+<span class="s">└── _site</span>             <span class="c1"># Jekyll最终生成的静态网站</span>
+    <span class="s">├── about</span>
+    <span class="s">│   └── index.html</span>
+    <span class="s">├── css</span>
+    <span class="s">│   └── main.css</span>  <span class="c1"># 如果不喜欢上面的那堆scss，那么复制这个过去就够了</span>
+    <span class="s">├── feed.xml</span>
+    <span class="s">├── Gemfile</span>
+    <span class="s">├── Gemfile.lock</span>
+    <span class="s">├── index.html</span>
+    <span class="s">└── jekyll</span>
+        <span class="s">└── update</span>
+            <span class="s">└── </span><span class="m">2016</span>
+                <span class="s">└── </span><span class="m">08</span>
+                    <span class="s">└── </span><span class="m">24</span>
+                        <span class="s">└── welcome-to-jekyll.html</span>
+</code></pre></div></div>
+
+<h3 id="简化模板">简化模板</h3>
+
+<p>去掉不必要的文件，简化当前模板，得到结构：</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">├── index.html</span>
+<span class="s">├── _config.yml</span>       <span class="c1"># Jekyll核心配置文件</span>
+<span class="s">├── feed.xml</span>
+<span class="s">├── Gemfile</span>           <span class="c1"># Github Pages本地化的文件</span>
+<span class="s">├── Gemfile.lock</span>      <span class="c1"># Github Pages本地化的文件</span>
+<span class="s">├── css</span>
+<span class="s">│   └── markdown.css</span>    <span class="c1"># 提取上面_site/css/main.css中设置html部分</span>
+<span class="s">│   └── highlight.css</span>   <span class="c1"># 提取上面_site/css/main.css中语法高亮部分</span>
+<span class="s">├── _includes</span>
+<span class="s">├── _layouts</span>
+<span class="s">│   └── post.html</span>       <span class="c1"># 文章页框架</span>
+<span class="s">├── _posts</span>
+<span class="s">│   └── 2016-08-24-welcome-to-jekyll.markdown</span>
+
+</code></pre></div></div>
+
+<blockquote>
+  <p>如果不知道如何动手，删除多余文件保留上面的结构即可</p>
+</blockquote>
+
+<h3 id="将网页原型加入模板">将网页原型加入模板</h3>
+
+<p>把设计好的 html、javascript、css 复制到模板开始改造，在改造前需要<strong>深入理解 Jekyll</strong></p>
+
+<h3 id="深入理解-jekyll">深入理解 Jekyll</h3>
+
+<h4 id="_layouts目录">
+<code class="language-plaintext highlighter-rouge">_layouts</code>目录</h4>
+
+<p>该目录下的页面是”包含”其它内容的关系，一般是页面框架</p>
+
+<h4 id="_includes目录">
+<code class="language-plaintext highlighter-rouge">_includes</code>目录</h4>
+
+<p>该目录下的片段是“被包含”的关系，可以是任何格式的文件，片段也可以 include 片段。
+include 的语法： <code class="language-plaintext highlighter-rouge">{% include head.html %}</code></p>
+
+<p>_layouts 和_includes 与普通页面的关系图：
+![jekyll-layout-include][jekyll-layout-include]</p>
+
+<blockquote>
+  <p>注意：default.html 里访问 index.html 生成的内容是直接访问<code class="language-plaintext highlighter-rouge">content</code>，而不是<code class="language-plaintext highlighter-rouge">page.content</code>或<code class="language-plaintext highlighter-rouge">post.content</code>，这两者的关系大概是前者才是经过处理后的 html 片段，而后者是原始的文本，包含未解析的 liquid 语法。</p>
+</blockquote>
+
+<h4 id="_configyml配置文件">
+<code class="language-plaintext highlighter-rouge">_config.yml</code>配置文件</h4>
+
+<p>Jekyll 站点的配置文件，可以存储数据，用于配置 Jekyll 的插件和运行环境</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 自定义变量</span>
+<span class="na">domain</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://jokinkuang.info"</span> <span class="c1"># the domain URL for your site</span>
+
+<span class="c1"># 配置</span>
+<span class="na">excerpt_separator</span><span class="pi">:</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s">"</span> <span class="c1"># you can specify your own separator here, default is "\n\n" String</span>
+<span class="na">permalink</span><span class="pi">:</span> <span class="s">/:year/:month/:day/:title.html</span>
+<span class="na">highlighter</span><span class="pi">:</span> <span class="s">rouge</span>  <span class="c1"># 使用rouge作为语法高亮引擎</span>
+<span class="na">markdown</span><span class="pi">:</span> <span class="s">kramdown</span>  <span class="c1"># 使用kramdown作为markdown的转换器</span>
+<span class="na">kramdown</span><span class="pi">:</span>
+  <span class="na">input</span><span class="pi">:</span> <span class="s">GFM</span>
+  <span class="na">hard_wrap</span><span class="pi">:</span> <span class="no">true</span> <span class="c1"># a newline in markdown text would be changed to &lt;br&gt;</span>
+<span class="na">gems</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">jemoji</span> <span class="c1"># 要站点支持Github表情，必须添加</span>
+
+<span class="c1"># 上传到Github Pages时Github会进行配置的项，详见：Github Help With Configuring Jekyll</span>
+
+<span class="c1"># Github Pages默认配置项，Jekyll的配置可以覆盖</span>
+<span class="c1"># kramdown:</span>
+<span class="c1">#   input: GFM</span>
+<span class="c1">#   hard_wrap: false</span>
+<span class="c1"># gems:</span>
+<span class="c1">#   - jekyll-coffeescript</span>
+<span class="c1">#   - jekyll-paginate</span>
+
+<span class="c1"># Github Pages不可改变项，会覆盖Jekyll的配置</span>
+<span class="c1"># lsi: false</span>
+<span class="c1"># safe: true</span>
+<span class="c1"># source: [your repo's top level directory]</span>
+<span class="c1"># incremental: false</span>
+<span class="c1"># highlighter: rouge</span>
+<span class="c1"># gist:</span>
+<span class="c1">#  noscript: false</span>
+<span class="c1"># kramdown:</span>
+<span class="c1">#  math_engine: mathjax</span>
+</code></pre></div></div>
+
+<h4 id="创建页面">创建页面</h4>
+
+<table>
+  <tbody>
+    <tr>
+      <td>方式一</td>
+      <td>
+<strong>某路径</strong>下添加<code class="language-plaintext highlighter-rouge">xxx.html</code>，访问地址为<code class="language-plaintext highlighter-rouge">该路径/xxx.html</code>
+</td>
+    </tr>
+    <tr>
+      <td>方式二</td>
+      <td>
+<strong>某路径</strong>下添加<code class="language-plaintext highlighter-rouge">xxx/index.html</code>，访问地址为<code class="language-plaintext highlighter-rouge">该路径/xxx</code>，无需后缀</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="front-matteryaml-头信息">
+<code class="language-plaintext highlighter-rouge">front matter</code>(Yaml 头信息)</h4>
+
+<p>每个页面都可以有自己的头信息，可以覆盖 Jekyll 和_config.yml 里面的值</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">post</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s">一步一步创建Jekyll主题</span>
+<span class="na">categories</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">jekyll github markdown rouge</span><span class="pi">]</span>
+<span class="na">date</span><span class="pi">:</span> <span class="s">2016-9-3 15:47:05</span>
+<span class="na">excerpt</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>   <span class="c1"># 覆盖清掉文章的摘要</span>
+<span class="na">pid</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>       <span class="c1"># 新建一个pid的字符串变量</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<h4 id="site变量">
+<code class="language-plaintext highlighter-rouge">site</code>变量</h4>
+
+<p>来自<code class="language-plaintext highlighter-rouge">_config.yml</code>配置文件和 Jekyll 内置变量，下面是常用的属性：</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>site.posts</td>
+      <td>从新到旧排序的 posts 文章列表集合</td>
+    </tr>
+    <tr>
+      <td>site.categories</td>
+      <td>以目录分类的文章列表 Map<code class="language-plaintext highlighter-rouge">{cate1:[post1, post2], cate2:[post3, post4]}</code>
+</td>
+    </tr>
+    <tr>
+      <td>site.tags</td>
+      <td>同上，以 tags 分类的文章列表 Map<code class="language-plaintext highlighter-rouge">{tag1:[post1, post2], tag2:[post3, post4]}</code>
+</td>
+    </tr>
+    <tr>
+      <td>site.XXX</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">_config.yml</code>配置文件中<code class="language-plaintext highlighter-rouge">XXX: val</code>的 val 值，val 可以是字符串/数组/集合</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="page变量">
+<code class="language-plaintext highlighter-rouge">page</code>变量</h4>
+
+<p>指代当前页面的变量，在 index.html 里使用 page，page 指的就是 index.html 这个页面，常用属性：</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>page.content</td>
+      <td>页面<strong>源码</strong>(含有 markdown/liquid 等语句)</td>
+    </tr>
+    <tr>
+      <td>page.title</td>
+      <td>页面标题</td>
+    </tr>
+    <tr>
+      <td>page.excerpt</td>
+      <td>页面摘要<strong>源码</strong>，可通过_config.yml 配置摘要算法</td>
+    </tr>
+    <tr>
+      <td>page.url</td>
+      <td>页面的<strong>相对路径</strong>
+</td>
+    </tr>
+    <tr>
+      <td>page.date</td>
+      <td>页面的时间和日期</td>
+    </tr>
+    <tr>
+      <td>page.categories</td>
+      <td>页面的 categories 数组，<code class="language-plaintext highlighter-rouge">linux/ruby/_posts/ruby.md</code>文章会把 linux 和 ruby 加入 categories，和上面的 site.categories 不同！</td>
+    </tr>
+    <tr>
+      <td>page.tags</td>
+      <td>页面的 tags 数组</td>
+    </tr>
+    <tr>
+      <td>page.path</td>
+      <td>页面的实际路径(源码路径)</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>注意：当前页面的 Front Matter 中设置的 xxx: val 可以通过 page.xxx 访问 val 值
+另外：site.posts 数组的元素 post 和 page 具有几乎一样的属性</p>
+</blockquote>
+
+<h4 id="liquid语法">
+<code class="language-plaintext highlighter-rouge">liquid</code>语法</h4>
+
+<p>Jekyll 内变量操作是使用<a href="https://github.com/Shopify/liquid/wiki/Liquid-for-Designers">Liquid 语法</a></p>
+
+<p>主要有：</p>
+
+<ol>
+  <li>
+    <p>显示变量的值
+<code class="language-plaintext highlighter-rouge">{{ 变量名 }}</code></p>
+
+    <p>如果要组成字符串，可以这样：<code class="language-plaintext highlighter-rouge">"字符串头部{{ 变量名 }}字符串尾部"</code></p>
+
+    <p>也可以使用 Filter：<code class="language-plaintext highlighter-rouge">{{ "字符串头部" | append : 变量名 | append : "字符串尾部" }}</code></p>
+
+    <p>如，显示文章的标题：<code class="language-plaintext highlighter-rouge">{{ page.title }}</code></p>
+  </li>
+  <li>
+    <p>使用变量的值进行计算
+文章的标题计算 <code class="language-plaintext highlighter-rouge">{% assign titleAndDate = page.title | append: page.date %}</code></p>
+
+    <p><code class="language-plaintext highlighter-rouge">assign x = y</code>是声明一个变量并赋值，<strong>声明必须赋值！</strong></p>
+
+    <p><code class="language-plaintext highlighter-rouge">xxx | append: "str"</code>是 Liquid 语法中的 Filter，可以理解为管道，也可以简单理解为<code class="language-plaintext highlighter-rouge">对象|方法:参数</code></p>
+
+    <p>Filter 可以连续执行：<code class="language-plaintext highlighter-rouge">xxx | append: "str1" | append: "str2"</code></p>
+  </li>
+  <li>
+    <p>if 语句</p>
+
+    <div class="language-liquid highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="p">{%</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="nv">site</span><span class="p">.</span><span class="nv">title</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="p">%}</span>
+<span class="p">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"A"</span><span class="w"> </span><span class="p">%}</span>
+<span class="p">{%</span><span class="w"> </span><span class="kr">elsif</span><span class="w"> </span><span class="nv">site</span><span class="p">.</span><span class="nv">title</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"stepbystep"</span><span class="w"> </span><span class="p">%}</span>
+<span class="p">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"B"</span><span class="w"> </span><span class="p">%}</span>
+<span class="p">{%</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">%}</span>
+<span class="p">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"C"</span><span class="w"> </span><span class="p">%}</span>
+<span class="p">{%</span><span class="w"> </span><span class="kr">endif</span><span class="w"> </span><span class="p">%}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>for 语句</p>
+
+    <div class="language-liquid highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="p">{%</span><span class="w"> </span><span class="nt">for</span><span class="w"> </span><span class="nv">post</span><span class="w"> </span><span class="nt">in</span><span class="w"> </span><span class="nv">site.posts</span><span class="w"> </span><span class="p">%}</span>
+ <span class="p">{%</span><span class="w"> </span><span class="nt">assign</span><span class="w"> </span><span class="nv">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">post</span><span class="p">.</span><span class="nv">title</span><span class="w"> </span><span class="p">%}</span>
+ The post title is <span class="p">{{</span><span class="w"> </span><span class="nv">title</span><span class="w"> </span><span class="p">}}</span>
+<span class="p">{%</span><span class="w"> </span><span class="nt">endfor</span><span class="w"> </span><span class="p">%}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>访问 map 的 key 和 value
+像<code class="language-plaintext highlighter-rouge">site.categories</code>其实是一个 map，访问分类是 linux 的文章集合有两种方式：
+方式一: <code class="language-plaintext highlighter-rouge">site.categories.linux</code>即是分类为 linux 的 posts 列表
+方式二: <code class="language-plaintext highlighter-rouge">for cate in site.categories</code>，<code class="language-plaintext highlighter-rouge">cate[0]</code>是 linux，<code class="language-plaintext highlighter-rouge">cate[1]</code>是 posts 列表</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p>注意：如果{% %}里面的是语句，<strong>一行只能有一个而不能有多个</strong></p>
+</blockquote>
+
+<h3 id="改造自己的主题">改造自己的主题</h3>
+
+<p>至此，Jekyll 的使用、Liquid 的语法、Markdown 的样式、语法高亮的配色都已经讲述，接下来就是动手完成自己的主题，以下是一些点：</p>
+
+<ul>
+  <li>加入<code class="language-plaintext highlighter-rouge">html</code>、<code class="language-plaintext highlighter-rouge">css</code>、<code class="language-plaintext highlighter-rouge">js</code>等需要的文件</li>
+  <li>提取相同的内容到<code class="language-plaintext highlighter-rouge">_includes</code>目录</li>
+  <li>需要复用的页面框架，比如 post 文章页，放到<code class="language-plaintext highlighter-rouge">_layouts</code>目录</li>
+  <li>一些配置字符串，放在<code class="language-plaintext highlighter-rouge">_config.yml</code>文件内</li>
+  <li>使用<strong>Liquid 语法</strong>在页面中访问<code class="language-plaintext highlighter-rouge">site</code>，<code class="language-plaintext highlighter-rouge">page</code>等信息组织内容</li>
+  <li>调整 html 页面标签的 css 定制自己的 Markdown 样式</li>
+  <li>调整语法高亮的 css 定制自己的语法高亮颜色值</li>
+  <li>你可能需要一个 MarkdownDemo 来测试站点的样式</li>
+</ul>
+
+<h2 id="除此之外我做了什么">除此之外我做了什么</h2>
+
+<p>请参考<a href="http://www.jokinkuang.info/2016/09/18/what-did-i-do-for-the-blog.html">我做了什么</a></p>
+
+<h2 id="上传自己的主题到-jekyllthemes">上传自己的主题到 JekyllThemes</h2>
+
+<p>如果希望自己的主题可以让更多人看到或使用，可以上传到<a href="http://jekyllthemes.org/">JekyllThemes</a>这个站点</p>
+
+<ol>
+  <li>准备一张 250x200 的预览图</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">fork</code>这个<a href="https://github.com/mattvh/jekyllthemes/fork">JekyllThemes</a>项目源码到自己的 Github 仓库</li>
+  <li>找到自己的 Github 仓库中 fork 的这个 JekyllThemes 项目</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">clone</code>自己仓库的 JekyllThemes 项目到本地</li>
+  <li>将预览图放到<code class="language-plaintext highlighter-rouge">thumbnails</code>目录，在<code class="language-plaintext highlighter-rouge">_posts</code>下复制一篇文章，替换为自己的主题信息</li>
+  <li>执行<code class="language-plaintext highlighter-rouge">bundle exec jekyll server</code>本地预览效果</li>
+  <li>本地调试直到网站已经添加了自己的主题</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">commit</code>并且<code class="language-plaintext highlighter-rouge">push</code>添加的代码(此时代码只是提交到自己仓库的 JekyllThemes 项目)</li>
+  <li>网页访问自己仓库的 JekyllThemes 项目，点击<code class="language-plaintext highlighter-rouge">New pull request</code>发起一个合并请求</li>
+  <li>此时提交已经发送给 JekyllThemes 项目的管理员，等待管理员合并提交</li>
+</ol>
+
+<blockquote>
+  <p>注意：图片的规格最好一致，并且进行本地测试，否则即使提交了也很可能会被管理员拒绝合并代码</p>
+</blockquote>
+
+<h2 id="参考文档">参考文档</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>阅读·<a href="http://jekyll.bootcss.com/">Jekyll 的中文文档</a>
+</td>
+      <td><a href="http://jekyllrb.com/">英文文档</a></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>阅读·<a href="https://help.shopify.com/themes/liquid">Liquid 的文档 1</a>
+</td>
+      <td><a href="https://github.com/Shopify/liquid/wiki/Liquid-for-Designers">文档 2</a></td>
+      <td><a href="https://shopify.github.io/liquid/">文档 3</a></td>
+    </tr>
+    <tr>
+      <td>阅读·<a href="https://github.com/jneen/rouge">语法高亮引擎 rouge 的文档</a>
+</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>阅读·<a href="http://kramdown.gettalong.org/">Markdown 转换器 kramdown 的文档（支持 maruku 语法）</a>
+</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>阅读·<a href="http://maruku.rubyforge.org/maruku.html">Markdown 转换器 maruku 的文档（支持 TOC 语法）</a>
+</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+
+    </div>
+    
+    
+</article>
+<div class="post-nav">
+<a class="previous" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/15/Git%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB.html" title="Git命令汇总">Git命令汇总</a><a class="next" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/17/%E5%9C%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BF%90%E8%A1%8CVSCode-macOS.html" title="在命令行运行 VSCode（macOS）">在命令行运行 VSCode（macOS）</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li><a class="post-link" href="/telegram/2021/11/12/Telegram%E7%9F%A5%E8%AF%86.html" title="在命令行运行 VSCode（macOS）">Telegram知识</a></li>
+<li><a class="post-link" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/16/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%88%9B%E5%BB%BAJekyll%E4%B8%BB%E9%A2%98.html" title="在命令行运行 VSCode（macOS）">一步一步创建Jekyll主题</a></li>
+<li><a class="post-link" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/11/%E6%8E%A8%E8%8D%908%E6%AC%BE%E7%BC%96%E7%A8%8B%E5%AD%97%E4%BD%93.html" title="在命令行运行 VSCode（macOS）">推荐8款编程字体</a></li>
+<li><a class="post-link" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/10/22/Chrome-Edge%E9%BB%98%E8%AE%A4%E4%B8%8B%E8%BD%BD%E5%99%A8%E4%B9%9F%E8%83%BD%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD.html" title="在命令行运行 VSCode（macOS）">Chrome、Edge 默认下载器也能多线程下载</a></li>
+</ul>
+    </div>
+<div class="post-comments">
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://vanhiupun.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+</div></section>
+  
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: '#ff5100',
+  textColor: '#fff'
+})</script>
+  
+  
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --></section>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: '#ff5100',
+  textColor: '#fff'
+})</script>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div align="center" class="wrapper">
+    <div class="site-footer-inner">
+<div class="footer-col rss-subscribe">
+	  <font size="1" color="gray">
+	  <!--RSS SVG-->
+   	<svg aria-hidden="true" fill="#ff4e00" height="12" width="12" viewbox="0 0 16 16" version="1.1" data-view-component="true" class="octicon octicon-rss mr-1">
+    <path fill-rule="evenodd" d="M2.002 2.725a.75.75 0 01.797-.699C8.79 2.42 13.58 7.21 13.974 13.201a.75.75 0 11-1.497.098 10.502 10.502 0 00-9.776-9.776.75.75 0 01-.7-.798zM2 13a1 1 0 112 0 1 1 0 01-2 0zm.84-5.95a.75.75 0 00-.179 1.489c2.509.3 4.5 2.291 4.8 4.8a.75.75 0 101.49-.178A7.003 7.003 0 002.838 7.05z"></path>
+    </svg>
+	  <a href="/feed.xml" target="_blank"> RSS </a>订阅 |  
+    <!--提供支持-->
+    由 <a title="Jekyll is a simple, blog-aware, static site
+    generator." href="http://jekyllrb.com/" target="_blank">Jekyll</a> &amp; <a title="Yat, yet
+    another theme." href="https://github.com/jeffreytse/jekyll-theme-yat" target="_blank">Yat Theme</a>提供支持
+	  </font>
+</div>
+
+    <!--版权-->
+    <div>
+    <font size="1" color="gray">
+    Copyright © 2017-2022 <a href="https://github.com/vanhiupun/" target="_blank">Vanhiupun</a> All Rights Reserved
+    </font>
+</div>
+
+      <!--logo
+  <div>
+
+    <a href="https://github.com/vanhiupun" target="_blank">
+      <img src="https://visitor-badge.glitch.me/badge?page_id=vanhiupun.visitor-badge&right_color=Orange" alt="visitor" />
+    </a> 
+	    
+    <a href="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/jekyll.yml" target="_blank">
+        <img src="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/jekyll.yml/badge.svg" />
+    </a>
+      
+    <a href="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/codeql-analysis.yml" target="_blank">
+      <img src="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/codeql-analysis.yml/badge.svg">
+    </a> 
+      
+    <a href="https://github.com/vanhiupun/Vanhiupun.github.io" target="_blank">
+      <img src="https://www.codefactor.io/repository/github/vanhiupun/vanhiupun.github.io/badge" alt="CodeFactor" />
+    </a>
+    
+    <a href="https://codeclimate.com/github/vanhiupun/Vanhiupun.github.io/maintainability">
+      <img src="https://api.codeclimate.com/v1/badges/708da11ffb90a8f6f13b/maintainability" alt="maintainability" />
+    </a>
+    
+    <a href="https://rubygems.org/gems/jekyll-theme-yat" target="_blank">
+        <img src="https://badge.fury.io/rb/jekyll-theme-yat.svg"     alt="jekyll-theme-yat" />
+    </a> 
+    
+    <a href="https://github.com/vanhiupun" target="_blank">
+        <img src="https://img.shields.io/badge/Github%20Repository-222222?style=flat-square&logo=github&logoColor=ffffff" alt="Github" />
+    </a> 
+          
+    <a href="https://vanhiupun.github.io" target="_blank">
+        <img src="https://img.shields.io/badge/Github%20Page-222222?style=flat-square&logo=github&logoColor=ffffff" alt="Blog" />
+    </a> 
+          
+    <a href="mailto:fanxiaobin422@gmail.com" target="_blank">
+        <img src="https://img.shields.io/badge/Send%20me%20Gmail-EA4335?style=flat-square&logo=Gmail&logoColor=ffffff" alt="Gmail" />
+    </a> 
+          
+    <a href="https://github.com/vanhiupun/Vanhiupun.github.io/blob/c0c037532393ee2718892f87b200a0bbe33e7eb9/License" target="_blank">
+        <img src="https://img.shields.io/badge/License%20MIT-f2cb05?style=flat-square&logo=Mitsubishi&logoColor=222222" alt="MIT" />
+    </a>
+          
+    <a href="http://jekyllthemes.org/" target="_blank">
+        <img src="https://img.shields.io/badge/Jekyll%20Themes-f2cb05?style=flat-square&logo=Jekyll&logoColor=222222" alt="jekyll-themes" />
+    </a> 
+    
+    <a href="https://github.com/jeffreytse/jekyll-theme-yat" target="_blank">
+        <img src="https://img.shields.io/badge/Jekyll%C2%B7Theme%C2%B7Yat-f2cb05?style=flat-square&logo=github&logoColor=181717" alt="Jekyll-yat" />
+    </a> 
+      
+    <a href="https://raw.githubusercontent.com/vanhiupun/Vanhiupun.github.io/master/assets/images/img/zz.png" target="_blank">
+        <img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4335?style=flat-square&logo=GitHub%20Sponsors&logoColor=222222" alt="/GitHub%20Sponsors" />
+    </a> 
+  </div>-->
+  </div>
+  </div>
+</footer>
+</body>
+</html><html>
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: '#ff5100',
+  textColor: '#fff'
+})</script>
+</html>

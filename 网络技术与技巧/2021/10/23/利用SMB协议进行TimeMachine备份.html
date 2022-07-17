@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>利用 SMB 协议进行 Time Machine 备份 | Vanhiupun’s Awesome Site</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="利用 SMB 协议进行 Time Machine 备份">
+<meta name="author" content="Vanhiupun">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="前言 macOS 为用户提供了便捷的系统备份功能：Time Machine 一般而言，Time Machine 需要你连接一块硬盘到你的 Mac 上才能够启动。当然，你可以通过「有线连接」和「无线连接」的方式进行备份。本文将介绍除了使用 NAS 以外，你还可以在任何能够使用 SMB 协议的设备上创建你的「时间机器」。">
+<meta property="og:description" content="前言 macOS 为用户提供了便捷的系统备份功能：Time Machine 一般而言，Time Machine 需要你连接一块硬盘到你的 Mac 上才能够启动。当然，你可以通过「有线连接」和「无线连接」的方式进行备份。本文将介绍除了使用 NAS 以外，你还可以在任何能够使用 SMB 协议的设备上创建你的「时间机器」。">
+<link rel="canonical" href="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/10/23/%E5%88%A9%E7%94%A8SMB%E5%8D%8F%E8%AE%AE%E8%BF%9B%E8%A1%8CTimeMachine%E5%A4%87%E4%BB%BD.html">
+<meta property="og:url" content="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/10/23/%E5%88%A9%E7%94%A8SMB%E5%8D%8F%E8%AE%AE%E8%BF%9B%E8%A1%8CTimeMachine%E5%A4%87%E4%BB%BD.html">
+<meta property="og:site_name" content="Vanhiupun’s Awesome Site">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2021-10-23T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="利用 SMB 协议进行 Time Machine 备份">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Vanhiupun"},"dateModified":"2021-10-23T00:00:00+00:00","datePublished":"2021-10-23T00:00:00+00:00","description":"前言 macOS 为用户提供了便捷的系统备份功能：Time Machine 一般而言，Time Machine 需要你连接一块硬盘到你的 Mac 上才能够启动。当然，你可以通过「有线连接」和「无线连接」的方式进行备份。本文将介绍除了使用 NAS 以外，你还可以在任何能够使用 SMB 协议的设备上创建你的「时间机器」。","headline":"利用 SMB 协议进行 Time Machine 备份","mainEntityOfPage":{"@type":"WebPage","@id":"https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/10/23/%E5%88%A9%E7%94%A8SMB%E5%8D%8F%E8%AE%AE%E8%BF%9B%E8%A1%8CTimeMachine%E5%A4%87%E4%BB%BD.html"},"url":"https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/10/23/%E5%88%A9%E7%94%A8SMB%E5%8D%8F%E8%AE%AE%E8%BF%9B%E8%A1%8CTimeMachine%E5%A4%87%E4%BB%BD.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script>
+  <link rel="stylesheet" href="/assets/css/syntax.css">
+<link type="application/atom+xml" rel="alternate" href="https://vanhiupun.github.io//feed.xml" title="Vanhiupun's Awesome Site">
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-212989441-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/go.min.js"></script>
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #fff -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #ff4e00 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] uppercase -->
+  
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+
+</head>
+<body>
+
+
+
+
+  
+      <!-- [function][get_value] uppercase -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/macos-big-sur-system-prefs-tm.jpg", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: gold"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/macos-big-sur-system-prefs-tm.jpg", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: gold"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] ./assets/images/banners/macos-big-sur-system-prefs-tm.jpg -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] ./assets/images/banners/macos-big-sur-system-prefs-tm.jpg -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #000 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #000 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0.618 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0.618 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] font-size: 2.25em; font-weight: bold;  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] font-size: 2.25em; font-weight: bold;  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] color: gold -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] color: gold -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+<header class="site-header site-header-transparent" role="banner">
+
+  <div class="wrapper">    
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="Vanhiupun's Awesome Site" src="/favicon.png" onerror="this.style.display='none'">
+  Vanhiupun's Awesome Site
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>      
+          <div class="trigger">
+<a class="page-link" href="/">主页</a><a class="page-link" href="/archives.html">档案</a><a class="page-link" href="/categories.html">分类</a><a class="page-link" href="/tags.html">标签</a><a class="page-link" href="/about.html">关于</a>
+
+
+
+
+  
+      <!-- [function][get_value] [] -->
+  
+
+</div>
+        </nav>
+</div>
+  </div>
+
+</header>
+
+<!-- 页面菜单栏 注释=固定/不注释=隐藏 -->
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+<!-- 页面菜单栏 注释=固定/不注释=隐藏 -->
+
+
+
+
+
+  
+      <!-- [function][get_value] [] -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] post-header.html -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] post-header.html -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/macos-big-sur-system-prefs-tm.jpg", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: gold"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/macos-big-sur-system-prefs-tm.jpg", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: gold"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] ./assets/images/banners/macos-big-sur-system-prefs-tm.jpg -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] ./assets/images/banners/macos-big-sur-system-prefs-tm.jpg -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #000 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #000 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0.618 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0.618 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] font-size: 2.25em; font-weight: bold;  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] font-size: 2.25em; font-weight: bold;  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] color: gold -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] color: gold -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+<style>
+    html .page-banner {
+      background: #000;
+    }
+  </style>
+<style>html .page-banner {
+      height:  18.4vh;
+      min-height: 50vh;
+    }
+    html[data-scroll-status="top"] .page-banner {
+      height: 50vh;
+    }
+  </style>
+<style>
+    html .page-banner .page-banner-img > *:first-child {
+      opacity: 0.618;
+    }
+
+    html[data-theme="dark"] .page-banner .page-banner-img > *:first-child {
+      opacity: 0.443724;
+    }
+  </style>
+<style>
+    html .page-banner .page-banner-inner > *:first-child > *:nth-child(1) {
+      font-size: 2.25em; font-weight: bold; 
+    }
+  </style>
+<style>
+    html .page-banner .page-banner-inner > *:first-child > *:nth-child(2) {
+      color: gold
+    }
+  </style>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/assets/images/banners/macos-big-sur-system-prefs-tm.jpg)"></div>
+        <img class="img-placeholder" src="/assets/images/banners/macos-big-sur-system-prefs-tm.jpg">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">利用 SMB 协议进行 Time Machine 备份</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2021-10-23T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Oct 23, 2021
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+      <!-- [function][get_article_words] 317 -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 1 min</span>
+  </p>
+<div class="post-tags"><a class="post-tag" href="/tags.html#SMB">#SMB</a></div></header>
+</div>
+    </div>
+  </section><script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+  
+      <!-- [function][get_value] auto -->
+  
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/macos-big-sur-system-prefs-tm.jpg", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: gold"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] [] -->
+  
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h3 id="前言">前言</h3>
+<blockquote>
+  <p>macOS 为用户提供了便捷的系统备份功能：Time Machine 
+一般而言，Time Machine 需要你连接一块硬盘到你的 Mac 上才能够启动。当然，你可以通过「有线连接」和「无线连接」的方式进行备份。本文将介绍除了使用 NAS 以外，你还可以在任何能够使用 SMB 协议的设备上创建你的「时间机器」。</p>
+</blockquote>
+
+<blockquote>
+  <p>首先，SMB 协议是一种能够将本机电脑上的文件夹分享到局域网内其他设备上的一种协议。你可以简单的理解为是一种文件共享的协议，并且这个协议广泛的使用于多种设备中，常见的桌面端操作系统（Windows、macOS、Linux）都能使用这个协议。我们要做的就是通过这个协议，将主机上的某个文件共享到你的 Mac 上，然后在那上面创建备份。所以，我们需要的具体步骤就是：</p>
+</blockquote>
+
+<ul>
+  <li>通过 SMB 分享一个文件夹；</li>
+  <li>在 Mac 上加载这个文件夹；</li>
+  <li>利用这个文件夹创建备份。</li>
+</ul>
+
+<h2 id="一通过-smb-分享一个文件夹">一、通过 SMB 分享一个文件夹</h2>
+
+<p>这一步，我们需要做的事，具体而言就是：</p>
+
+<ul>
+  <li>开启 SMB 服务；</li>
+  <li>配置一个文件夹进行共享；</li>
+</ul>
+
+<blockquote>
+  <p>所以，正如标题里写的，无论是树莓派这种 Linux 设备，还是 Windows 设备，你都可以开启 SMB 服务，进行局域网内的文件的共享。所以，如果你有一台 Linux 设备，你可以参考下面的树莓派的步骤，如果你有一台 Windows 设备，可以参考 Windows 的步骤。</p>
+</blockquote>
+
+<h3 id="树莓派上开启-smb-服务">树莓派上开启 SMB 服务</h3>
+
+<p>首先，更新源：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get update
+</code></pre></div></div>
+
+<p>第二步，安装 samba 服务：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get <span class="nb">install </span>samba samba-common-bin
+</code></pre></div></div>
+
+<p>第三步，修改 SMB 的配置，这里使用 vim 进行编辑：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>vim /etc/samba/smb.conf
+</code></pre></div></div>
+
+<p><img src="https://cdn.sspai.com/2019/11/23/7b9395b2e9eb4aabfb47c5459f45bd6c.png?imageView2/2/w/1120/q/40/interlace/1/ignore-error/1" alt=""></p>
+
+<p>配置内是有内容的哦</p>
+
+<p>在配置文件的最后添加：</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">[</span><span class="nv">pi</span><span class="pi">]</span>
+
+    <span class="s">path = /home/pi/</span>
+
+    <span class="s">valid users = pi</span>
+
+    <span class="s">browseable = Yes</span>
+
+    <span class="s">writeable = Yes</span>
+
+    <span class="s">writelist = pi</span>
+
+    <span class="s">create mask = </span><span class="m">0777</span>
+
+    <span class="s">directory mask = </span><span class="m">0777</span>
+</code></pre></div></div>
+
+<p>保存退出后，重启一下 samba 服务</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo</span> /etc/init.d/samba restart
+</code></pre></div></div>
+
+<p>最后一步，就是添加 <code class="language-plaintext highlighter-rouge">pi</code> 用户为 <code class="language-plaintext highlighter-rouge">Samba</code>用户，这一步，会让你设置共享时的密码。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>smbpasswd <span class="nt">-a</span> pi
+</code></pre></div></div>
+
+<h3 id="windows-上开启-smb-服务">WINDOWS 上开启 SMB 服务</h3>
+
+<p>Windows 上做 Smb 共享会方便很多，首先在一个磁盘空间比较富裕的地方，创建一个文件夹，然后右键，属性，打开「共享」栏：</p>
+
+<p><img src="https://cdn.sspai.com/2019/11/23/23c0c28cb51880bef610ede08b1234d8.png?imageView2/2/w/1120/q/40/interlace/1/ignore-error/1" alt=""></p>
+
+<p>然后点击共享，弹出用户设置界面：</p>
+
+<p><img src="https://cdn.sspai.com/2019/11/23/a2cfa5b03109b2b77aa9050f562bcfab.png?imageView2/2/w/1120/q/40/interlace/1/ignore-error/1" alt=""></p>
+
+<p>设置共享的账户，以及权限设置为「读和写」，一般而言推荐在这里新建一个专门的共享账户，账户和密码就是届时需要在mac上输入的账户和密码：</p>
+
+<p><img src="https://cdn.sspai.com/2019/11/23/ce8d4daeb33afde744e01c881e84111c.png?imageView2/2/w/1120/q/40/interlace/1/ignore-error/1" alt=""></p>
+
+<p>账户设置完成后，点击「共享」即可：</p>
+
+<p><img src="https://cdn.sspai.com/2019/11/23/6f889deb4625822687e41e133c8b42a0.png?imageView2/2/w/1120/q/40/interlace/1/ignore-error/1" alt=""></p>
+
+<p>点击完成，这个文件就已经能够在局域网访问了。这里做个简单的提醒，部分Windows设备的防火墙设置，会禁用共享，可以先通过关闭防火墙的方式来排除是不是防火墙的问题，再通过对应规则的设置，重新开启防火墙即可。</p>
+
+<h2 id="二在-mac-上加载这个文件夹">二、在 Mac 上加载这个文件夹</h2>
+
+<p>这个时候，打开你的 finder，应该能够在「位置这一栏」下看到树莓派，或者你的 Windows 设备的名字了。点击后，就能看到你共享的文件夹了。</p>
+
+<p><img src="https://cdn.sspai.com/2019/11/23/ac1131d18f435f660c6fd4fbdb745812.png?imageView2/2/w/1120/q/40/interlace/1/ignore-error/1" alt=""></p>
+
+<p>如果没有看到，那么通过右键 finder 图标，点击「连接服务器」，输入：<code class="language-plaintext highlighter-rouge">smb://设备的IP地址/共享的文件夹名称</code> 的方式连接，在输入账号密码后，也能够连接上这个文件夹。正确连接后，就说明其他设备上的硬盘，已经能够为你的 Mac 所用了。</p>
+
+<p>接下来我们就要进行最后一个步骤，创建一个「时间机器」了！</p>
+
+<h2 id="三-利用这个文件夹创建备份">三、 利用这个文件夹创建备份</h2>
+
+<p>当你兴奋的打开你的 Time Machine 设置，点击「选择备份磁盘」时，看到却是：</p>
+
+<p><img src="https://cdn.sspai.com/2019/11/23/1e226958579b11834899c57dea4eb640.png?imageView2/2/w/1120/q/40/interlace/1/ignore-error/1" alt=""></p>
+
+<p><em>是的，并没有你想要的那个文件夹</em></p>
+
+<p>接下来，我们要做的，其实是创建一个磁盘镜像文件，然后将这个磁盘镜像文件挂载到你的 Mac 上，作为一个「虚拟硬盘」，然后利用这个「虚拟硬盘」进行备份。具体的：</p>
+
+<h3 id="一-创建一个空白映像">（一） 创建一个空白映像：</h3>
+
+<p>打开「磁盘工具」，选择菜单栏中的 「新建映像」，选择「空白映像…」，然后如图所示，填入信息：</p>
+
+<p><img src="https://cdn.sspai.com/2019/11/23/a1423b8bf9d17375318cce2283a051fc.png?imageView2/2/w/1120/q/40/interlace/1/ignore-error/1" alt=""></p>
+
+<p>其中「大小」可以根据你实际需求来填写1 。</p>
+
+<h3 id="二-将此这个空白映像拷贝到你的-smb-共享文件夹中">（二） 将此这个空白映像拷贝到你的 SMB 共享文件夹中：</h3>
+
+<p>在 finder 中先推出这个磁盘（他现在是在你保存的位置上，如果你的设置如上图，那么这个磁盘就是在桌面），然后在保存的位置中，将这个磁盘文件拖入 SMB 共享文件夹的对应位置：</p>
+
+<p><img src="https://cdn.sspai.com/2019/11/23/3d74c204143d6e2bede0f8f9684cd1ed.png?imageView2/2/w/1120/q/40/interlace/1/ignore-error/1" alt=""></p>
+
+<h3 id="三-挂载这个磁盘">（三） 挂载这个磁盘</h3>
+
+<p>双击在 SMB 共享文件夹中的这个映像文件，然后他就会挂在在你的 Mac 上：</p>
+
+<p><img src="https://cdn.sspai.com/2019/11/23/7efcb6b7ab734d30c9f38b0f2165452f.png?imageView2/2/w/1120/q/40/interlace/1/ignore-error/1" alt=""></p>
+
+<p>最后，通过 terminal 将这个磁盘设置为 TimeMachine 的备份磁盘：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>tmutil setdestination /Volumes/TimeMachine
+</code></pre></div></div>
+
+<p>这里的 <code class="language-plaintext highlighter-rouge">/Volumes/TimeMachine</code> 就是这个磁盘的挂载点，一般而言就是 <code class="language-plaintext highlighter-rouge">/Volumes/</code> + 磁盘的名称，如果你不是很确定，可以在磁盘工具中，选择这个磁盘，点击右键，选择「显示简介」，看到挂载信息：</p>
+
+<p><img src="https://cdn.sspai.com/2019/11/23/686bfb6c3be4bdcd3bbc0d883dbfb8dc.png?imageView2/2/w/1120/q/40/interlace/1/ignore-error/1" alt=""></p>
+
+<p>输入完命令后，再输入你的Mac密码，即可成功挂载。当你再次打开 TimeMachine 时，已经可以开始备份了。</p>
+
+<p><img src="https://cdn.sspai.com/2019/11/23/236ed5d522549b601045d81b988ca7c4.png?imageView2/2/w/1120/q/40/interlace/1/ignore-error/1" alt=""></p>
+
+
+
+    </div>
+    
+    
+</article>
+<div class="post-nav">
+<a class="previous" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/10/22/Chrome-Edge%E9%BB%98%E8%AE%A4%E4%B8%8B%E8%BD%BD%E5%99%A8%E4%B9%9F%E8%83%BD%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD.html" title="Chrome、Edge 默认下载器也能多线程下载">Chrome、Edge 默认下载器也能多线程下载</a><a class="next" href="/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/2021/10/24/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%8C%87%E5%8D%97-%E4%B8%80-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%95%99%E4%BC%9A%E4%BD%A0.html" title="科学上网指南（一）：从零开始教会你">科学上网指南（一）：从零开始教会你</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li><a class="post-link" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/10/29/github%E6%A0%BC%E5%BC%8F%E8%A7%84%E8%8C%83.html" title="科学上网指南（一）：从零开始教会你">Markdown语法指南</a></li>
+<li><a class="post-link" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/10/30/%E5%B9%BF%E5%91%8A%E8%BF%87%E6%BB%A4%E8%A7%84%E5%88%99%E6%8E%A8%E8%8D%90.html" title="科学上网指南（一）：从零开始教会你">广告过滤规则推荐</a></li>
+<li><a class="post-link" href="/netflix/2021/11/08/Netflix%E5%9B%BD%E5%86%85%E8%A7%82%E7%9C%8B%E6%8C%87%E5%8D%97-%E5%9B%9B.html" title="科学上网指南（一）：从零开始教会你">Netflix国内观看指南（四）</a></li>
+<li><a class="post-link" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/24/Github%E6%8A%80%E5%B7%A7-%E4%BA%8C-%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7.html" title="科学上网指南（一）：从零开始教会你">Github技巧（二）：搜索技巧</a></li>
+</ul>
+    </div>
+<div class="post-comments">
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://vanhiupun.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+</div></section>
+  
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: '#ff5100',
+  textColor: '#fff'
+})</script>
+  
+  
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --></section>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: '#ff5100',
+  textColor: '#fff'
+})</script>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div align="center" class="wrapper">
+    <div class="site-footer-inner">
+<div class="footer-col rss-subscribe">
+	  <font size="1" color="gray">
+	  <!--RSS SVG-->
+   	<svg aria-hidden="true" fill="#ff4e00" height="12" width="12" viewbox="0 0 16 16" version="1.1" data-view-component="true" class="octicon octicon-rss mr-1">
+    <path fill-rule="evenodd" d="M2.002 2.725a.75.75 0 01.797-.699C8.79 2.42 13.58 7.21 13.974 13.201a.75.75 0 11-1.497.098 10.502 10.502 0 00-9.776-9.776.75.75 0 01-.7-.798zM2 13a1 1 0 112 0 1 1 0 01-2 0zm.84-5.95a.75.75 0 00-.179 1.489c2.509.3 4.5 2.291 4.8 4.8a.75.75 0 101.49-.178A7.003 7.003 0 002.838 7.05z"></path>
+    </svg>
+	  <a href="/feed.xml" target="_blank"> RSS </a>订阅 |  
+    <!--提供支持-->
+    由 <a title="Jekyll is a simple, blog-aware, static site
+    generator." href="http://jekyllrb.com/" target="_blank">Jekyll</a> &amp; <a title="Yat, yet
+    another theme." href="https://github.com/jeffreytse/jekyll-theme-yat" target="_blank">Yat Theme</a>提供支持
+	  </font>
+</div>
+
+    <!--版权-->
+    <div>
+    <font size="1" color="gray">
+    Copyright © 2017-2022 <a href="https://github.com/vanhiupun/" target="_blank">Vanhiupun</a> All Rights Reserved
+    </font>
+</div>
+
+      <!--logo
+  <div>
+
+    <a href="https://github.com/vanhiupun" target="_blank">
+      <img src="https://visitor-badge.glitch.me/badge?page_id=vanhiupun.visitor-badge&right_color=Orange" alt="visitor" />
+    </a> 
+	    
+    <a href="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/jekyll.yml" target="_blank">
+        <img src="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/jekyll.yml/badge.svg" />
+    </a>
+      
+    <a href="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/codeql-analysis.yml" target="_blank">
+      <img src="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/codeql-analysis.yml/badge.svg">
+    </a> 
+      
+    <a href="https://github.com/vanhiupun/Vanhiupun.github.io" target="_blank">
+      <img src="https://www.codefactor.io/repository/github/vanhiupun/vanhiupun.github.io/badge" alt="CodeFactor" />
+    </a>
+    
+    <a href="https://codeclimate.com/github/vanhiupun/Vanhiupun.github.io/maintainability">
+      <img src="https://api.codeclimate.com/v1/badges/708da11ffb90a8f6f13b/maintainability" alt="maintainability" />
+    </a>
+    
+    <a href="https://rubygems.org/gems/jekyll-theme-yat" target="_blank">
+        <img src="https://badge.fury.io/rb/jekyll-theme-yat.svg"     alt="jekyll-theme-yat" />
+    </a> 
+    
+    <a href="https://github.com/vanhiupun" target="_blank">
+        <img src="https://img.shields.io/badge/Github%20Repository-222222?style=flat-square&logo=github&logoColor=ffffff" alt="Github" />
+    </a> 
+          
+    <a href="https://vanhiupun.github.io" target="_blank">
+        <img src="https://img.shields.io/badge/Github%20Page-222222?style=flat-square&logo=github&logoColor=ffffff" alt="Blog" />
+    </a> 
+          
+    <a href="mailto:fanxiaobin422@gmail.com" target="_blank">
+        <img src="https://img.shields.io/badge/Send%20me%20Gmail-EA4335?style=flat-square&logo=Gmail&logoColor=ffffff" alt="Gmail" />
+    </a> 
+          
+    <a href="https://github.com/vanhiupun/Vanhiupun.github.io/blob/c0c037532393ee2718892f87b200a0bbe33e7eb9/License" target="_blank">
+        <img src="https://img.shields.io/badge/License%20MIT-f2cb05?style=flat-square&logo=Mitsubishi&logoColor=222222" alt="MIT" />
+    </a>
+          
+    <a href="http://jekyllthemes.org/" target="_blank">
+        <img src="https://img.shields.io/badge/Jekyll%20Themes-f2cb05?style=flat-square&logo=Jekyll&logoColor=222222" alt="jekyll-themes" />
+    </a> 
+    
+    <a href="https://github.com/jeffreytse/jekyll-theme-yat" target="_blank">
+        <img src="https://img.shields.io/badge/Jekyll%C2%B7Theme%C2%B7Yat-f2cb05?style=flat-square&logo=github&logoColor=181717" alt="Jekyll-yat" />
+    </a> 
+      
+    <a href="https://raw.githubusercontent.com/vanhiupun/Vanhiupun.github.io/master/assets/images/img/zz.png" target="_blank">
+        <img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4335?style=flat-square&logo=GitHub%20Sponsors&logoColor=222222" alt="/GitHub%20Sponsors" />
+    </a> 
+  </div>-->
+  </div>
+  </div>
+</footer>
+</body>
+</html><html>
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: '#ff5100',
+  textColor: '#fff'
+})</script>
+</html>

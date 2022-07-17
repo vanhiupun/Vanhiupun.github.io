@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Markdown语法指南 | Vanhiupun’s Awesome Site</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Markdown语法指南">
+<meta name="author" content="Vanhiupun">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="以下是 Markdown 语法的概述，您可以在 GitHub.com 上的任何位置或您自己的文本文件中使用它们。 标题">
+<meta property="og:description" content="以下是 Markdown 语法的概述，您可以在 GitHub.com 上的任何位置或您自己的文本文件中使用它们。 标题">
+<link rel="canonical" href="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/10/29/github%E6%A0%BC%E5%BC%8F%E8%A7%84%E8%8C%83.html">
+<meta property="og:url" content="https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/10/29/github%E6%A0%BC%E5%BC%8F%E8%A7%84%E8%8C%83.html">
+<meta property="og:site_name" content="Vanhiupun’s Awesome Site">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2021-10-29T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Markdown语法指南">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Vanhiupun"},"dateModified":"2021-10-29T00:00:00+00:00","datePublished":"2021-10-29T00:00:00+00:00","description":"以下是 Markdown 语法的概述，您可以在 GitHub.com 上的任何位置或您自己的文本文件中使用它们。 标题","headline":"Markdown语法指南","mainEntityOfPage":{"@type":"WebPage","@id":"https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/10/29/github%E6%A0%BC%E5%BC%8F%E8%A7%84%E8%8C%83.html"},"url":"https://vanhiupun.github.io//%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/10/29/github%E6%A0%BC%E5%BC%8F%E8%A7%84%E8%8C%83.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script>
+  <link rel="stylesheet" href="/assets/css/syntax.css">
+<link type="application/atom+xml" rel="alternate" href="https://vanhiupun.github.io//feed.xml" title="Vanhiupun's Awesome Site">
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-212989441-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/go.min.js"></script>
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #fff -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #ff4e00 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] uppercase -->
+  
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+
+</head>
+<body>
+
+
+
+
+  
+      <!-- [function][get_value] uppercase -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/markdown.png", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: White"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/markdown.png", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: White"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] ./assets/images/banners/markdown.png -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] ./assets/images/banners/markdown.png -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #000 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #000 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0.618 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0.618 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] font-size: 2.25em; font-weight: bold;  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] font-size: 2.25em; font-weight: bold;  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] color: White -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] color: White -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+<header class="site-header site-header-transparent" role="banner">
+
+  <div class="wrapper">    
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="Vanhiupun's Awesome Site" src="/favicon.png" onerror="this.style.display='none'">
+  Vanhiupun's Awesome Site
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>      
+          <div class="trigger">
+<a class="page-link" href="/">主页</a><a class="page-link" href="/archives.html">档案</a><a class="page-link" href="/categories.html">分类</a><a class="page-link" href="/tags.html">标签</a><a class="page-link" href="/about.html">关于</a>
+
+
+
+
+  
+      <!-- [function][get_value] [] -->
+  
+
+</div>
+        </nav>
+</div>
+  </div>
+
+</header>
+
+<!-- 页面菜单栏 注释=固定/不注释=隐藏 -->
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+<!-- 页面菜单栏 注释=固定/不注释=隐藏 -->
+
+
+
+
+
+  
+      <!-- [function][get_value] [] -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] post-header.html -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] post-header.html -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/markdown.png", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: White"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/markdown.png", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: White"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] ./assets/images/banners/markdown.png -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] ./assets/images/banners/markdown.png -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #000 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] #000 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0.618 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0.618 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 50vh -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] font-size: 2.25em; font-weight: bold;  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] font-size: 2.25em; font-weight: bold;  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] color: White -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] color: White -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value]  -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] true -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] 0 -->
+  
+
+
+
+
+
+<style>
+    html .page-banner {
+      background: #000;
+    }
+  </style>
+<style>html .page-banner {
+      height:  18.4vh;
+      min-height: 50vh;
+    }
+    html[data-scroll-status="top"] .page-banner {
+      height: 50vh;
+    }
+  </style>
+<style>
+    html .page-banner .page-banner-img > *:first-child {
+      opacity: 0.618;
+    }
+
+    html[data-theme="dark"] .page-banner .page-banner-img > *:first-child {
+      opacity: 0.443724;
+    }
+  </style>
+<style>
+    html .page-banner .page-banner-inner > *:first-child > *:nth-child(1) {
+      font-size: 2.25em; font-weight: bold; 
+    }
+  </style>
+<style>
+    html .page-banner .page-banner-inner > *:first-child > *:nth-child(2) {
+      color: White
+    }
+  </style>
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/assets/images/banners/markdown.png)"></div>
+        <img class="img-placeholder" src="/assets/images/banners/markdown.png">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner">
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">Markdown语法指南</h1>
+  <h2 class="post-subtitle"></h2>
+
+  <p class="post-meta">
+    <time class="dt-published" datetime="2021-10-29T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Oct 29, 2021
+    </time>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+      <!-- [function][get_article_words] 812 -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 5 mins</span>
+  </p>
+<div class="post-tags">
+<a class="post-tag" href="/tags.html#Markdown">#Markdown</a><a class="post-tag" href="/tags.html#%E6%8C%87%E5%8D%97">#指南</a>
+</div></header>
+</div>
+    </div>
+  </section><script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+  
+      <!-- [function][get_value] auto -->
+  
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+  
+      <!-- [function][get_value] {"image"=>"./assets/images/banners/markdown.png", "opacity"=>0.618, "background"=>"#000", "height"=>"50vh", "min_height"=>"50vh", "heading_style"=>"font-size: 2.25em; font-weight: bold; ", "subheading_style"=>"color: White"} -->
+  
+
+
+
+
+
+
+  
+      <!-- [function][get_value] [] -->
+  
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <p>以下是 Markdown 语法的概述，您可以在 GitHub.com 上的任何位置或您自己的文本文件中使用它们。</p>
+<h2 id="标题">标题</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>样式</th>
+      <th>语法</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>一级标签</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">#</code>或者<code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code>
+</td>
+    </tr>
+    <tr>
+      <td>二级标签</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">##</code>或者 <code class="language-plaintext highlighter-rouge">&lt;h2&gt;</code>
+</td>
+    </tr>
+    <tr>
+      <td>三级标签</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">###</code>或者 <code class="language-plaintext highlighter-rouge">&lt;h3&gt;</code>
+</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="重点">重点</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>样式</th>
+      <th>语法</th>
+      <th>写法</th>
+      <th>示范</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>粗体</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">** **</code> 或者 <code class="language-plaintext highlighter-rouge">__ __</code>
+</td>
+      <td><code class="language-plaintext highlighter-rouge">**这是粗体文本**</code></td>
+      <td><strong>这是粗体文本</strong></td>
+    </tr>
+    <tr>
+      <td>斜体</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">* *</code>或者 <code class="language-plaintext highlighter-rouge">_ _</code>
+</td>
+      <td><code class="language-plaintext highlighter-rouge">*这是斜体文本*</code></td>
+      <td><em>这是斜体文本</em></td>
+    </tr>
+    <tr>
+      <td>删除线</td>
+      <td><code class="language-plaintext highlighter-rouge">～～</code></td>
+      <td><code class="language-plaintext highlighter-rouge">~~这是错误文本~~</code></td>
+      <td><del>这是错误文本</del></td>
+    </tr>
+    <tr>
+      <td>粗体和嵌入的斜体</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">** **</code>和 <code class="language-plaintext highlighter-rouge">_ _	</code>
+</td>
+      <td><code class="language-plaintext highlighter-rouge">**此文本 _非常_ 重要**</code></td>
+      <td><strong>此文本 <em>非常</em> 重要</strong></td>
+    </tr>
+    <tr>
+      <td>全部粗体和斜体</td>
+      <td><code class="language-plaintext highlighter-rouge">*** ***</code></td>
+      <td><code class="language-plaintext highlighter-rouge">***所有这些文本都很重要***</code></td>
+      <td><strong><em>所有这些文本都很重要</em></strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="引用文本">引用文本</h2>
+
+<p>您可以使用 &gt; 来引用文本。</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text that is not a quote
+<span class="gt">
+&gt; Text that is a quote</span>
+</code></pre></div></div>
+
+<h2 id="引用代码">引用代码</h2>
+
+<p>使用单反引号可标注句子中的代码或命令。 倒引号中的文本不会被格式化。 您也可以按 command 或 Ctrl + e 键盘快捷键将代码块的倒引号插入到 Markdown 一行中。</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code>使用 <span class="sb">`git status`</span> 列出尚未提交的所有新文件或已修改文件。
+</code></pre></div></div>
+
+<p>要将代码或文本格式化为各自的不同块，请使用三反引号。</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">一些基本的 Git 命令为：</span>
+<span class="err">```</span>
+<span class="s">git status</span>
+<span class="s">git add</span>
+<span class="s">git commit</span>
+<span class="err">```</span>
+</code></pre></div></div>
+
+<p>##链接
+通过将链接文本包含在方括号 [ ] 内，然后将 URL 包含在括号 ( ) 内，可创建内联链接。</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code>文本 <span class="p">[</span><span class="nv">链接名</span><span class="p">](</span><span class="sx">目标地址</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="图片链接">图片链接</h2>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">![</span><span class="nv">图片名</span><span class="p">](</span><span class="sx">图片链接</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h5 id="提示当您想显示存储库中的图像时您应该使用相对链接而不是绝对链接">提示：当您想显示存储库中的图像时，您应该使用相对链接而不是绝对链接。</h5>
+
+<h4 id="以下是使用相对链接显示图像的一些示例">以下是使用相对链接显示图像的一些示例。</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right">上下文</th>
+      <th style="text-align: left">相对链接</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">在<code class="language-plaintext highlighter-rouge">.md</code>同一分支的文件中</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">/assets/images/electrocat.png</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right">在<code class="language-plaintext highlighter-rouge">.md</code>另一个分支的文件中</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">/../main/assets/images/electrocat.png</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right">在问题、拉取请求和存储库的评论中</td>
+      <td style="text-align: left">`	../blob/main/assets/images/electrocat.png`</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">在<code class="language-plaintext highlighter-rouge">.md</code>另一个存储库中的文件中</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">/../../../../github/docs/blob/main/assets/images/electrocat.png</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: right">在另一个仓库的问题、拉取请求和评论中</td>
+      <td style="text-align: left"><code class="language-plaintext highlighter-rouge">../../../github/docs/blob/main/assets/images/electrocat.png?raw=true</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h5 id="注意上表中的最后两个相关链接仅当查看者至少具有对包含这些图像的私有存储库的读取访问权限时才适用于私有存储库中的图像">注意：上表中的最后两个相关链接仅当查看者至少具有对包含这些图像的私有存储库的读取访问权限时才适用于私有存储库中的图像。</h5>
+
+<h2 id="列表">列表</h2>
+<h5 id="通过在一行或多行文本前面添加-或--可创建无序列表">通过在一行或多行文本前面添加<code class="language-plaintext highlighter-rouge">-</code>或 <code class="language-plaintext highlighter-rouge">*</code> 可创建无序列表。</h5>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">-</span> George Washington
+<span class="p">-</span> John Adams
+<span class="p">-</span> Thomas Jefferson
+</code></pre></div></div>
+
+<h5 id="要对列表排序请在每行前面添加一个编号">要对列表排序，请在每行前面添加一个编号。</h5>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">1.</span> James Madison
+<span class="p">2.</span> James Monroe
+<span class="p">3.</span> John Quincy Adams
+</code></pre></div></div>
+
+<h2 id="嵌套列表">嵌套列表</h2>
+
+<p>通过在一个列表项下面缩进一个或多个其他列表项，可创建嵌套列表。</p>
+
+<p>要通过 GitHub 上的 web 编辑器或使用等宽字体的文本编辑器（例如 Atom）创建嵌套列表，您可以直观地对齐列表。 在嵌套列表项的前面键入空格字符，直至列表标记字符（- 或 *）位于其上方条目中第一个文本字符的正下方。</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">1.</span> 第一个列表项
+<span class="p">   -</span>  第一个嵌套列表项
+<span class="p">     -</span> 第二个嵌套列表项
+</code></pre></div></div>
+
+<p>要在 GitHub 上的评论编辑器中创建嵌套列表（不使用等宽字体），您可以查看嵌套列表正上方的列表项，并计算该条目内容前面的字符数量。 然后在嵌套列表项的前面键入该数量的空格字符。</p>
+
+<p>在此例中，您可以通过缩进嵌套列表项至少五个空格，在列表项 100. 第一个列表项的下面添加一个嵌套列表项，因为在第一个列表项的前面有五个字符 (100.) 。</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">100.</span> 第一个列表项
+<span class="p">     -</span> 第一个嵌套列表项
+</code></pre></div></div>
+
+<h2 id="任务列表">任务列表</h2>
+<p>要创建任务列表，在列表项目前面加一个常规空格字符，后接 [ ]。 要将任务标记为已完成，请使用 [x]。</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">-</span> [x] #739
+<span class="p">-</span> [ ] https://github.com/octo-org/octo-repo/issues/740
+<span class="p">-</span> [ ] Add delight to the experience when all tasks are complete :tada:
+</code></pre></div></div>
+
+<p>如果任务列表项说明以括号开头，则需要使用 \ 进行规避：</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">-</span> [ ] <span class="se">\(</span>Optional) 打开后续议题
+</code></pre></div></div>
+
+<h2 id="提及人员和团队">提及人员和团队</h2>
+
+<p>您可以在 GitHub 上提及人员或团队，方法是键入 @ 加上其用户名或团队名称。 这将触发通知并提请他们注意对话。 如果您在编辑的评论中提及某人的用户名或团队名称，该用户也会收到通知。</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@github/support 您如何看待这些更新？
+</code></pre></div></div>
+
+<p>当您提及父团队时，其子团队的成员也会收到通知，这简化了与多个人员团队的沟通。</p>
+
+<p>键入 @ 符号将显示项目中的人员或团队列表。 列表会在您键入时进行过滤，因此一旦找到所需人员或团队的名称，您可以使用箭头键选择它，然后按 Tab 或 Enter 键以填写名称。 提及团队时，请输入 @组织/团队名称，该团队的所有成员将收到关注对话的提醒。</p>
+
+<p>自动填写结果仅限于仓库协作者和该线程上的任何其他参与者。</p>
+
+<h2 id="引用议题和拉取请求">引用议题和拉取请求</h2>
+<p>通过键入 <code class="language-plaintext highlighter-rouge">#</code>可显示仓库中建议的议题和拉取请求列表。 键入议题或拉取请求的编号或标题以过滤列表，然后按 Tab 或 Enter 键以填写选中的结果。</p>
+
+<h2 id="引用外部资源">引用外部资源</h2>
+<p>如果自定义自动链接引用配置用于仓库，则对外部资源（如 JIRA 议题或 Zendesk 事件单）的引用将转换为缩短的链接。 要了解在您的仓库中哪些自动链接可用，请联系拥有仓库管理员权限的人。</p>
+
+<h2 id="内容附件">内容附件</h2>
+<p>Some GitHub 应用程序 provide information in GitHub for URLs that link to their registered domains. GitHub 可渲染应用程序在正文或者议题或拉取请求的评论中的 URL 下提供的信息。</p>
+
+<p>要查看内容附件，您必须拥有使用仓库中安装的内容附件 API 的 GitHub 应用程序。</p>
+
+<p>内容附件不会显示在属于 markdown 链接的 URL 中。</p>
+
+<h2 id="上传资产">上传资产</h2>
+<p>您可以通过拖放、从文件浏览器中选择或粘贴来上传图像等资产。 您可以将资产上传到议题、拉取请求、评论和仓库中的 .md 文件。</p>
+
+<h2 id="使用表情符号">使用表情符号</h2>
+<p>通过键入<code class="language-plaintext highlighter-rouge">:EMOJICODE</code>可在您的写作中添加表情符号。</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@octocat :+1: 这个 PR 看起来很棒 - 可以合并了！
+</code></pre></div></div>
+
+<p>键入<code class="language-plaintext highlighter-rouge">:</code>将显示建议的表情符号列表。 列表将在您键入时进行过滤，因此一旦找到所需表情符号，请按 Tab 或 Enter 键以填写选中的结果。</p>
+
+<h2 id="段落">段落</h2>
+<p>通过在文本行之间留一个空白行，可创建新段落。</p>
+
+<h2 id="忽略-markdown-格式">忽略 Markdown 格式</h2>
+<p>通过在 Markdown 字符前面输入 <code class="language-plaintext highlighter-rouge">\</code>，可告诉 GitHub 忽略（或规避）Markdown 格式。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>让我们将 <span class="se">\*</span>our-new-project<span class="se">\*</span> 重命名为 <span class="se">\*</span>our-old-project<span class="se">\*</span>。
+</code></pre></div></div>
+
+<h2 id="禁用-markdown-渲染">禁用 Markdown 渲染</h2>
+<p>查看 Markdown 文件时，您可以单击&lt;&gt;文件顶部的 禁用 Markdown 渲染并查看文件的源代码。</p>
+
+<p>禁用 Markdown 渲染使您能够使用源代码视图功能，例如行链接，这在查看渲染的 Markdown 文件时是不可能的。</p>
+
+<h2 id="使用表格组织信息">使用表格组织信息</h2>
+<h3 id="创建表格">创建表格</h3>
+<p>您可以用竖线<code class="language-plaintext highlighter-rouge">|</code>和横线<code class="language-plaintext highlighter-rouge">-</code>创建表格。 横线用于创建每列的标题，而竖线用于分隔每列。 必须在表格前包含空白链接，以便其正确呈现。</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+</code></pre></div></div>
+
+<p>表格末尾的竖线可选。</p>
+
+<p>单元格的宽度可以不同，无需在列内准确对齐。 标题行的第一列中必须至少有三个横线。</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| Command | Description |
+| --- | --- |
+| git status | List all new or modified files |
+| git diff | Show file differences that haven't been staged |
+</code></pre></div></div>
+
+<p>###格式化表格中的内容
+您可以在表格中使用格式，如链接、内联代码块和文本样式：</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| Command | Description |
+| --- | --- |
+| <span class="sb">`git status`</span> | List all <span class="ge">*new or modified*</span> files |
+| <span class="sb">`git diff`</span> | Show file differences that <span class="gs">**haven't been**</span> staged |
+</code></pre></div></div>
+
+<p>您可以在标头行中横线的左侧、右侧或两侧加入冒号<code class="language-plaintext highlighter-rouge">:</code>，靠左、靠右或居中对齐列中的文本。</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| Left-aligned | Center-aligned | Right-aligned |
+| ---         |     ---      |          --- |
+| git status   | git status     | git status    |
+| git diff     | git diff       | git diff      |
+</code></pre></div></div>
+
+<p>要包含竖线 <code class="language-plaintext highlighter-rouge">|</code>作为单元格中的内容，请在竖线前使用 <code class="language-plaintext highlighter-rouge">\</code>：</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code>| Name     | Character |
+| ---      | ---       |
+| Backtick | <span class="err">`</span>         |
+| Pipe     | <span class="se">\|</span>        |
+</code></pre></div></div>
+
+
+    </div>
+    
+    
+</article>
+<div class="post-nav">
+<a class="previous" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/10/28/ssh%E8%AF%AD%E6%B3%95.html" title="使用SSH连接Git仓库（Github）">使用SSH连接Git仓库（Github）</a><a class="next" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/10/30/%E5%B9%BF%E5%91%8A%E8%BF%87%E6%BB%A4%E8%A7%84%E5%88%99%E6%8E%A8%E8%8D%90.html" title="广告过滤规则推荐">广告过滤规则推荐</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li><a class="post-link" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/23/Github%E6%8A%80%E5%B7%A7-%E4%B8%80-%E5%8A%A0%E5%BF%AB%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6.html" title="广告过滤规则推荐">Github技巧（一）：加快访问速度</a></li>
+<li><a class="post-link" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/25/Github%E6%8A%80%E5%B7%A7-%E4%B8%89-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7.html" title="广告过滤规则推荐">Github技巧（三）：使用技巧</a></li>
+<li><a class="post-link" href="/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%8A%80%E5%B7%A7/2021/11/20/%E5%88%B6%E4%BD%9C%E5%92%8C%E6%88%91%E4%B8%80%E6%A0%B7%E7%9A%84Jekyll%E5%8D%9A%E5%AE%A2.html" title="广告过滤规则推荐">制作和我一样的Jekyll博客</a></li>
+<li><a class="post-link" href="/telegram/2021/11/13/Telegram%E7%BE%A4%E7%BB%84%E9%A2%91%E9%81%93%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%B1%87%E6%80%BB.html" title="广告过滤规则推荐">Telegram群组频道机器人汇总</a></li>
+</ul>
+    </div>
+<div class="post-comments">
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://vanhiupun.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+</div></section>
+  
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: '#ff5100',
+  textColor: '#fff'
+})</script>
+  
+  
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --></section>
+</div>
+
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: '#ff5100',
+  textColor: '#fff'
+})</script>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div align="center" class="wrapper">
+    <div class="site-footer-inner">
+<div class="footer-col rss-subscribe">
+	  <font size="1" color="gray">
+	  <!--RSS SVG-->
+   	<svg aria-hidden="true" fill="#ff4e00" height="12" width="12" viewbox="0 0 16 16" version="1.1" data-view-component="true" class="octicon octicon-rss mr-1">
+    <path fill-rule="evenodd" d="M2.002 2.725a.75.75 0 01.797-.699C8.79 2.42 13.58 7.21 13.974 13.201a.75.75 0 11-1.497.098 10.502 10.502 0 00-9.776-9.776.75.75 0 01-.7-.798zM2 13a1 1 0 112 0 1 1 0 01-2 0zm.84-5.95a.75.75 0 00-.179 1.489c2.509.3 4.5 2.291 4.8 4.8a.75.75 0 101.49-.178A7.003 7.003 0 002.838 7.05z"></path>
+    </svg>
+	  <a href="/feed.xml" target="_blank"> RSS </a>订阅 |  
+    <!--提供支持-->
+    由 <a title="Jekyll is a simple, blog-aware, static site
+    generator." href="http://jekyllrb.com/" target="_blank">Jekyll</a> &amp; <a title="Yat, yet
+    another theme." href="https://github.com/jeffreytse/jekyll-theme-yat" target="_blank">Yat Theme</a>提供支持
+	  </font>
+</div>
+
+    <!--版权-->
+    <div>
+    <font size="1" color="gray">
+    Copyright © 2017-2022 <a href="https://github.com/vanhiupun/" target="_blank">Vanhiupun</a> All Rights Reserved
+    </font>
+</div>
+
+      <!--logo
+  <div>
+
+    <a href="https://github.com/vanhiupun" target="_blank">
+      <img src="https://visitor-badge.glitch.me/badge?page_id=vanhiupun.visitor-badge&right_color=Orange" alt="visitor" />
+    </a> 
+	    
+    <a href="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/jekyll.yml" target="_blank">
+        <img src="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/jekyll.yml/badge.svg" />
+    </a>
+      
+    <a href="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/codeql-analysis.yml" target="_blank">
+      <img src="https://github.com/vanhiupun/Vanhiupun.github.io/actions/workflows/codeql-analysis.yml/badge.svg">
+    </a> 
+      
+    <a href="https://github.com/vanhiupun/Vanhiupun.github.io" target="_blank">
+      <img src="https://www.codefactor.io/repository/github/vanhiupun/vanhiupun.github.io/badge" alt="CodeFactor" />
+    </a>
+    
+    <a href="https://codeclimate.com/github/vanhiupun/Vanhiupun.github.io/maintainability">
+      <img src="https://api.codeclimate.com/v1/badges/708da11ffb90a8f6f13b/maintainability" alt="maintainability" />
+    </a>
+    
+    <a href="https://rubygems.org/gems/jekyll-theme-yat" target="_blank">
+        <img src="https://badge.fury.io/rb/jekyll-theme-yat.svg"     alt="jekyll-theme-yat" />
+    </a> 
+    
+    <a href="https://github.com/vanhiupun" target="_blank">
+        <img src="https://img.shields.io/badge/Github%20Repository-222222?style=flat-square&logo=github&logoColor=ffffff" alt="Github" />
+    </a> 
+          
+    <a href="https://vanhiupun.github.io" target="_blank">
+        <img src="https://img.shields.io/badge/Github%20Page-222222?style=flat-square&logo=github&logoColor=ffffff" alt="Blog" />
+    </a> 
+          
+    <a href="mailto:fanxiaobin422@gmail.com" target="_blank">
+        <img src="https://img.shields.io/badge/Send%20me%20Gmail-EA4335?style=flat-square&logo=Gmail&logoColor=ffffff" alt="Gmail" />
+    </a> 
+          
+    <a href="https://github.com/vanhiupun/Vanhiupun.github.io/blob/c0c037532393ee2718892f87b200a0bbe33e7eb9/License" target="_blank">
+        <img src="https://img.shields.io/badge/License%20MIT-f2cb05?style=flat-square&logo=Mitsubishi&logoColor=222222" alt="MIT" />
+    </a>
+          
+    <a href="http://jekyllthemes.org/" target="_blank">
+        <img src="https://img.shields.io/badge/Jekyll%20Themes-f2cb05?style=flat-square&logo=Jekyll&logoColor=222222" alt="jekyll-themes" />
+    </a> 
+    
+    <a href="https://github.com/jeffreytse/jekyll-theme-yat" target="_blank">
+        <img src="https://img.shields.io/badge/Jekyll%C2%B7Theme%C2%B7Yat-f2cb05?style=flat-square&logo=github&logoColor=181717" alt="Jekyll-yat" />
+    </a> 
+      
+    <a href="https://raw.githubusercontent.com/vanhiupun/Vanhiupun.github.io/master/assets/images/img/zz.png" target="_blank">
+        <img src="https://img.shields.io/badge/GitHub%20Sponsors-EA4335?style=flat-square&logo=GitHub%20Sponsors&logoColor=222222" alt="/GitHub%20Sponsors" />
+    </a> 
+  </div>-->
+  </div>
+  </div>
+</footer>
+</body>
+</html><html>
+<script src="https://unpkg.com/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 56,
+  backgroundColor: '#ff5100',
+  textColor: '#fff'
+})</script>
+</html>
